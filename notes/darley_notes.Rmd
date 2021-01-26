@@ -1,0 +1,185 @@
+---
+title: "Notes on Darley et al (2000)"
+author: "Timothy J. Luke"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: darkly
+bibliography: refs.bib
+csl: apa.csl # Author and contributor information is stored in the code
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Overview
+
+@darley2000 report the means for the primary outcome (i.e., punishment severity), but they don't report the standard deviations. This is a bit annoying, since it makes calculating standardized effect sizes inconvenient. It would be nice to have effect sizes we could use for comparison to the replications.
+
+Let's see if we can take our best guesses about what's going on.
+
+# Reported values
+
+Here are the means and group sizes for punishment severity in each condition.
+
+```{r, echo = FALSE}
+condition <- c(
+  "jealousy",
+  "inoperable",
+  "operable"
+)
+
+mean <- c(
+  6.1,
+  4.0,
+  2.8
+)
+
+
+n <- c(
+  27,
+  28,
+  28
+)
+
+darley_mock <- data.frame(condition, mean, n)
+```
+
+```{r}
+darley_mock
+```
+
+# Reconstructing the standard deviations
+
+@darley2000 report a t-test comparing the jealousy condition and inoperable tumor condition: "t(80) = 5.1, p < .01" (p.674). They also report a t-test that seems to compare the jealousy condition and the operable tumor condition (but this one is a bit unclear): "t(80) = 2.9, p < .01" (p.674).
+
+However, we may be able to manipulate these reports to get an estimate of the standard deviations, which we can then use to calculate (very rough) effect size estimates comparing each condition. There's a good chance this will go wrong, though. Assuming the degrees of freedom are reported correctly, these may be Tukey HSDs, rather than Student t-tests. Fortunately, the formula for the Tukey test statistic is virtually identical to the Student t-statistic formula. But it's just an educated guess on my part that these are Tukey statistics.
+
+But if I'm right, we should be able to convert the t-ratios into standard errors (for the mean difference), and then convert the standard errors into standard deviations (for the punishment ratings).
+
+The standard error of the mean difference is defined as $$ se_{\Delta M} = \sqrt{\frac{\sigma^2_1}{n_1 - 1} + \frac{\sigma^2_2}{n_2 - 1}} $$ and a t-statistic is the ratio of the mean difference to its standard error, $$ t = \frac{\Delta M}{se_{\Delta M}} $$
+
+
+We have most of these values, so with a little manipulation and some assumptions, maybe we can pull this off...
+
+If we assume that the group standard deviations are equal (a big if), then by manipulation $$ \sigma = se\sqrt{n_1 + n_2 - 2} $$ 
+
+We can also manipulate the t-formula to get the standard error like so: $$ se_{\Delta M} = \frac{\Delta M}{t} $$
+
+Therefore,
+
+$$\sigma = \frac{\Delta M}{t}\sqrt{n_1 + n_2 - 2} $$
+
+We can write a function to do this.
+
+```{r}
+estimate_sd <- function(difference, t, n1, n2) {
+  
+  sd <- (difference / t) * sqrt(n1 + n2 - 2)
+  
+  return(sd)
+  
+}
+```
+
+Let's start with the first comparison.
+
+```{r}
+sd_1 <- estimate_sd(difference = 6.1 - 4.0, t = 5.1, n1 = 27, n2 = 28)
+
+sd_1
+```
+
+Now the second comparison.
+
+```{r}
+sd_2 <- estimate_sd(difference = 6.1 - 2.8, t = 2.9, n1 = 27, n2 = 28)
+
+sd_2
+```
+
+This produces an outrageously different SD. Perhaps the reported comparison is actually for inoperable vs. operable?
+
+```{r}
+sd_3 <- estimate_sd(difference = 4.0 - 2.8, t = 2.9, n1 = 28, n2 = 28)
+
+sd_3
+```
+
+Much more sensible based on the first estimated SD. 
+
+Let's take the simple average of the two, as an estimate of the pooled SD.
+
+```{r}
+sd_pooled <- mean(c(sd_1, sd_3))
+
+sd_pooled
+```
+
+Does this pooled SD estimate give us sensible estimates of Cohen's d for each of the comparisons?
+
+For jealousy vs. inoperable tumor:
+
+```{r}
+d_jl_in <- (6.1 - 4.0)/sd_pooled
+
+d_jl_in
+```
+
+For jealousy vs. operable tumor:
+
+```{r}
+d_jl_op <- (6.1 - 2.8)/sd_pooled
+
+d_jl_op
+```
+
+For inoperable vs. operable:
+
+```{r}
+d_in_op <- (4.0 - 2.8)/sd_pooled
+
+d_in_op
+```
+
+These effects seem plausible to me. I think `r sd_pooled` might be a reasonable estimate of the pooled SD.
+
+# Point estimates and confidence intervals
+
+Confidence intervals for each of these estimates would be useful. Here's a function to calculate 95% CIs, given the effect size and group sizes.
+
+```{r}
+d_ci <- function(d, n1, n2) {
+  
+  se <- sqrt( ((n1 + n2) / (n1 * n2)) + ( (d^2) / (2 * (n1 + n2)) ) )
+  
+  ci_lb <- d - qt(.975, n1 + n2 - 2) * se
+  ci_ub <- d + qt(.975, n1 + n2 - 2) * se
+  
+  out <- paste(round(d, 3), " [", round(ci_lb, 3), ", ", round(ci_ub, 3), "]", sep = "")
+  
+  return(out)
+  
+}
+```
+
+For jealousy vs. inoperable tumor:
+
+```{r}
+d_ci(d_jl_in, 27, 28)
+```
+
+For jealousy vs. operable tumor:
+
+```{r}
+d_ci(d_jl_op, 27, 28)
+```
+
+For inoperable vs. operable:
+
+```{r}
+d_ci(d_in_op, 28, 28)
+```
+
+# Reference
