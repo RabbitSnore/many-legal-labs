@@ -199,7 +199,7 @@ summary {
 
 <div id="overview" class="section level1">
 <h1>Overview</h1>
-<p><span class="citation">Darley, Carlsmith, &amp; Robinson (2000)</span> report the means for the primary outcome (i.e., punishment severity), but they don’t report the standard deviations. This is a bit annoying, since it makes calculating standardized effect sizes inconvenient. It would be nice to have effect sizes we could use for comparison to the replications.</p>
+<p><span class="citation">Darley, Carlsmith, &amp; Robinson (2000)</span> report the means for the primary outcome (i.e., punishment severity), but they don’t report the standard deviations. This is a bit annoying. It would be nice to have standard deviations to know what to expect.</p>
 <p>Let’s see if we can take our best guesses about what’s going on.</p>
 </div>
 <div id="reported-values" class="section level1">
@@ -215,17 +215,18 @@ summary {
 <h1>Reconstructing the standard deviations</h1>
 <p><span class="citation">Darley, Carlsmith, &amp; Robinson (2000)</span> report a t-test comparing the jealousy condition and inoperable tumor condition: “t(80) = 5.1, p &lt; .01” (p.674). They also report a t-test that seems to compare the jealousy condition and the operable tumor condition (but this one is a bit unclear): “t(80) = 2.9, p &lt; .01” (p.674).</p>
 <p>However, we may be able to manipulate these reports to get an estimate of the standard deviations, which we can then use to calculate (very rough) effect size estimates comparing each condition. There’s a good chance this will go wrong, though. Assuming the degrees of freedom are reported correctly, these may be Tukey HSDs, rather than Student t-tests. Fortunately, the formula for the Tukey test statistic is virtually identical to the Student t-statistic formula. But it’s just an educated guess on my part that these are Tukey statistics.</p>
-<p>But if I’m right, we should be able to convert the t-ratios into standard errors (for the mean difference), and then convert the standard errors into standard deviations (for the punishment ratings).</p>
-<p>The standard error of the mean difference is defined as <span class="math display">\[ se_{\Delta M} = \sqrt{\frac{\sigma^2_1}{n_1 - 1} + \frac{\sigma^2_2}{n_2 - 1}} \]</span> and a t-statistic is the ratio of the mean difference to its standard error, <span class="math display">\[ t = \frac{\Delta M}{se_{\Delta M}} \]</span></p>
-<p>We have most of these values, so with a little manipulation and some assumptions, maybe we can pull this off…</p>
-<p>If we assume that the group standard deviations are equal (a big if), then by manipulation <span class="math display">\[ \sigma = se\sqrt{n_1 + n_2 - 2} \]</span></p>
-<p>We can also manipulate the t-formula to get the standard error like so: <span class="math display">\[ se_{\Delta M} = \frac{\Delta M}{t} \]</span></p>
-<p>Therefore,</p>
-<p><span class="math display">\[\sigma = \frac{\Delta M}{t}\sqrt{n_1 + n_2 - 2} \]</span></p>
+<p>Given t-statistics and sample sizes, we can calculate Cohen’s d as</p>
+<p><span class="math display">\[ d = \frac{t}{\sqrt{\frac{n_1 + n_2}{n_1n_2}}}  \]</span></p>
+<p>Cohen’s d can also be expressed as</p>
+<p><span class="math display">\[ d = \frac{\mu_1 - \mu_2}{\sigma_{pooled}}  \]</span></p>
+<p>We can manipulate this into</p>
+<p><span class="math display">\[ \sigma_{pooled} = \frac{\mu_1 - \mu_2}{d}  \]</span></p>
 <p>We can write a function to do this.</p>
 <pre class="r"><code>estimate_sd &lt;- function(difference, t, n1, n2) {
   
-  sd &lt;- (difference / t) * sqrt(n1 + n2 - 2)
+  d &lt;- t * sqrt((n1 + n2) / (n1 * n2))
+  
+  sd &lt;- difference / d
   
   return(sd)
   
@@ -234,40 +235,40 @@ summary {
 <pre class="r"><code>sd_1 &lt;- estimate_sd(difference = 6.1 - 4.0, t = 5.1, n1 = 27, n2 = 28)
 
 sd_1</code></pre>
-<pre><code>## [1] 2.997692</code></pre>
+<pre><code>## [1] 1.526612</code></pre>
 <p>Now the second comparison.</p>
 <pre class="r"><code>sd_2 &lt;- estimate_sd(difference = 6.1 - 2.8, t = 2.9, n1 = 27, n2 = 28)
 
 sd_2</code></pre>
-<pre><code>## [1] 8.284263</code></pre>
+<pre><code>## [1] 4.218864</code></pre>
 <p>This produces an outrageously different SD. Perhaps the reported comparison is actually for inoperable vs. operable?</p>
 <pre class="r"><code>sd_3 &lt;- estimate_sd(difference = 4.0 - 2.8, t = 2.9, n1 = 28, n2 = 28)
 
 sd_3</code></pre>
-<pre><code>## [1] 3.040746</code></pre>
+<pre><code>## [1] 1.548272</code></pre>
 <p>Much more sensible based on the first estimated SD.</p>
 <p>Let’s take the simple average of the two, as an estimate of the pooled SD.</p>
 <pre class="r"><code>sd_pooled &lt;- mean(c(sd_1, sd_3))
 
 sd_pooled</code></pre>
-<pre><code>## [1] 3.019219</code></pre>
+<pre><code>## [1] 1.537442</code></pre>
 <p>Does this pooled SD estimate give us sensible estimates of Cohen’s d for each of the comparisons?</p>
 <p>For jealousy vs. inoperable tumor:</p>
 <pre class="r"><code>d_jl_in &lt;- (6.1 - 4.0)/sd_pooled
 
 d_jl_in</code></pre>
-<pre><code>## [1] 0.6955441</code></pre>
+<pre><code>## [1] 1.365905</code></pre>
 <p>For jealousy vs. operable tumor:</p>
 <pre class="r"><code>d_jl_op &lt;- (6.1 - 2.8)/sd_pooled
 
 d_jl_op</code></pre>
-<pre><code>## [1] 1.092998</code></pre>
+<pre><code>## [1] 2.146422</code></pre>
 <p>For inoperable vs. operable:</p>
 <pre class="r"><code>d_in_op &lt;- (4.0 - 2.8)/sd_pooled
 
 d_in_op</code></pre>
-<pre><code>## [1] 0.3974538</code></pre>
-<p>These effects seem plausible to me. I think 3.0192191 might be a reasonable estimate of the pooled SD.</p>
+<pre><code>## [1] 0.7805172</code></pre>
+<p>These effects seem plausible to me (statistically, not necessarily theoretically). It seems that 1.537 might be a reasonable estimate of the pooled SD – even though intuitively, 1.537 seems like it is rather tight for a 7-point scale like this.</p>
 </div>
 <div id="point-estimates-and-confidence-intervals" class="section level1">
 <h1>Point estimates and confidence intervals</h1>
@@ -286,13 +287,13 @@ d_in_op</code></pre>
 }</code></pre>
 <p>For jealousy vs. inoperable tumor:</p>
 <pre class="r"><code>d_ci(d_jl_in, 27, 28)</code></pre>
-<pre><code>## [1] &quot;0.696 [0.138, 1.253]&quot;</code></pre>
+<pre><code>## [1] &quot;1.366 [0.765, 1.967]&quot;</code></pre>
 <p>For jealousy vs. operable tumor:</p>
 <pre class="r"><code>d_ci(d_jl_op, 27, 28)</code></pre>
-<pre><code>## [1] &quot;1.093 [0.513, 1.673]&quot;</code></pre>
+<pre><code>## [1] &quot;2.146 [1.467, 2.826]&quot;</code></pre>
 <p>For inoperable vs. operable:</p>
 <pre class="r"><code>d_ci(d_in_op, 28, 28)</code></pre>
-<pre><code>## [1] &quot;0.397 [-0.144, 0.939]&quot;</code></pre>
+<pre><code>## [1] &quot;0.781 [0.225, 1.336]&quot;</code></pre>
 </div>
 <div id="reference" class="section level1 unnumbered">
 <h1 class="unnumbered">Reference</h1>

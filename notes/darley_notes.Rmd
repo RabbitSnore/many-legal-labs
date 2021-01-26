@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Overview
 
-@darley2000 report the means for the primary outcome (i.e., punishment severity), but they don't report the standard deviations. This is a bit annoying, since it makes calculating standardized effect sizes inconvenient. It would be nice to have effect sizes we could use for comparison to the replications.
+@darley2000 report the means for the primary outcome (i.e., punishment severity), but they don't report the standard deviations. This is a bit annoying. It would be nice to have standard deviations to know what to expect.
 
 Let's see if we can take our best guesses about what's going on.
 
@@ -56,27 +56,26 @@ darley_mock
 
 However, we may be able to manipulate these reports to get an estimate of the standard deviations, which we can then use to calculate (very rough) effect size estimates comparing each condition. There's a good chance this will go wrong, though. Assuming the degrees of freedom are reported correctly, these may be Tukey HSDs, rather than Student t-tests. Fortunately, the formula for the Tukey test statistic is virtually identical to the Student t-statistic formula. But it's just an educated guess on my part that these are Tukey statistics.
 
-But if I'm right, we should be able to convert the t-ratios into standard errors (for the mean difference), and then convert the standard errors into standard deviations (for the punishment ratings).
+Given t-statistics and sample sizes, we can calculate Cohen's d as
 
-The standard error of the mean difference is defined as $$ se_{\Delta M} = \sqrt{\frac{\sigma^2_1}{n_1 - 1} + \frac{\sigma^2_2}{n_2 - 1}} $$ and a t-statistic is the ratio of the mean difference to its standard error, $$ t = \frac{\Delta M}{se_{\Delta M}} $$
+$$ d = \frac{t}{\sqrt{\frac{n_1 + n_2}{n_1n_2}}}  $$
 
+Cohen's d can also be expressed as
 
-We have most of these values, so with a little manipulation and some assumptions, maybe we can pull this off...
+$$ d = \frac{\mu_1 - \mu_2}{\sigma_{pooled}}  $$
 
-If we assume that the group standard deviations are equal (a big if), then by manipulation $$ \sigma = se\sqrt{n_1 + n_2 - 2} $$ 
+We can manipulate this into 
 
-We can also manipulate the t-formula to get the standard error like so: $$ se_{\Delta M} = \frac{\Delta M}{t} $$
-
-Therefore,
-
-$$\sigma = \frac{\Delta M}{t}\sqrt{n_1 + n_2 - 2} $$
+$$ \sigma_{pooled} = \frac{\mu_1 - \mu_2}{d}  $$
 
 We can write a function to do this.
 
 ```{r}
 estimate_sd <- function(difference, t, n1, n2) {
   
-  sd <- (difference / t) * sqrt(n1 + n2 - 2)
+  d <- t * sqrt((n1 + n2) / (n1 * n2))
+  
+  sd <- difference / d
   
   return(sd)
   
@@ -143,7 +142,7 @@ d_in_op <- (4.0 - 2.8)/sd_pooled
 d_in_op
 ```
 
-These effects seem plausible to me. I think `r sd_pooled` might be a reasonable estimate of the pooled SD.
+These effects seem plausible to me (statistically, not necessarily theoretically). It seems that `r round(sd_pooled, 3)` might be a reasonable estimate of the pooled SD -- even though intuitively, `r round(sd_pooled, 3)` seems like it is rather tight for a 7-point scale like this.
 
 # Point estimates and confidence intervals
 
