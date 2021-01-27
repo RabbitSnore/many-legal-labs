@@ -1,15 +1,27 @@
 
 ######################################################################
 
-# Darley, Carlsmith, & Robinson (2000) [Study 2] -- Core Analyses
+# Darley, Carlsmith, & Robinson (2000) [Study 2] -- Effect Size Calculation
 
 ######################################################################
 
 # HYPOTHESIS 1 -------------------------------------------------------
 
-# HYPOTHESIS 1 -------------------------------------------------------
+# Participants will recommend higher punishment when the perpetrator acted in a jealous rage, compared to when the behavior was caused by an inoperable tumor .
 
-# HYPOTHESIS 1 -------------------------------------------------------
+# Standardized mean difference for punishment recommendation, for jealous rage vs. inoperable tumor
+
+# HYPOTHESIS 2 -------------------------------------------------------
+
+# Participants will recommend higher punishment when the perpetrator acted in a jealous rage, compared to when the behavior was caused by an operable tumor.
+
+# Standardized mean difference for punishment recommendation, for jealous rage vs. operable tumor
+
+# HYPOTHESIS 3 -------------------------------------------------------
+
+# Participants will recommend higher punishment when the perpetrator acted because of an inoperable tumor, compared to when the behavior was caused by an operable tumor.
+
+# Standardized mean difference for punishment recommendation, for operable tumor vs. inoperable tumor
 
 # MANIPULATION CHECK 1 -----------------------------------------------
 
