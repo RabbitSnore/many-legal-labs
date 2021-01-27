@@ -1,0 +1,93 @@
+---
+title: "Notes on Serota et al (2010)"
+author: "Timothy J. Luke"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: darkly
+bibliography: refs.bib
+csl: apa.csl # Author and contributor information is stored in the code
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+```
+
+# Overview
+
+@serota2010 fit power functions (also called power laws) to their lie-telling frequency data. They do not report the software they used or the fitting algorithm. They also do not report standard errors or confidence intervals for the parameter estimates. However, it will be important to obtain and report these values in the replications.
+
+The original paper reported data for a total of N = 998 people.
+
+# Toy data
+
+Here are some data that closely resemble the frequency data from @serota2010.
+
+```{r}
+set.seed(444)
+
+# Simulate frequency data
+
+## Max lies per day
+n <- 53
+
+## Exponent
+z <- -1.209
+
+## Intercept
+a <-  152.235
+
+## Data
+
+x <- 1:n
+y <- round(a * x^z + rnorm(length(x), 0 , .0125))
+
+freq_data <- data.frame(y, x)
+
+```
+
+```{r}
+ggplot(freq_data,
+       aes(
+         y = y,
+         x = x
+       )) +
+  geom_point() +
+  theme_classic()
+```
+
+This toy data set contains N = `r sum(freq_data$y)` simulated responses.
+
+They are not explicit about this, but based on figures in the original paper, I am guessing that @serota2010 fit their power function only on the sample that reported at least one lie in the last 24 hours. That is the method we will follow below.
+
+# Analysis example
+
+A power function can be fit using the `nls()` function.
+
+```{r}
+non_linear <- nls(y ~ a * x^k, data = freq_data, start = list(a = 100, k = -1))
+
+summary(non_linear)
+```
+
+Note that specifying the starting values is not trivial. When we write functions to automate the model fitting process, we will need to devise a sensible way of specifying starting values.
+
+We can obtain confidence intervals for the parameter estimates. The most meaningful interval is for the slope estimate, since the intercept will vary as a function of the sample size.
+
+```{r}
+ci_nonlinear <- confint(non_linear)
+
+ci_nonlinear
+```
+
+And we can examine the R-sqauared value.
+
+```{r}
+1 - var(residuals(non_linear))/var(freq_data$y)
+```
+
+# Reference
+
