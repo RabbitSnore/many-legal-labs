@@ -20,8 +20,6 @@ library(tidyverse)
 
 @serota2010 fit power functions (also called power laws) to their lie-telling frequency data. They do not report the software they used or the fitting algorithm. They also do not report standard errors or confidence intervals for the parameter estimates. However, it will be important to obtain and report these values in the replications.
 
-The original paper reported data for a total of N = 998 people.
-
 # Toy data
 
 Here are some data that closely resemble the frequency data from @serota2010.
@@ -63,6 +61,8 @@ This toy data set contains N = `r sum(freq_data$y)` simulated responses.
 
 They are not explicit about this, but based on figures in the original paper, I am guessing that @serota2010 fit their power function only on the sample that reported at least one lie in the last 24 hours. That is the method we will follow below.
 
+The original paper reported data for a total of N = 998 people (two people were excluded from a sample of 1000). However, it is not totally clear how many people were included in power function model. They report that 40.1% of the sample told lies in the last 24 hours. If this is 40.1% of the total sample, the sample included in the power function fitting would be n = 401.
+
 # Analysis example
 
 A power function can be fit using the `nls()` function.
@@ -87,6 +87,30 @@ And we can examine the R-sqauared value.
 
 ```{r}
 1 - var(residuals(non_linear))/var(freq_data$y)
+```
+
+## Standardizing
+
+We can verify that standardizing the frequency count by dividing by the total number of people in the sample does not impact the estimate of the slope.
+
+```{r}
+freq_data_std <- freq_data
+
+freq_data_std$y <- freq_data_std$y/sum(freq_data_std$y)
+```
+
+```{r}
+non_linear_std <- nls(y ~ a * x^k, data = freq_data_std, start = list(a = .3, k = -1))
+
+summary(non_linear_std)
+```
+
+This is highly useful to know, since it will likely be useful to standardize the frequency counts in this way to more easily visually compare the results across samples.
+
+Dividing the unstandardized intercept by the sample size yields the standardized intercept. For the model reported in @serota2010, this is the standardized intercept:
+
+```{r}
+152.235/401
 ```
 
 # Reference
