@@ -40,3 +40,4 @@ vignettes/*.pdf
 
 # Output
 /notes/*.html
+/data/*.csv
