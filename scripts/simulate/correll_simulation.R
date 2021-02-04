@@ -11,6 +11,8 @@
 ## The factors are race (White/Black) and object (Armed/Unarmed)
 ## Each trial has a response latency (in milliseconds) and an accuracy indicator (correct/incorrect)
 
+## This script simulates data of a structure similar to what we expect will be produced by the actual experiment, but it does not simulate any effects.
+
 # Set up environment --------------------------------------------------
 
 ## Packages
