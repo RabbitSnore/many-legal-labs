@@ -35,11 +35,11 @@ lapply(packages, library, character.only = TRUE)
 
 ## Import
 
-correll_wrangle <- read.csv("./data/correll_sim.csv")
+correll_sim <- read.csv("./data/correll_sim.csv")
 
 ## Exclusions
 
-correll_latencies <- select(correll_wrangle, contains("latency"))
+correll_latencies <- select(correll_sim, contains("latency"))
 
 exclusion_lat_wa <- sum(select(correll_latencies, contains ("white_armed")) > 850)
 
@@ -55,7 +55,7 @@ exclusion_lat <- sum(is.na(correll_latencies))
 sum_lat_exclusions <- rowSums(is.na(correll_latencies))
 
 
-correll_accuracy <- select(correll_wrangle, contains("accuracy"))
+correll_accuracy <- select(correll_sim, contains("accuracy"))
 correll_latencies[correll_accuracy == 0] <- NA
 
 correll_latencies <- log(correll_latencies)
@@ -82,11 +82,15 @@ white_unarmed <- white_unarmed %>% mutate(white_unarmed_lat_mean = rowMeans(whit
 black_unarmed <- black_unarmed %>% mutate(black_unarmed_lat_mean = rowMeans(black_unarmed, na.rm = TRUE))
 
 
-## Smushing code
+## Smushing data
 
 correll_latencies$sum_lat_exclusions <- sum_lat_exclusions
 correll_latencies$sum_acc_exclusions <- sum_acc_exclusions
 correll_latencies$sum_exclusions <- sum_exclusions
+
+correll_wrangle <- bind_cols (lab = correll_sim$lab, subject = correll_sim$subject, correll_latencies, wa_mean_lat = white_armed$white_armed_lat_mean, ba_mean_lat = black_armed$black_armed_lat_mean, wu_mean_lat = white_unarmed$white_unarmed_lat_mean, bu_mean_lat = black_unarmed$black_unarmed_lat_mean)
+
+
 
 ## Save data
 
