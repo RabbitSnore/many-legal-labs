@@ -26,9 +26,9 @@ source("./scripts/calculate/effect_size_functions.R")
 empty_smd_data <- function(n) {
   
   out <- data.frame(
-    ID = 1:n,
-    d = rep(NA, n),
-    var = rep(NA, n),
+    ID       = 1:n,
+    d        = rep(NA, n),
+    var      = rep(NA, n),
     ci_lower = rep(NA, n),
     ci_upper = rep(NA, n)
   )
@@ -231,6 +231,64 @@ for (i in 1:lab_count) {
     cond_1 = "armed", 
     cond_2 = "unarmed"
     
+  )
+  
+}
+
+# Export Calculated Effect Sizes --------------------------------------
+
+## If the data directory does not exist, it will be necessary to create it
+
+if (!file.exists("./data/correll_effects/")) {
+  
+  dir.create("./data/correll_effects/")
+  
+} 
+
+## Hypothesis 1
+
+if (!file.exists("./data/correll_effects/correll_h1_smd.csv")) {
+  
+  write.csv(
+    correll_h1_smd,
+    "./data/correll_effects/correll_h1_smd.csv",
+    row.names = FALSE
+  )
+  
+}
+
+## Hypothesis 2
+
+if (!file.exists("./data/correll_effects/correll_h2_smd.csv")) {
+  
+  write.csv(
+    correll_h2_smd,
+    "./data/correll_effects/correll_h2_smd.csv",
+    row.names = FALSE
+  )
+  
+}
+
+## Hypothesis 3
+
+if (!file.exists("./data/correll_effects/correll_h3_smd.csv")) {
+  
+  write.csv(
+    correll_h3_smd,
+    "./data/correll_effects/correll_h3_smd.csv",
+    row.names = FALSE
+  )
+  
+}
+
+## Hypothesis 4
+
+if (!file.exists("./data/correll_effects/correll_h4_smd.csv")) {
+  
+  write.csv(
+    correll_h4_smd,
+    "./data/correll_effects/correll_h4_smd.csv",
+    row.names = FALSE
   )
   
 }
