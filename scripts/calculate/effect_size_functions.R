@@ -23,9 +23,9 @@ d_calc <- function(ID, x, y, cond_1, cond_2) {
   
   sd_pooled <- sd(y, na.rm = TRUE)
   
-  n_1 <- length(y[x == cond_1]) 
+  n_1 <- sum(!is.na(y[x == cond_1])) 
   
-  n_2 <- length(y[x == cond_2])
+  n_2 <- sum(!is.na(y[x == cond_2]))
   
   df <- n_1 + n_2 - 2
   

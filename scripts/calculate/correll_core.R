@@ -23,9 +23,19 @@ source("./scripts/calculate/effect_size_functions.R")
 
 # Set up basic information --------------------------------------------
 
-lab_count <- length(unique(correll$lab))
+lab_count <- length(unique(correll$lab)) # Number of labs providing data
 
-latency_cols <- c("black_armed_latency", "black_unarmed_latency", "white_armed_latency", "white_unarmed_latency")
+## Names of columns
+
+latency_cols  <- c("black_armed_latency", 
+                   "black_unarmed_latency", 
+                   "white_armed_latency", 
+                   "white_unarmed_latency")
+
+accuracy_cols <- c("black_armed_accuracy", 
+                   "black_unarmed_accuracy", 
+                   "white_armed_accuracy", 
+                   "white_unarmed_accuracy")
 
 # HYPOTHESIS 1 --------------------------------------------------------
 
@@ -41,7 +51,11 @@ correll_h1_data <- correll %>%
     names_to = "trial_type",
     values_to = "latency"
   ) %>% 
-  extract(col = "trial_type", into = c("race", "object", "variable"), regex = "(.*)_(.*)_(.*)")
+  extract(
+    col = "trial_type", 
+    into = c("race", "object", "variable"), 
+    regex = "(.*)_(.*)_(.*)"
+  )
 
 ## Calculate effect sizes
 
@@ -55,7 +69,7 @@ correll_h1_smd <- data.frame(
   ci_upper = rep(NA, lab_count)
 )
 
-### Standardized mean differences for each lab
+### Compute standardized mean differences for each lab
 
 for (i in 1:lab_count) {
   
@@ -79,11 +93,101 @@ for (i in 1:lab_count) {
 
 # Standardized mean difference in Mean Response Latency for Ethnicity, for Gun trials
 
+## Set up data
+
+correll_h2_data <- correll %>% 
+  pivot_longer(
+    cols = latency_cols,
+    names_to = "trial_type",
+    values_to = "latency"
+  ) %>% 
+  extract(
+    col = "trial_type", 
+    into = c("race", "object", "variable"), 
+    regex = "(.*)_(.*)_(.*)"
+  ) %>% 
+  filter(object == "armed")
+
+## Calculate effect sizes
+
+### Set up empty data frame for effects
+
+correll_h2_smd <- data.frame(
+  ID = 1:lab_count,
+  d = rep(NA, lab_count),
+  var = rep(NA, lab_count),
+  ci_lower = rep(NA, lab_count),
+  ci_upper = rep(NA, lab_count)
+)
+
+### Compute standardized mean differences for each lab
+
+for (i in 1:lab_count) {
+  
+  correll_h2_smd[i, ] <- d_calc(
+    
+    ID = correll_h2_data$lab[i], 
+    
+    x = correll_h2_data$race[correll_h2_data$lab == i], 
+    y = correll_h2_data$latency[correll_h2_data$lab == i], 
+    
+    cond_1 = "black", 
+    cond_2 = "white"
+    
+  )
+  
+}
+
 # HYPOTHESIS 3 --------------------------------------------------------
 
 # Participants are faster to not fire at an unarmed target if the target is White than if the target is African American.
 
 # Standardized mean difference in Mean Response Latency for Ethnicity, for No-Gun trials
+
+## Set up data
+
+correll_h3_data <- correll %>% 
+  pivot_longer(
+    cols = latency_cols,
+    names_to = "trial_type",
+    values_to = "latency"
+  ) %>% 
+  extract(
+    col = "trial_type", 
+    into = c("race", "object", "variable"), 
+    regex = "(.*)_(.*)_(.*)"
+  ) %>% 
+  filter(object == "unarmed")
+
+## Calculate effect sizes
+
+### Set up empty data frame for effects
+
+correll_h3_smd <- data.frame(
+  ID = 1:lab_count,
+  d = rep(NA, lab_count),
+  var = rep(NA, lab_count),
+  ci_lower = rep(NA, lab_count),
+  ci_upper = rep(NA, lab_count)
+)
+
+### Compute standardized mean differences for each lab
+
+for (i in 1:lab_count) {
+  
+  correll_h3_smd[i, ] <- d_calc(
+    
+    ID = correll_h3_data$lab[i], 
+    
+    x = correll_h3_data$race[correll_h2_data$lab == i], 
+    y = correll_h3_data$latency[correll_h2_data$lab == i], 
+    
+    cond_1 = "black", 
+    cond_2 = "white"
+    
+  )
+  
+}
 
 # HYPOTHESIS 4 --------------------------------------------------------
 
