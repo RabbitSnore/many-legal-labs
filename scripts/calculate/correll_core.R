@@ -15,7 +15,27 @@ lapply(packages, library, character.only = TRUE)
 
 ## Functions
 
+### General effect size functions
+
 source("./scripts/calculate/effect_size_functions.R")
+
+### Creating empty data frames for effect size calculations
+
+####" The data frame produced by this function is designed to work with the d_calc() function from the effect_size_functions.R source file called above.
+
+empty_smd_data <- function(n) {
+  
+  out <- data.frame(
+    ID = 1:n,
+    d = rep(NA, n),
+    var = rep(NA, n),
+    ci_lower = rep(NA, n),
+    ci_upper = rep(NA, n)
+  )
+  
+  return(out)
+  
+}
 
 # Import wrangled data ------------------------------------------------
 
@@ -61,13 +81,7 @@ correll_h1_data <- correll %>%
 
 ### Set up empty data frame for effects
 
-correll_h1_smd <- data.frame(
-  ID = 1:lab_count,
-  d = rep(NA, lab_count),
-  var = rep(NA, lab_count),
-  ci_lower = rep(NA, lab_count),
-  ci_upper = rep(NA, lab_count)
-)
+correll_h1_smd <- empty_smd_data(lab_count)
 
 ### Compute standardized mean differences for each lab
 
@@ -112,13 +126,7 @@ correll_h2_data <- correll %>%
 
 ### Set up empty data frame for effects
 
-correll_h2_smd <- data.frame(
-  ID = 1:lab_count,
-  d = rep(NA, lab_count),
-  var = rep(NA, lab_count),
-  ci_lower = rep(NA, lab_count),
-  ci_upper = rep(NA, lab_count)
-)
+correll_h2_smd <- empty_smd_data(lab_count)
 
 ### Compute standardized mean differences for each lab
 
@@ -163,13 +171,7 @@ correll_h3_data <- correll %>%
 
 ### Set up empty data frame for effects
 
-correll_h3_smd <- data.frame(
-  ID = 1:lab_count,
-  d = rep(NA, lab_count),
-  var = rep(NA, lab_count),
-  ci_lower = rep(NA, lab_count),
-  ci_upper = rep(NA, lab_count)
-)
+correll_h3_smd <- empty_smd_data(lab_count)
 
 ### Compute standardized mean differences for each lab
 
@@ -179,8 +181,8 @@ for (i in 1:lab_count) {
     
     ID = correll_h3_data$lab[i], 
     
-    x = correll_h3_data$race[correll_h2_data$lab == i], 
-    y = correll_h3_data$latency[correll_h2_data$lab == i], 
+    x = correll_h3_data$race[correll_h3_data$lab == i], 
+    y = correll_h3_data$latency[correll_h3_data$lab == i], 
     
     cond_1 = "black", 
     cond_2 = "white"
@@ -194,3 +196,41 @@ for (i in 1:lab_count) {
 # Participants are more likely to shoot an unarmed target (i.e., false alarms) than to not-shoot an armed target (i.e., misses).
 
 #  Standardized mean difference in Errors for Object Type, across Ethnicity
+
+## Set up data
+
+correll_h4_data <- correll %>% 
+  pivot_longer(
+    cols = accuracy_cols,
+    names_to = "trial_type",
+    values_to = "accuracy"
+  ) %>% 
+  extract(
+    col = "trial_type", 
+    into = c("race", "object", "variable"), 
+    regex = "(.*)_(.*)_(.*)"
+  )
+
+## Calculate effect sizes
+
+### Set up empty data frame for effects
+
+correll_h4_smd <- empty_smd_data(lab_count)
+
+### Compute standardized mean differences for each lab
+
+for (i in 1:lab_count) {
+  
+  correll_h4_smd[i, ] <- d_calc(
+    
+    ID = correll_h4_data$lab[i], 
+    
+    x = correll_h4_data$object[correll_h4_data$lab == i], 
+    y = correll_h4_data$latency[correll_h4_data$lab == i], 
+    
+    cond_1 = "armed", 
+    cond_2 = "unarmed"
+    
+  )
+  
+}
