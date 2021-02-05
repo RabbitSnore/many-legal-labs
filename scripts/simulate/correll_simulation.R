@@ -87,6 +87,12 @@ correll_wide <- bind_cols(correll_wide, response_data)
 
 if (!file.exists("./data/correll_sim.csv")) {
   
+  if (!file.exists("./data/")) {
+    
+    dir.create("./data/")
+    
+  }  
+  
   write.csv(
     correll_wide,
     "./data/correll_sim.csv",
