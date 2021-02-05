@@ -17,7 +17,7 @@
 
 ## Packages
 
-packages <- c("dplyr", "tidyr", "stringr")
+packages <- c("dplyr", "stringr")
 
 lapply(packages, library, character.only = TRUE)
 
