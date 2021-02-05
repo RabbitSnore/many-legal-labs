@@ -32,7 +32,7 @@ correll_h4_smd <- read.csv("./data/correll_effects/correll_h4_smd.csv") # THIS W
 
 # Import original effects
 
-correll_org <- read.csv("./data/original/correll_original.csv") # THIS CURRENTLY PULLS DUMMY VALUES
+correll_org <- read.csv("./data/original/correll_original.csv")
 
 # Set study color
 

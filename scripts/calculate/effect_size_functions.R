@@ -117,8 +117,8 @@ forest_plot_smd <- function(meta_analysis, replication_data, org_d, org_ci_lower
   
   ### Set up plot boundaries
   
-  effect_max <- round(max(forest_estimates$d, na.rm = TRUE), 1) + boundary_pad
-  effect_min <- round(min(forest_estimates$d, na.rm = TRUE), 1) - boundary_pad
+  effect_max <- round(max(forest_estimates$ci_upper, na.rm = TRUE), 1) + boundary_pad
+  effect_min <- round(min(forest_estimates$ci_lower, na.rm = TRUE), 1) - boundary_pad
   
   ### Draw the forest plot
   

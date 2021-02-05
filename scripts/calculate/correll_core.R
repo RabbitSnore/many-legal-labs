@@ -226,7 +226,7 @@ for (i in 1:lab_count) {
     ID = correll_h4_data$lab[i], 
     
     x = correll_h4_data$object[correll_h4_data$lab == i], 
-    y = correll_h4_data$latency[correll_h4_data$lab == i], 
+    y = correll_h4_data$accuracy[correll_h4_data$lab == i], 
     
     cond_1 = "armed", 
     cond_2 = "unarmed"
