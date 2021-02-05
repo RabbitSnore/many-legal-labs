@@ -58,10 +58,12 @@ sum_lat_exclusions <- rowSums(is.na(correll_latencies))
 correll_accuracy <- select(correll_sim, contains("accuracy"))
 correll_latencies[correll_accuracy == 0] <- NA
 
+
 correll_latencies <- log(correll_latencies)
 
 exclusion_acc <- sum(correll_accuracy == 0)
 sum_acc_exclusions <- rowSums((correll_accuracy == 0))
+
 
 sum_exclusions <- rowSums(is.na(correll_latencies))
 
@@ -70,10 +72,15 @@ exclusion_acc_ba <- sum(select(correll_accuracy, contains ("black_armed")) == 0)
 exclusion_acc_wu <- sum(select(correll_accuracy, contains ("white_unarmed")) == 0)
 exclusion_acc_bu <- sum(select(correll_accuracy, contains ("black_unarmed")) == 0)
 
+
 white_armed <- select(correll_latencies, contains ("white_armed"))
 black_armed <- select(correll_latencies, contains ("black_armed"))
 white_unarmed <- select(correll_latencies, contains ("white_unarmed"))
 black_unarmed <- select(correll_latencies, contains ("black_unarmed"))
+
+## Proportion of errors go here, calc within above dfs
+
+##prop_acc_exclusions <- sum_acc_exclusions / (rowSums(correll_accuracy != 0))
 
 
 white_armed <- white_armed %>% mutate(white_armed_lat_mean = rowMeans(white_armed, na.rm = TRUE))
