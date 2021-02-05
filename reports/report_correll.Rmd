@@ -1,0 +1,87 @@
+---
+title: "Results of Replications of Correll et al (2002, Study 1)"
+author: "Many Legal Labs"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    float_toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Run all necessary scripts
+
+source("./scripts/simulate/correll_simulation.R") # REPLACE WITH DATA IMPORTATION
+source("./scripts/wrangle/correll_prelim.R")
+source("./scripts/calculate/correll_core.R")
+source("./scripts/analyze/correll_analysis.R")
+
+```
+
+# Overview
+
+# Hypothesis 1
+
+Participants are faster at making a correct decision to shoot, when the target holds a gun, than the correct decision to not shoot, when the target does not hold a gun.
+
+## Meta-analysis of Replications
+
+```{r}
+correll_h1_meta
+```
+
+## Forest Plot
+
+```{r}
+correll_h1_forest
+```
+
+# Hypothesis 2
+
+Participants are faster to fire at an armed target if the target is African American than if the target is White.
+
+## Meta-analysis of Replications
+
+```{r}
+correll_h2_meta
+```
+
+## Forest Plot
+
+```{r}
+correll_h2_forest
+```
+
+# Hypothesis 3
+
+Participants are faster to not fire at an unarmed target if the target is White than if the target is African American.
+
+## Meta-analysis of Replications
+
+```{r}
+correll_h3_meta
+```
+
+## Forest Plot
+
+```{r}
+correll_h3_forest
+```
+
+# Hypothesis 4
+
+Participants are more likely to shoot an unarmed target (i.e., false alarms) than to not-shoot an armed target (i.e., misses).
+
+## Meta-analysis of Replications
+
+```{r}
+correll_h4_meta
+```
+
+## Forest Plot
+
+```{r}
+correll_h4_forest
+```
