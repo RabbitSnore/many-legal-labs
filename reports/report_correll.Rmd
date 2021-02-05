@@ -28,6 +28,8 @@ Participants are faster at making a correct decision to shoot, when the target h
 
 ## Meta-analysis of Replications
 
+This hypothesis is tested using standardized mean differences in Mean Response Latency for Object Type, across Race. The effect sizes for each replication are meta-analyzed using a random effects model.
+
 ```{r}
 correll_h1_meta
 ```
@@ -43,6 +45,8 @@ correll_h1_forest
 Participants are faster to fire at an armed target if the target is African American than if the target is White.
 
 ## Meta-analysis of Replications
+
+This hypothesis is tested using standardized mean differences in Mean Response Latency for Race, for Gun trials. The effect sizes for each replication are meta-analyzed using a random effects model.
 
 ```{r}
 correll_h2_meta
@@ -60,6 +64,8 @@ Participants are faster to not fire at an unarmed target if the target is White 
 
 ## Meta-analysis of Replications
 
+This hypothesis is tested using standardized mean differences in Mean Response Latency for Race, for No-Gun trials. The effect sizes for each replication are meta-analyzed using a random effects model.
+
 ```{r}
 correll_h3_meta
 ```
@@ -75,6 +81,8 @@ correll_h3_forest
 Participants are more likely to shoot an unarmed target (i.e., false alarms) than to not-shoot an armed target (i.e., misses).
 
 ## Meta-analysis of Replications
+
+This hypothesis is tested using standardized mean differences in Errors for Object Type, across Race. The effect sizes for each replication are meta-analyzed using a random effects model.
 
 ```{r}
 correll_h4_meta
