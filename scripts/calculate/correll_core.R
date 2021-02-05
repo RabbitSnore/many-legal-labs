@@ -39,7 +39,7 @@ empty_smd_data <- function(n) {
 
 # Import wrangled data ------------------------------------------------
 
-# correll <- read.csv("./data/correll_wrangled.csv") # THIS WILL NOT WORK YET
+correll <- read.csv("./data/correll_wrangled.csv") # THIS WILL NOT WORK YET
 
 # Set up basic information --------------------------------------------
 
