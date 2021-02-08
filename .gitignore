@@ -42,3 +42,4 @@ vignettes/*.pdf
 /notes/*.html
 /reports/*.html
 /data/*.csv
+/data/correll_effects/*.csv
