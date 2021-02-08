@@ -35,7 +35,7 @@ d_calc <- function(ID, x, y, cond_1, cond_2) {
   
   ci_upper <- d + sqrt(var) * qt(.975, df)
   
-  ci:lower <- d - sqrt(var) * qt(.975, df)
+  ci_lower <- d - sqrt(var) * qt(.975, df)
   
   out <- data.frame(ID = ID, d = d, var = var, ci_lower = ci_lower, ci_upper = ci_upper)
   
@@ -91,6 +91,8 @@ forest_plot_smd <- function(meta_analysis, replication_data, org_d, org_ci_lower
   
   ### Bind the original and meta-analytic estimates to the calculated effects from each lab
   
+  replication_data$ID <- as.character(replication_data$ID)
+  
   forest_estimates <- bind_rows(forest_estimates, replication_data)
   
   #### Set up the effect IDs with the proper order for the forest plot
@@ -99,9 +101,9 @@ forest_plot_smd <- function(meta_analysis, replication_data, org_d, org_ci_lower
                                 levels = c(
                                   "Original",  
                                   "Replication", 
-                                  arrange(replication_data, d)$ID
+                                  as.character(arrange(replication_data, d)$ID)
+                                  )
                                 )
-  )
   
   #### Set up an indicator for whether the estimate is from the meta-analysis, the original, or a replication
   

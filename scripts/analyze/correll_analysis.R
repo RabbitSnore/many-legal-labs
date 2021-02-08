@@ -57,9 +57,9 @@ correll_h1_forest <-
     replication_data = correll_h1_smd, 
     title = "Correll et al (2002), Hypothesis 1",
     study_color = correll_color_1,
-    org_d = correll_org[hypothesis == "h1", ]$d, 
-    org_ci_lower = correll_org[hypothesis == "h1", ]$ci_lower, 
-    org_ci_upper = correll_org[hypothesis == "h1", ]$ci_upper
+    org_d = correll_org[correll_org$hypothesis == "h1", ]$d, 
+    org_ci_lower = correll_org[correll_org$hypothesis == "h1", ]$ci_lower, 
+    org_ci_upper = correll_org[correll_org$hypothesis == "h1", ]$ci_upper
     )
 
 # HYPOTHESIS 2 --------------------------------------------------------
@@ -81,9 +81,9 @@ correll_h2_forest <-
     replication_data = correll_h2_smd, 
     title = "Correll et al (2002), Hypothesis 2",
     study_color = correll_color_1,
-    org_d = correll_org[hypothesis == "h2", ]$d, 
-    org_ci_lower = correll_org[hypothesis == "h2", ]$ci_lower, 
-    org_ci_upper = correll_org[hypothesis == "h2", ]$ci_upper
+    org_d = correll_org[correll_org$hypothesis == "h2", ]$d, 
+    org_ci_lower = correll_org[correll_org$hypothesis == "h2", ]$ci_lower, 
+    org_ci_upper = correll_org[correll_org$hypothesis == "h2", ]$ci_upper
   )
 
 # HYPOTHESIS 3 --------------------------------------------------------
@@ -99,15 +99,15 @@ correll_h3_meta <- rma(
 
 ## Forest plot
 
-correll_h2_forest <- 
+correll_h3_forest <- 
   forest_plot_smd(
     meta_analysis = correll_h2_meta, 
     replication_data = correll_h2_smd, 
     title = "Correll et al (2002), Hypothesis 3",
     study_color = correll_color_1,
-    org_d = correll_org[hypothesis == "h3", ]$d, 
-    org_ci_lower = correll_org[hypothesis == "h3", ]$ci_lower, 
-    org_ci_upper = correll_org[hypothesis == "h3", ]$ci_upper
+    org_d = correll_org[correll_org$hypothesis == "h3", ]$d, 
+    org_ci_lower = correll_org[correll_org$hypothesis == "h3", ]$ci_lower, 
+    org_ci_upper = correll_org[correll_org$hypothesis == "h3", ]$ci_upper
   )
 
 # HYPOTHESIS 4 --------------------------------------------------------
@@ -129,7 +129,7 @@ correll_h4_forest <-
     replication_data = correll_h4_smd, 
     title = "Correll et al (2002), Hypothesis 4",
     study_color = correll_color_1,
-    org_d = correll_org[hypothesis == "h4", ]$d, 
-    org_ci_lower = correll_org[hypothesis == "h4", ]$ci_lower, 
-    org_ci_upper = correll_org[hypothesis == "h4", ]$ci_upper
+    org_d = correll_org[correll_org$hypothesis == "h4", ]$d, 
+    org_ci_lower = correll_org[correll_org$hypothesis == "h4", ]$ci_lower, 
+    org_ci_upper = correll_org[correll_org$hypothesis == "h4", ]$ci_upper
   )

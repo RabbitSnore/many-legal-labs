@@ -39,7 +39,7 @@ empty_smd_data <- function(n) {
 
 # Import wrangled data ------------------------------------------------
 
-correll <- read.csv("./data/correll_wrangled.csv") # THIS WILL NOT WORK YET
+correll <- read.csv("./data/correll_wrangle.csv")
 
 # Set up basic information --------------------------------------------
 
@@ -89,7 +89,7 @@ for (i in 1:lab_count) {
   
   correll_h1_smd[i, ] <- d_calc(
     
-    ID = correll_h1_data$lab[i], 
+    ID = unique(correll_h1_data$lab)[i], 
     
     x = correll_h1_data$object[correll_h1_data$lab == i], 
     y = correll_h1_data$latency[correll_h1_data$lab == i], 
@@ -134,7 +134,7 @@ for (i in 1:lab_count) {
   
   correll_h2_smd[i, ] <- d_calc(
     
-    ID = correll_h2_data$lab[i], 
+    ID = unique(correll_h1_data$lab)[i], 
     
     x = correll_h2_data$race[correll_h2_data$lab == i], 
     y = correll_h2_data$latency[correll_h2_data$lab == i], 
@@ -156,7 +156,7 @@ for (i in 1:lab_count) {
 
 correll_h3_data <- correll %>% 
   pivot_longer(
-    cols = latency_cols,
+    cols = all_of(latency_cols),
     names_to = "trial_type",
     values_to = "latency"
   ) %>% 
@@ -179,7 +179,7 @@ for (i in 1:lab_count) {
   
   correll_h3_smd[i, ] <- d_calc(
     
-    ID = correll_h3_data$lab[i], 
+    ID = unique(correll_h1_data$lab)[i], 
     
     x = correll_h3_data$race[correll_h3_data$lab == i], 
     y = correll_h3_data$latency[correll_h3_data$lab == i], 
@@ -201,7 +201,7 @@ for (i in 1:lab_count) {
 
 correll_h4_data <- correll %>% 
   pivot_longer(
-    cols = accuracy_cols,
+    cols = all_of(accuracy_cols),
     names_to = "trial_type",
     values_to = "accuracy"
   ) %>% 
@@ -223,7 +223,7 @@ for (i in 1:lab_count) {
   
   correll_h4_smd[i, ] <- d_calc(
     
-    ID = correll_h4_data$lab[i], 
+    ID = unique(correll_h1_data$lab)[i], 
     
     x = correll_h4_data$object[correll_h4_data$lab == i], 
     y = correll_h4_data$accuracy[correll_h4_data$lab == i], 
@@ -292,3 +292,4 @@ if (!file.exists("./data/correll_effects/correll_h4_smd.csv")) {
   )
   
 }
+
