@@ -272,7 +272,7 @@ if (!file.exists("./data/darley_effects/darley_mc1_lor.csv")) {
 if (!file.exists("./data/darley_effects/darley_mc2_lor.csv")) {
   
   write.csv(
-    darley_mc1_lor,
+    darley_mc2_lor,
     "./data/darley_effects/darley_mc2_lor.csv",
     row.names = FALSE
   )
@@ -284,7 +284,7 @@ if (!file.exists("./data/darley_effects/darley_mc2_lor.csv")) {
 if (!file.exists("./data/darley_effects/darley_mc3_lor.csv")) {
   
   write.csv(
-    darley_mc1_lor,
+    darley_mc3_lor,
     "./data/darley_effects/darley_mc3_lor.csv",
     row.names = FALSE
   )
