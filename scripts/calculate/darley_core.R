@@ -202,8 +202,8 @@ for (i in 1:lab_count_darley) {
     x = darley$scenario[darley$lab == i], 
     y = darley$attribution[darley$lab == i], 
     
-    cond_1 = "operable", 
-    cond_2 = "inoperable"
+    cond_1 = "inoperable", 
+    cond_2 = "operable"
     
   )
   
