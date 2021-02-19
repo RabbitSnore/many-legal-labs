@@ -27,7 +27,11 @@ source("./scripts/analyze/darley_analysis.R")
 
 # Hypothesis 1
 
+Participants will recommend higher punishment when the perpetrator acted in a jealous rage, compared to when the behavior was caused by an inoperable tumor.
+
 ## Meta-analysis of Replications
+
+This hypothesis will be tested using standardized mean differences for punishment recommendation, for jealous rage vs. inoperable tumor.
 
 ```{r}
 darley_h1_meta
@@ -41,7 +45,11 @@ darley_h1_forest
 
 # Hypothesis 2
 
+Participants will recommend higher punishment when the perpetrator acted in a jealous rage, compared to when the behavior was caused by an operable tumor.
+
 ## Meta-analysis of Replications
+
+This hypothesis will be tested using standardized mean differences for punishment recommendation, for jealous rage vs. operable tumor.
 
 ```{r}
 darley_h2_meta
@@ -55,7 +63,11 @@ darley_h2_forest
 
 # Hypothesis 3
 
+Participants will recommend higher punishment when the perpetrator acted because of an inoperable tumor, compared to when the behavior was caused by an operable tumor.
+
 ## Meta-analysis of Replications
+
+This hypothesis will be tested using standardized mean differences for punishment recommendation, for operable tumor vs. inoperable tumor
 
 ```{r}
 darley_h3_meta
@@ -69,7 +81,11 @@ darley_h3_forest
 
 # Manipulation Check 1
 
+Participants will attribute responsibility to the actor more frequently in the jealous rage condition, compared to when the behavior was caused by an inoperable tumor.
+
 ## Meta-analysis of Replications
+
+We will assess this manipulation check with proportion differences (odds ratios) in attributing responsibility to the actor, for Scenario (jealous rage vs. inoperable and operable).
 
 ```{r}
 darley_mc1_meta
@@ -83,7 +99,11 @@ darley_mc1_forest
 
 # Manipulation Check 2
 
+Participants will attribute responsibility to the actor more frequently in the jealous rage condition, compared to when the behavior was caused by an inoperable tumor.
+
 ## Meta-analysis of Replications
+
+This manipulation check will be assessed using proportion differences (odds ratios) in attributing responsibility to the actor, for Scenario (jealous rage vs. operable).
 
 ```{r}
 darley_mc2_meta
@@ -97,7 +117,13 @@ darley_mc2_forest
 
 # Manipulation Check 3
 
+Participants will attribute responsibility to the actor more frequently in the inoperable tumor condition compared to the operable tumor condition.
+
+Darley et al. found a nonsignificant difference for this comparison, but the direction of proportions was such that more people attributed responsibility to the actor when the tumor was inoperable.
+
 ## Meta-analysis of Replications
+
+This manipulation check will be assessed using proportion differences (odds ratios) in attributing responsibility to the actor, for Scenario (operable vs. inoperable).
 
 ```{r}
 darley_mc3_meta

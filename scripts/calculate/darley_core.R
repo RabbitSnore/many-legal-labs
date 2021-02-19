@@ -29,7 +29,7 @@ lab_count_darley <- length(unique(darley$lab)) # Number of labs providing data
 
 # HYPOTHESIS 1 --------------------------------------------------------
 
-# Participants will recommend higher punishment when the perpetrator acted in a jealous rage, compared to when the behavior was caused by an inoperable tumor .
+# Participants will recommend higher punishment when the perpetrator acted in a jealous rage, compared to when the behavior was caused by an inoperable tumor.
 
 # Standardized mean difference for punishment recommendation, for jealous rage vs. inoperable tumor
 
@@ -121,7 +121,7 @@ for (i in 1:lab_count_darley) {
 
 # Participants will attribute responsibility to the actor more frequently in the jealous rage condition, compared to when the behavior was caused by an inoperable tumor.
 
-# Proportion differences (odds ratios) in attributing responsibility to the actor, for Scenario (jealous rage vs. inoperable and operable.)
+# Proportion differences (odds ratios) in attributing responsibility to the actor, for Scenario (jealous rage vs. inoperable).
 
 ## Calculate effect sizes 
 
@@ -151,7 +151,7 @@ for (i in 1:lab_count_darley) {
 
 # Participants will attribute responsibility to the actor more frequently in the jealous rage condition, compared to when the behavior was caused by an inoperable tumor.
 
-# Proportion differences (odds ratios) in attributing responsibility to the actor, for Scenario (jealous rage vs. inoperable and operable.)
+# Proportion differences (odds ratios) in attributing responsibility to the actor, for Scenario (jealous rage vs. operable).
 
 ## Calculate effect sizes 
 
