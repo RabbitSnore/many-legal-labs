@@ -73,6 +73,40 @@ odds_calc <- function(ID, x, y, cond_1, cond_2) {
   
 }
 
+### CREATING EMPTY DATA SETS FOR EFFECT SIZES
+
+#### The data frame produced by this function is designed to work with the d_calc() function
+
+empty_smd_data <- function(n) {
+  
+  out <- data.frame(
+    ID       = 1:n,
+    d        = rep(NA, n),
+    var      = rep(NA, n),
+    ci_lower = rep(NA, n),
+    ci_upper = rep(NA, n)
+  )
+  
+  return(out)
+  
+}
+
+#### The data frame produced by this function is designed to work with the odds_calc() function
+
+empty_lor_data <- function(n) {
+  
+  out <- data.frame(
+    ID       = 1:n,
+    log_odds = rep(NA, n),
+    var      = rep(NA, n),
+    ci_lower = rep(NA, n),
+    ci_upper = rep(NA, n)
+  )
+  
+  return(out)
+  
+}
+
 # FOREST PLOT FOR STANDARDIZED MEAN DIFFERENCES
 
 ### Forest plot
