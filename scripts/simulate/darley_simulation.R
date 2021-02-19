@@ -41,7 +41,7 @@ darley_wide <-
 
 ## Set up data column names
 
-darley_wide$scenario <- sample (scenario, nrow(darley_wide), replace = TRUE)
+darley_wide$scenario <- sample(scenario, nrow(darley_wide), replace = TRUE)
 
 darley_wide$attribution <- attribution
 attribution_count <- count(darley_wide, attribution)

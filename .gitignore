@@ -43,3 +43,4 @@ vignettes/*.pdf
 /reports/*.html
 /data/*.csv
 /data/correll_effects/*.csv
+/data/darley_effects/*.csv

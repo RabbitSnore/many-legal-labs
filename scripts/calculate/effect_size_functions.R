@@ -59,7 +59,7 @@ odds_calc <- function(ID, x, y, cond_1, cond_2) {
   c <- sum(y[x == cond_2] == 1)
   d <- sum(y[x == cond_2] == 0)
   
-  log.odds <- log( ( a/b )/( c/d ) )
+  log_odds <- log( ( a/b )/( c/d ) )
   
   var <- 1/a + 1/b + 1/c + 1/d
   
