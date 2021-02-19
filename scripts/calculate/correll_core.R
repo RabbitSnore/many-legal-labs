@@ -25,7 +25,7 @@ correll <- read.csv("./data/correll_wrangle.csv")
 
 # Set up basic information --------------------------------------------
 
-lab_count <- length(unique(correll$lab)) # Number of labs providing data
+lab_count_correll <- length(unique(correll$lab)) # Number of labs providing data
 
 ## Names of columns
 
@@ -63,11 +63,11 @@ correll_h1_data <- correll %>%
 
 ### Set up empty data frame for effects
 
-correll_h1_smd <- empty_smd_data(lab_count)
+correll_h1_smd <- empty_smd_data(lab_count_correll)
 
 ### Compute standardized mean differences for each lab
 
-for (i in 1:lab_count) {
+for (i in 1:lab_count_correll) {
   
   correll_h1_smd[i, ] <- d_calc(
     
@@ -108,11 +108,11 @@ correll_h2_data <- correll %>%
 
 ### Set up empty data frame for effects
 
-correll_h2_smd <- empty_smd_data(lab_count)
+correll_h2_smd <- empty_smd_data(lab_count_correll)
 
 ### Compute standardized mean differences for each lab
 
-for (i in 1:lab_count) {
+for (i in 1:lab_count_correll) {
   
   correll_h2_smd[i, ] <- d_calc(
     
@@ -153,11 +153,11 @@ correll_h3_data <- correll %>%
 
 ### Set up empty data frame for effects
 
-correll_h3_smd <- empty_smd_data(lab_count)
+correll_h3_smd <- empty_smd_data(lab_count_correll)
 
 ### Compute standardized mean differences for each lab
 
-for (i in 1:lab_count) {
+for (i in 1:lab_count_correll) {
   
   correll_h3_smd[i, ] <- d_calc(
     
@@ -197,11 +197,11 @@ correll_h4_data <- correll %>%
 
 ### Set up empty data frame for effects
 
-correll_h4_smd <- empty_smd_data(lab_count)
+correll_h4_smd <- empty_smd_data(lab_count_correll)
 
 ### Compute standardized mean differences for each lab
 
-for (i in 1:lab_count) {
+for (i in 1:lab_count_correll) {
   
   correll_h4_smd[i, ] <- d_calc(
     
