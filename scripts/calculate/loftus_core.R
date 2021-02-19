@@ -50,7 +50,7 @@ for (i in 1:lab_count_loftus) {
     x = loftus$verb_condition[loftus$lab == i], 
     y = loftus$speed_estimate[loftus$lab == i], 
     
-    cond_1 = "smashed", 
+    cond_1 = "smash", 
     cond_2 = "hit"
     
   )
@@ -80,7 +80,7 @@ for (i in 1:lab_count_loftus) {
     x = loftus$verb_condition[loftus$lab == i], 
     y = loftus$broken_glass[loftus$lab == i], 
     
-    cond_1 = "smashed", 
+    cond_1 = "smash", 
     cond_2 = "hit"
     
   )
@@ -110,7 +110,7 @@ for (i in 1:lab_count_loftus) {
     x = loftus$verb_condition[loftus$lab == i], 
     y = loftus$broken_glass[loftus$lab == i], 
     
-    cond_1 = "smashed", 
+    cond_1 = "smash", 
     cond_2 = "control"
     
   )

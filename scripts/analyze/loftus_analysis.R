@@ -31,7 +31,7 @@ loftus_h3_lor  <- read.csv("./data/loftus_effects/loftus_h3_lor.csv")
 
 # Import original effects
 
-loftus_org <- read.csv("./data/original/darley_original.csv")
+loftus_org <- read.csv("./data/original/loftus_original.csv")
 
 # Set study color
 
@@ -66,7 +66,7 @@ loftus_h1_forest <-
 ## Random effects meta-analysis
 
 loftus_h2_meta <- rma(
-  yi = d, 
+  yi = log_odds, 
   vi = var,
   data = loftus_h2_lor,
   method = "REML"
@@ -90,7 +90,7 @@ loftus_h2_forest <-
 ## Random effects meta-analysis
 
 loftus_h3_meta <- rma(
-  yi = d, 
+  yi = log_odds, 
   vi = var,
   data = loftus_h3_lor,
   method = "REML"

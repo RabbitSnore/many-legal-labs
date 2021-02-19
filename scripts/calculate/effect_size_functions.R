@@ -54,10 +54,10 @@ odds_calc <- function(ID, x, y, cond_1, cond_2) {
   # y is a vector of dependent variable values (0/1)
   # cond_1 and cond_2 are values for the conditions being compared
   
-  a <- sum(y[x == cond_1] == 1)
-  b <- sum(y[x == cond_1] == 0)
-  c <- sum(y[x == cond_2] == 1)
-  d <- sum(y[x == cond_2] == 0)
+  a <- sum(y[x == cond_1] == 1, na.rm = TRUE)
+  b <- sum(y[x == cond_1] == 0, na.rm = TRUE)
+  c <- sum(y[x == cond_2] == 1, na.rm = TRUE)
+  d <- sum(y[x == cond_2] == 0, na.rm = TRUE)
   
   log_odds <- log( ( a/b )/( c/d ) )
   

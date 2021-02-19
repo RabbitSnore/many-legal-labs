@@ -5,15 +5,31 @@
 
 #######################################################################
 
+# Set up environment --------------------------------------------------
+
+## Packages
+
+packages <- c("dplyr", "tidyr")
+
+lapply(packages, library, character.only = TRUE)
+
 ## Import
 
 loftus_sim <- read.csv("./data/loftus_sim.csv")
 
-## Wrangle
+# Wrangle -------------------------------------------------------------
 
-loftus_wrangle <- loftus_sim # Right now this is very silly. But we might have to do more wrangling with the real data.
+## Convert kph to mph
 
-## Save data
+loftus_wrangle <- loftus_sim %>% 
+  mutate(
+    speed_estimate = case_when(
+      speed_unit == "mph" ~ as.numeric(speed_estimate),
+      speed_unit == "kph" ~ as.numeric(speed_estimate * 0.621371192)
+    )
+  )
+
+# Save data -----------------------------------------------------------
 
 if (!file.exists("./data/loftus_wrangle.csv")) {
   
@@ -24,7 +40,7 @@ if (!file.exists("./data/loftus_wrangle.csv")) {
   }  
   
   write.csv(
-    darley_wrangle,
+    loftus_wrangle,
     "./data/loftus_wrangle.csv",
     row.names = FALSE
   )

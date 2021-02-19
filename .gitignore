@@ -44,3 +44,5 @@ vignettes/*.pdf
 /data/*.csv
 /data/correll_effects/*.csv
 /data/darley_effects/*.csv
+/data/loftus_effects/*.csv
+/data/serota_effects/*.csv
