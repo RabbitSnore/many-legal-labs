@@ -15,7 +15,7 @@ lapply(packages, library, character.only = TRUE)
 
 ## Seed
 
-set.seed(540)
+set.seed(1621)
 
 ## Functions
 
@@ -35,7 +35,7 @@ loftus_org <- read.csv("./data/original/darley_original.csv")
 
 # Set study color
 
-loftus_color_1 <- "#8E4585"
+loftus_color_1 <- "#6D98BA"
 
 # HYPOTHESIS 1 --------------------------------------------------------
 
