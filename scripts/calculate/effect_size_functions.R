@@ -324,7 +324,7 @@ forest_plot_lor <- function(meta_analysis, replication_data, org_lor, org_ci_low
     ) +
     labs(
       title = title,
-      x = expression(paste("Effect size (", italic("d"), ")", sep = "")),
+      x = expression(paste("Effect size (", italic("log odds ratio"), ")", sep = "")),
       y = ""
     ) +
     guides(
