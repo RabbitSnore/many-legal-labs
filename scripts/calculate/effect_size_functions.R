@@ -31,7 +31,7 @@ d_calc <- function(ID, x, y, cond_1, cond_2) {
   
   sd_2 <- sd(y[x == cond_2], na.rm = TRUE)
   
-  sd_pooled <- sqrt( (((n1 - 1) * sd_1^2) + ((n_2 - 1) * sd_2^2)) / df )
+  sd_pooled <- sqrt( (((n_1 - 1) * sd_1^2) + ((n_2 - 1) * sd_2^2)) / df )
   
   d <- m_diff/sd_pooled
   
