@@ -21,17 +21,21 @@ d_calc <- function(ID, x, y, cond_1, cond_2) {
   
   m_diff <- mean(y[x == cond_1], na.rm = TRUE) - mean(y[x == cond_2], na.rm = TRUE)
   
-  sd_pooled <- sd(y, na.rm = TRUE)
-  
   n_1 <- sum(!is.na(y[x == cond_1])) 
   
   n_2 <- sum(!is.na(y[x == cond_2]))
-  
+
   df <- n_1 + n_2 - 2
+  
+  sd_1 <- sd(y[x == cond_1], na.rm = TRUE)
+  
+  sd_2 <- sd(y[x == cond_2], na.rm = TRUE)
+  
+  sd_pooled <- sqrt( (((n1 - 1) * sd_1^2) + ((n_2 - 1) * sd_2^2)) / df )
   
   d <- m_diff/sd_pooled
   
-  var <- ((n_1 + n_2) / (n_1 * n_2)) + ((d^2) / (2*(n_1 + n_2 - 2)))
+  var <- ((n_1 + n_2) / (n_1 * n_2)) + ((d^2) / (2*(df)))
   
   ci_upper <- d + sqrt(var) * qt(.975, df)
   
