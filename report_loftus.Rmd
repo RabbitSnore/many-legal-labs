@@ -6,8 +6,8 @@ output:
   html_document:
     toc: true
     toc_float: true
-knit: (function(inputFile, encoding) {
-    rmarkdown::render(inputFile, encoding = encoding, output_dir = "./reports/")
+knit: (function(input_file, encoding) {
+    rmarkdown::render(input_file, encoding = encoding, output_dir = "./reports/")
   })
 ---
 

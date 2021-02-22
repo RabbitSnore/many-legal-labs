@@ -35,7 +35,7 @@ d_calc <- function(ID, x, y, cond_1, cond_2) {
   
   d <- m_diff/sd_pooled
   
-  var <- ((n_1 + n_2) / (n_1 * n_2)) + ((d^2) / (2*(df)))
+  var <- ((n_1 + n_2) / (n_1 * n_2)) + ((d^2) / (2*df))
   
   ci_upper <- d + sqrt(var) * qt(.975, df)
   
