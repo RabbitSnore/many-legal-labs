@@ -1,7 +1,7 @@
 
 #######################################################################
 
-# Serota, Levine, & Boster (2010) [Study 3] -- Core Analyses
+# Serota, Levine, & Boster (2010) [Study 3] -- Effect Size Calculation
 
 #######################################################################
 
@@ -126,4 +126,25 @@ for (i in 1:lab_count_serota) {
   
 }
 
+# Export Calculated Effect Sizes --------------------------------------
+
+## If the data directory does not exist, it will be necessary to create it
+
+if (!file.exists("./data/serota_effects/")) {
+  
+  dir.create("./data/serota_effects/")
+  
+} 
+
+## Hypothesis 1
+
+if (!file.exists("./data/serota_effects/serota_h1_k.csv")) {
+  
+  write.csv(
+    darley_h1_smd,
+    "./data/serota_effects/serota_h1_k.csv",
+    row.names = FALSE
+  )
+  
+}
 
