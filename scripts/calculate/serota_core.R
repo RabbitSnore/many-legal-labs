@@ -57,16 +57,17 @@ power_calc <- function(ID, x, y) {
   model <- nls(y ~ a * x^k, start = list(a = start[1], k = start[2]))
   
   k   <- summary(model)$parameters[2, 1]
-  var <- sqrt(summary(model)$parameters[2, 2])
+  var <- summary(model)$parameters[2, 2]^2
   
   cis <- confint(model)
   
   ci_upper <- cis[2, 2]
   ci_lower <- cis[2, 1]
   
-  a   <- summary(model)$parameters[1, 1]
+  a       <- summary(model)$parameters[1, 1]
+  var_a   <- summary(model)$parameters[1, 2]^2
   
-  out <- data.frame(ID = ID, k = k, var = var, a = a, ci_lower = ci_lower, ci_upper = ci_upper)
+  out <- data.frame(ID = ID, k = k, var = var, a = a, var_a = var_a,  ci_lower = ci_lower, ci_upper = ci_upper)
   
   return(out)
   
