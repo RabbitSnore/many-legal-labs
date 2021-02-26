@@ -95,9 +95,26 @@ empty_k_data <- function(n) {
 
 serota <- read.csv("./data/serota_wrangle.csv")
 
+serota_summary <- read.csv("./data/serota_summary.csv")
+
 # Set up basic information --------------------------------------------
 
 lab_count_serota <- length(unique(serota$lab)) # Number of labs providing data
+
+# DESCRIPTIVES _-------------------------------------------------------
+
+# Estimate the mean number of lies told in the last 24 hours
+
+## Calculate standard errors of the means
+
+serota_desc <- serota_summary %>% 
+  mutate(
+    sem       = sd/sqrt(N),
+    var_m     = sem^2,
+    ci_upper  = mean + sem*qnorm(.975),
+    ci_lower  = mean - sem*qnorm(.975),
+    sd_weight = 1/sqrt(N)
+  )
 
 # HYPOTHESIS 1 --------------------------------------------------------
 
@@ -135,6 +152,18 @@ if (!file.exists("./data/serota_effects/")) {
   dir.create("./data/serota_effects/")
   
 } 
+
+## Descriptives
+
+if (!file.exists("./data/serota_effects/serota_desc.csv")) {
+  
+  write.csv(
+    darley_h1_smd,
+    "./data/serota_effects/serota_desc.csv",
+    row.names = FALSE
+  )
+  
+}
 
 ## Hypothesis 1
 

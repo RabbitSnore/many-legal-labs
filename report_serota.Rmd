@@ -25,6 +25,12 @@ source("./scripts/analyze/serota_analysis.R")
 
 # Overview
 
+# Descriptive statistics
+
+## Original
+
+## Replications
+
 # Hypothesis 1
 
 The distribution of the number of lies told in the last 24 hours can be characterized by a power function with a negative exponent.
