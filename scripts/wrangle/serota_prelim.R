@@ -16,3 +16,44 @@
 ## Standardizing the frequencies will ensure that the intercepts of the nonlinear regressions will be comparable across studies
 
 # The output should be a series of frequency tables appended to each other, with identifiers (lab IDs)
+
+## Packages
+
+packages <- c("dplyr", "tidyr")
+
+lapply(packages, library, character.only = TRUE)
+
+## Import
+
+serota_sim <- read.csv("./data/serota_sim.csv")
+
+# Wrangle -------------------------------------------------------------
+
+serota_summary <- serota_sim %>% 
+  group_by(lab) %>% 
+  summarise(mean = mean(total_lies),
+            sd = sd(total_lies),
+            median = median(total_lies),
+            min = min(total_lies),
+            max = max(total_lies),
+            N = sum(!is.na(total_lies)),
+            mode = which.max(table(total_lies)))
+
+
+# Save data simulated data file ---------------------------------------
+
+if (!file.exists("./data/serota_summary.csv")) {
+  
+  if (!file.exists("./data/")) {
+    
+    dir.create("./data/")
+    
+  }  
+  
+  write.csv(
+    serota_summary,
+    "./data/serota_summary.csv",
+    row.names = FALSE
+  )
+  
+}
