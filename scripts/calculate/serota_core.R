@@ -73,6 +73,24 @@ power_calc <- function(ID, x, y) {
   
 }
 
+#### The data frame produced by this function is designed to work with the power_calc() function
+
+empty_k_data <- function(n) {
+  
+  out <- data.frame(
+    ID       = 1:n,
+    k        = rep(NA, n),
+    var      = rep(NA, n),
+    a        = rep(NA, n),
+    var_a    = rep(NA, n),
+    ci_lower = rep(NA, n),
+    ci_upper = rep(NA, n)
+  )
+  
+  return(out)
+  
+}
+
 # Import wrangled data ------------------------------------------------
 
 serota <- read.csv("./data/serota_wrangle.csv")
@@ -89,6 +107,23 @@ lab_count_serota <- length(unique(serota$lab)) # Number of labs providing data
 
 ## Calculate coefficients
 
+### Set up empty data frame for effects
 
+serota_h1_k <- empty_k_data(lab_count_serota)
+
+### Compute standardized mean differences for each lab
+
+for (i in 1:lab_count_serota) {
+  
+  serota_h1_k[i, ] <- power_calc(
+    
+    ID = unique(serota$lab)[i], 
+    
+    x = serota$lies[serota$lab == unique(serota$lab)[i]], 
+    y = serota$frequency[serota$lab == unique(serota$lab)[i]] 
+  
+  )
+  
+}
 
 
