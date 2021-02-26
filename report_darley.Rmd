@@ -134,3 +134,167 @@ darley_mc3_meta
 ```{r}
 darley_mc3_forest
 ```
+
+# Manipulation Check 4
+
+Participants in the jealous rage condition will recommend prison more frequently than those in the inoperable tumor condition.
+
+## Meta-analysis of Replications
+
+This manipulation check will be assessed using proportion differences (odds ratios) in recommended outcome, for Scenario (jealous rage vs. inoperable).
+
+```{r}
+darley_mc4_meta
+```
+
+## Forest Plot
+
+```{r}
+darley_mc4_forest
+```
+
+# Manipulation Check 5
+
+Participants in the jealous rage condition will recommend prison more frequently than those in the operable tumor condition.
+
+## Meta-analysis of Replications
+
+This manipulation check will be assessed using proportion differences (odds ratios) in recommended outcome, for Scenario (jealous rage vs. operable).
+
+```{r}
+darley_mc5_meta
+```
+
+## Forest Plot
+
+```{r}
+darley_mc5_forest
+```
+
+# Manipulation Check 6
+
+Participants in the operable tumor condition will recommend prison more frequently than those in the inoperable tumor condition.
+
+## Meta-analysis of Replications
+
+This manipulation check will be assessed using proportion differences (odds ratios) in recommended outcome, for Scenario (operable vs. inoperable).
+
+```{r}
+darley_mc6_meta
+```
+
+## Forest Plot
+
+```{r}
+darley_mc6_forest
+```
+
+# Manipulation Check 7
+
+Participants in the inoperable tumor condition will recommend hospitalization more frequently than those in the jealous rage condition.
+
+## Meta-analysis of Replications
+
+This manipulation check will be assessed using proportion differences (odds ratios) in recommended outcome, for Scenario (jealous rage vs. inoperable).
+
+```{r}
+darley_mc7_meta
+```
+
+## Forest Plot
+
+```{r}
+darley_mc7_forest
+```
+
+# Manipulation Check 8
+
+Participants in the operable tumor condition will recommend hospitalization more frequently than those in the jealous rage condition
+
+This difference was nonsignificant in the original study, but directionally, more people in the operable tumor condition recommended hospitalization.
+
+## Meta-analysis of Replications
+
+This manipulation check will be assessed using proportion differences (odds ratios) in recommended outcome, for Scenario (jealous rage vs. operable).
+
+```{r}
+darley_mc8_meta
+```
+
+## Forest Plot
+
+```{r}
+darley_mc8_forest
+```
+
+# Manipulation Check 9
+
+Participants in the operable tumor condition will recommend hospitalization more frequently than those in the inoperable tumor condition.
+
+## Meta-analysis of Replications
+
+This manipulation check will be assessed using proportion differences (odds ratios) in recommended outcome, for Scenario (operable vs. inoperable).
+
+```{r}
+darley_mc9_meta
+```
+
+## Forest Plot
+
+```{r}
+darley_mc9_forest
+```
+
+# Manipulation Check 10
+
+Participants in the jealous rage condition will recommend release approximately equally compared to those in the inoperable tumor condition.
+
+## Meta-analysis of Replications
+
+This manipulation check will be assessed using proportion differences (odds ratios) in recommended outcome, for Scenario (jealous rage vs. inoperable).
+
+```{r}
+darley_mc10_meta
+```
+
+## Forest Plot
+
+```{r}
+darley_mc10_forest
+```
+
+# Manipulation Check 11
+
+Participants in the jealous rage condition will recommend release less frequently compared to those in the operable tumor condition.
+
+## Meta-analysis of Replications
+
+This manipulation check will be assessed using proportion differences (odds ratios) in recommended outcome, for Scenario (jealous rage vs. operable).
+
+```{r}
+darley_mc11_meta
+```
+
+## Forest Plot
+
+```{r}
+darley_mc11_forest
+```
+
+# Manipulation Check 12
+
+Participants in the operable tumor condition will recommend release less frequently compared to those in the inoperable tumor condition.
+
+## Meta-analysis of Replications
+
+This manipulation check will be assessed using proportion differences (odds ratios) in recommended outcome, for Scenario (operable vs. inoperable).
+
+```{r}
+darley_mc12_meta
+```
+
+## Forest Plot
+
+```{r}
+darley_mc12_forest
+```
