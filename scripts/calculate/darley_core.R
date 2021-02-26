@@ -212,6 +212,8 @@ for (i in 1:lab_count_darley) {
 
 # MANIPULATION CHECK 4 -----------------------------------------------
 
+## Participants in the jealous rage condition will recommend prison more frequently than those in the inoperable tumor condition
+
 ## Calculate effect sizes 
 
 ### Set up empty data frames for effects
@@ -237,6 +239,8 @@ for (i in 1:lab_count_darley) {
 }
 
 # MANIPULATION CHECK 5 -----------------------------------------------
+
+## Participants in the jealous rage condition will recommend prison more frequently than those in the operable tumor condition
 
 ## Calculate effect sizes 
 
@@ -264,6 +268,8 @@ for (i in 1:lab_count_darley) {
 
 # MANIPULATION CHECK 6 -----------------------------------------------
 
+## Participants in the operable tumor condition will recommend prison more frequently than those in the inoperable tumor condition
+
 ## Calculate effect sizes 
 
 ### Set up empty data frames for effects
@@ -289,6 +295,8 @@ for (i in 1:lab_count_darley) {
 }
 
 # MANIPULATION CHECK 7 -----------------------------------------------
+
+## Participants in the inoperable tumor condition will recommend hospitalization more frequently than those in the jealous rage condition
 
 ## Calculate effect sizes 
 
@@ -316,6 +324,9 @@ for (i in 1:lab_count_darley) {
 
 # MANIPULATION CHECK 8 -----------------------------------------------
 
+## Participants in the operable tumor condition will recommend hospitalization more frequently than those in the jealous rage condition
+## This difference was nonsignificant in the original study, but directionally, more people in the operable tumor condition recommended hospitalization
+
 ## Calculate effect sizes 
 
 ### Set up empty data frames for effects
@@ -341,6 +352,8 @@ for (i in 1:lab_count_darley) {
 }
 
 # MANIPULATION CHECK 9 -----------------------------------------------
+
+## Participants in the operable tumor condition will recommend hospitalization more frequently than those in the inoperable tumor condition
 
 ## Calculate effect sizes 
 
@@ -368,6 +381,8 @@ for (i in 1:lab_count_darley) {
 
 # MANIPULATION CHECK 10 -----------------------------------------------
 
+## Participants in the jealous rage condition will recommend release approximately equally compared to those in the inoperable tumor condition
+
 ## Calculate effect sizes 
 
 ### Set up empty data frames for effects
@@ -394,6 +409,8 @@ for (i in 1:lab_count_darley) {
 
 # MANIPULATION CHECK 11 -----------------------------------------------
 
+## Participants in the jealous rage condition will recommend release less frequently compared to those in the operable tumor condition
+
 ## Calculate effect sizes 
 
 ### Set up empty data frames for effects
@@ -419,6 +436,8 @@ for (i in 1:lab_count_darley) {
 }
 
 # MANIPULATION CHECK 12 -----------------------------------------------
+
+## Participants in the operable tumor condition will recommend release less frequently compared to those in the inoperable tumor condition
 
 ## Calculate effect sizes 
 
