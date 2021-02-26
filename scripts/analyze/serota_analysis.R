@@ -267,7 +267,7 @@ serota_desc <- read.csv("./data/serota_effects/serota_desc.csv")
 
 # Import original effects
 
-serota_org <- read.csv("./data/original/serota_original.csv")
+serota_org <- read.csv("./data/original/serota_original.csv") # CURRENT THE CONFIDENCE INTERVALS FOR THE REGRESSION COEFFICIENTS ARE COMPLETELY WRONG
 
 # Set study color
 
