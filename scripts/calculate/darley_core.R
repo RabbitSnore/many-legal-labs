@@ -47,8 +47,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$punishment[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$punishment[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "jealous_rage", 
     cond_2 = "inoperable"
@@ -77,8 +77,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$punishment[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$punishment[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "jealous_rage", 
     cond_2 = "operable"
@@ -107,8 +107,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$punishment[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$punishment[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "inoperable", 
     cond_2 = "operable"
@@ -137,8 +137,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$attribution[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$attribution[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "jealous_rage", 
     cond_2 = "inoperable"
@@ -167,8 +167,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$attribution[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$attribution[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "jealous_rage", 
     cond_2 = "operable"
@@ -199,8 +199,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$attribution[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$attribution[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "inoperable", 
     cond_2 = "operable"
@@ -226,8 +226,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$prison[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$prison[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "jealous_rage", 
     cond_2 = "inoperable"
@@ -252,8 +252,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$prison[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$prison[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "jealous_rage", 
     cond_2 = "operable"
@@ -278,8 +278,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$prison[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$prison[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "inoperable", 
     cond_2 = "operable"
@@ -304,8 +304,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$mental_inst[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$mental_inst[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "jealous_rage", 
     cond_2 = "inoperable"
@@ -330,8 +330,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$mental_inst[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$mental_inst[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "jealous_rage", 
     cond_2 = "operable"
@@ -356,8 +356,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$mental_inst[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$mental_inst[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "inoperable", 
     cond_2 = "operable"
@@ -382,8 +382,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$free[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$free[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "jealous_rage", 
     cond_2 = "inoperable"
@@ -408,8 +408,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$free[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$free[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "jealous_rage", 
     cond_2 = "operable"
@@ -434,8 +434,8 @@ for (i in 1:lab_count_darley) {
     
     ID = unique(darley$lab)[i], 
     
-    x = darley$scenario[darley$lab == i], 
-    y = darley$free[darley$lab == i], 
+    x = darley$scenario[darley$lab == unique(darley$lab)[i]], 
+    y = darley$free[darley$lab == unique(darley$lab)[i]], 
     
     cond_1 = "inoperable", 
     cond_2 = "operable"

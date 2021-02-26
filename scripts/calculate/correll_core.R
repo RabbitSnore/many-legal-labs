@@ -73,8 +73,8 @@ for (i in 1:lab_count_correll) {
     
     ID = unique(correll_h1_data$lab)[i], 
     
-    x = correll_h1_data$object[correll_h1_data$lab == i], 
-    y = correll_h1_data$latency[correll_h1_data$lab == i], 
+    x = correll_h1_data$object[correll_h1_data$lab == unique(correll_h1_data$lab)[i]], 
+    y = correll_h1_data$latency[correll_h1_data$lab == unique(correll_h1_data$lab)[i]], 
     
     cond_1 = "armed", 
     cond_2 = "unarmed"
@@ -116,10 +116,10 @@ for (i in 1:lab_count_correll) {
   
   correll_h2_smd[i, ] <- d_calc(
     
-    ID = unique(correll_h1_data$lab)[i], 
+    ID = unique(correll_h2_data$lab)[i], 
     
-    x = correll_h2_data$race[correll_h2_data$lab == i], 
-    y = correll_h2_data$latency[correll_h2_data$lab == i], 
+    x = correll_h2_data$race[correll_h2_data$lab == unique(correll_h2_data$lab)[i]], 
+    y = correll_h2_data$latency[correll_h2_data$lab == unique(correll_h2_data$lab)[i]], 
     
     cond_1 = "black", 
     cond_2 = "white"
@@ -161,10 +161,10 @@ for (i in 1:lab_count_correll) {
   
   correll_h3_smd[i, ] <- d_calc(
     
-    ID = unique(correll_h1_data$lab)[i], 
+    ID = unique(correll_h3_data$lab)[i], 
     
-    x = correll_h3_data$race[correll_h3_data$lab == i], 
-    y = correll_h3_data$latency[correll_h3_data$lab == i], 
+    x = correll_h3_data$race[correll_h3_data$lab == unique(correll_h3_data$lab)[i]], 
+    y = correll_h3_data$latency[correll_h3_data$lab == unique(correll_h3_data$lab)[i]], 
     
     cond_1 = "black", 
     cond_2 = "white"
@@ -205,10 +205,10 @@ for (i in 1:lab_count_correll) {
   
   correll_h4_smd[i, ] <- d_calc(
     
-    ID = unique(correll_h1_data$lab)[i], 
+    ID = unique(correll_h4_data$lab)[i], 
     
-    x = correll_h4_data$object[correll_h4_data$lab == i], 
-    y = correll_h4_data$accuracy[correll_h4_data$lab == i], 
+    x = correll_h4_data$object[correll_h4_data$lab == unique(correll_h4_data$lab)[i]], 
+    y = correll_h4_data$accuracy[correll_h4_data$lab == unique(correll_h4_data$lab)[i]], 
     
     cond_1 = "armed", 
     cond_2 = "unarmed"
