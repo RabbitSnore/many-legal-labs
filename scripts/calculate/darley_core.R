@@ -209,6 +209,241 @@ for (i in 1:lab_count_darley) {
   
 }
 
+
+# MANIPULATION CHECK 4 -----------------------------------------------
+
+## Calculate effect sizes 
+
+### Set up empty data frames for effects
+
+darley_mc4_lor <- empty_lor_data(lab_count_darley)
+
+### Compute log odds ratios for each lab
+
+for (i in 1:lab_count_darley) {
+  
+  darley_mc4_lor[i, ] <- odds_calc(
+    
+    ID = unique(darley$lab)[i], 
+    
+    x = darley$scenario[darley$lab == i], 
+    y = darley$prison[darley$lab == i], 
+    
+    cond_1 = "jealous_rage", 
+    cond_2 = "inoperable"
+    
+  )
+  
+}
+
+# MANIPULATION CHECK 5 -----------------------------------------------
+
+## Calculate effect sizes 
+
+### Set up empty data frames for effects
+
+darley_mc5_lor <- empty_lor_data(lab_count_darley)
+
+### Compute log odds ratios for each lab
+
+for (i in 1:lab_count_darley) {
+  
+  darley_mc5_lor[i, ] <- odds_calc(
+    
+    ID = unique(darley$lab)[i], 
+    
+    x = darley$scenario[darley$lab == i], 
+    y = darley$prison[darley$lab == i], 
+    
+    cond_1 = "jealous_rage", 
+    cond_2 = "operable"
+    
+  )
+  
+}
+
+# MANIPULATION CHECK 6 -----------------------------------------------
+
+## Calculate effect sizes 
+
+### Set up empty data frames for effects
+
+darley_mc6_lor <- empty_lor_data(lab_count_darley)
+
+### Compute log odds ratios for each lab
+
+for (i in 1:lab_count_darley) {
+  
+  darley_mc6_lor[i, ] <- odds_calc(
+    
+    ID = unique(darley$lab)[i], 
+    
+    x = darley$scenario[darley$lab == i], 
+    y = darley$prison[darley$lab == i], 
+    
+    cond_1 = "inoperable", 
+    cond_2 = "operable"
+    
+  )
+  
+}
+
+# MANIPULATION CHECK 7 -----------------------------------------------
+
+## Calculate effect sizes 
+
+### Set up empty data frames for effects
+
+darley_mc7_lor <- empty_lor_data(lab_count_darley)
+
+### Compute log odds ratios for each lab
+
+for (i in 1:lab_count_darley) {
+  
+  darley_mc7_lor[i, ] <- odds_calc(
+    
+    ID = unique(darley$lab)[i], 
+    
+    x = darley$scenario[darley$lab == i], 
+    y = darley$mental_inst[darley$lab == i], 
+    
+    cond_1 = "jealous_rage", 
+    cond_2 = "inoperable"
+    
+  )
+  
+}
+
+# MANIPULATION CHECK 8 -----------------------------------------------
+
+## Calculate effect sizes 
+
+### Set up empty data frames for effects
+
+darley_mc8_lor <- empty_lor_data(lab_count_darley)
+
+### Compute log odds ratios for each lab
+
+for (i in 1:lab_count_darley) {
+  
+  darley_mc8_lor[i, ] <- odds_calc(
+    
+    ID = unique(darley$lab)[i], 
+    
+    x = darley$scenario[darley$lab == i], 
+    y = darley$mental_inst[darley$lab == i], 
+    
+    cond_1 = "jealous_rage", 
+    cond_2 = "operable"
+    
+  )
+  
+}
+
+# MANIPULATION CHECK 9 -----------------------------------------------
+
+## Calculate effect sizes 
+
+### Set up empty data frames for effects
+
+darley_mc9_lor <- empty_lor_data(lab_count_darley)
+
+### Compute log odds ratios for each lab
+
+for (i in 1:lab_count_darley) {
+  
+  darley_mc9_lor[i, ] <- odds_calc(
+    
+    ID = unique(darley$lab)[i], 
+    
+    x = darley$scenario[darley$lab == i], 
+    y = darley$mental_inst[darley$lab == i], 
+    
+    cond_1 = "inoperable", 
+    cond_2 = "operable"
+    
+  )
+  
+}
+
+# MANIPULATION CHECK 10 -----------------------------------------------
+
+## Calculate effect sizes 
+
+### Set up empty data frames for effects
+
+darley_mc10_lor <- empty_lor_data(lab_count_darley)
+
+### Compute log odds ratios for each lab
+
+for (i in 1:lab_count_darley) {
+  
+  darley_mc10_lor[i, ] <- odds_calc(
+    
+    ID = unique(darley$lab)[i], 
+    
+    x = darley$scenario[darley$lab == i], 
+    y = darley$free[darley$lab == i], 
+    
+    cond_1 = "jealous_rage", 
+    cond_2 = "inoperable"
+    
+  )
+  
+}
+
+# MANIPULATION CHECK 11 -----------------------------------------------
+
+## Calculate effect sizes 
+
+### Set up empty data frames for effects
+
+darley_mc11_lor <- empty_lor_data(lab_count_darley)
+
+### Compute log odds ratios for each lab
+
+for (i in 1:lab_count_darley) {
+  
+  darley_mc11_lor[i, ] <- odds_calc(
+    
+    ID = unique(darley$lab)[i], 
+    
+    x = darley$scenario[darley$lab == i], 
+    y = darley$free[darley$lab == i], 
+    
+    cond_1 = "jealous_rage", 
+    cond_2 = "operable"
+    
+  )
+  
+}
+
+# MANIPULATION CHECK 12 -----------------------------------------------
+
+## Calculate effect sizes 
+
+### Set up empty data frames for effects
+
+darley_mc12_lor <- empty_lor_data(lab_count_darley)
+
+### Compute log odds ratios for each lab
+
+for (i in 1:lab_count_darley) {
+  
+  darley_mc12_lor[i, ] <- odds_calc(
+    
+    ID = unique(darley$lab)[i], 
+    
+    x = darley$scenario[darley$lab == i], 
+    y = darley$free[darley$lab == i], 
+    
+    cond_1 = "inoperable", 
+    cond_2 = "operable"
+    
+  )
+  
+}
+
 # Export Calculated Effect Sizes --------------------------------------
 
 ## If the data directory does not exist, it will be necessary to create it
@@ -291,3 +526,110 @@ if (!file.exists("./data/darley_effects/darley_mc3_lor.csv")) {
   
 }
 
+## Manipulation check 4
+
+if (!file.exists("./data/darley_effects/darley_mc4_lor.csv")) {
+  
+  write.csv(
+    darley_mc4_lor,
+    "./data/darley_effects/darley_mc4_lor.csv",
+    row.names = FALSE
+  )
+  
+}
+
+## Manipulation check 5
+
+if (!file.exists("./data/darley_effects/darley_mc5_lor.csv")) {
+  
+  write.csv(
+    darley_mc5_lor,
+    "./data/darley_effects/darley_mc5_lor.csv",
+    row.names = FALSE
+  )
+  
+}
+
+## Manipulation check 6
+
+if (!file.exists("./data/darley_effects/darley_mc6_lor.csv")) {
+  
+  write.csv(
+    darley_mc6_lor,
+    "./data/darley_effects/darley_mc6_lor.csv",
+    row.names = FALSE
+  )
+  
+}
+
+## Manipulation check 7
+
+if (!file.exists("./data/darley_effects/darley_mc7_lor.csv")) {
+  
+  write.csv(
+    darley_mc7_lor,
+    "./data/darley_effects/darley_mc7_lor.csv",
+    row.names = FALSE
+  )
+  
+}
+
+## Manipulation check 8
+
+if (!file.exists("./data/darley_effects/darley_mc8_lor.csv")) {
+  
+  write.csv(
+    darley_mc8_lor,
+    "./data/darley_effects/darley_mc8_lor.csv",
+    row.names = FALSE
+  )
+  
+}
+
+## Manipulation check 9
+
+if (!file.exists("./data/darley_effects/darley_mc9_lor.csv")) {
+  
+  write.csv(
+    darley_mc9_lor,
+    "./data/darley_effects/darley_mc9_lor.csv",
+    row.names = FALSE
+  )
+  
+}
+
+## Manipulation check 10
+
+if (!file.exists("./data/darley_effects/darley_mc10_lor.csv")) {
+  
+  write.csv(
+    darley_mc10_lor,
+    "./data/darley_effects/darley_mc10_lor.csv",
+    row.names = FALSE
+  )
+  
+}
+
+## Manipulation check 11
+
+if (!file.exists("./data/darley_effects/darley_mc11_lor.csv")) {
+  
+  write.csv(
+    darley_mc11_lor,
+    "./data/darley_effects/darley_mc11_lor.csv",
+    row.names = FALSE
+  )
+  
+}
+
+## Manipulation check 12
+
+if (!file.exists("./data/darley_effects/darley_mc12_lor.csv")) {
+  
+  write.csv(
+    darley_mc12_lor,
+    "./data/darley_effects/darley_mc12_lor.csv",
+    row.names = FALSE
+  )
+  
+}
