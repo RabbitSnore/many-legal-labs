@@ -26,6 +26,7 @@ n_per     <- 80 # Number of participants per lab
 scenario     <- c("jealous_rage", "inoperable", "operable")
 punishment   <- c(1:7)                     # O Scale of 1-7
 attribution  <- c(0,1)                     # 0 = Tumor, 1 = Actor
+outcome      <- c("prison","mental_inst","free") #Recommended outcome
 
 ## Set up participants
 
@@ -47,6 +48,8 @@ darley_wide$attribution <- attribution
 attribution_count <- count(darley_wide, attribution)
 
 darley_wide$punishment <- sample(punishment, nrow(darley_wide), replace = TRUE)
+
+darley_wide$outcome <-sample(outcome, nrow(darley_wide), replace = TRUE)
 
 # Save data simulated data file ---------------------------------------
 
