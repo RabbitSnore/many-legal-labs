@@ -27,9 +27,29 @@ source("./scripts/analyze/serota_analysis.R")
 
 # Descriptive statistics
 
-## Original
+## Mean Lies per Day
 
-## Replications
+Serota et al (2010, Study 1) found that people told on average M = 1.65, 95% CI [1.37, 1.93] lies per day (SD = 4.45, Mdn = 0, Mode = 0, N = 998, Max = 53 lies).
+
+Study 3 found that students told an average of M = 2.34, 95% CI [1.95, 2.72] lies per day (SD = 2.94, Mdn = 1, Mode = 0, N = 225, Max = 21 lies).
+
+We will calculate the weighted average of the mean lies told per day in each of the replication studies.
+
+```{r}
+serota_mean_meta
+```
+
+### Forest plot
+
+```{r}
+serota_mean_forest
+```
+
+## Standard Deviation of Lies per Day
+
+```{r}
+serota_sd_meta
+```
 
 # Hypothesis 1
 
