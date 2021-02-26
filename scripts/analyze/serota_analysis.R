@@ -151,7 +151,7 @@ serota_org <- read.csv("./data/original/serota_original.csv")
 
 # Set study color
 
-serota_color_1 <- "#FF7F50"
+serota_color_1 <- "#C3941D"
 
 # HYPOTHESIS 1 --------------------------------------------------------
 

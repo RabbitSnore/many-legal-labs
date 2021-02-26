@@ -1,0 +1,44 @@
+---
+title: "Results of Replications of Serota et al (2010, Study 3)"
+author: "Many Legal Labs"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+knit: (function(input_file, encoding) {
+    rmarkdown::render(input_file, encoding = encoding, output_dir = "./reports/")
+  })
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Run all necessary scripts
+
+source("./scripts/simulate/serota_simulation.R") # REPLACE WITH DATA IMPORTATION
+source("./scripts/wrangle/serota_prelim.R")
+source("./scripts/calculate/serota_core.R")
+source("./scripts/analyze/serota_analysis.R")
+
+```
+
+# Overview
+
+# Hypothesis 1
+
+The distribution of the number of lies told in the last 24 hours can be characterized by a power function with a negative exponent.
+
+## Meta-analysis of Replications
+
+This hypothesis is tested using coefficients (i.e., exponent in a power function) for a non-linear least squares regression predicting frequency from the number of lies.
+
+```{r}
+serota_h1_meta
+```
+
+## Forest Plot
+
+```{r}
+serota_h1_forest
+```
