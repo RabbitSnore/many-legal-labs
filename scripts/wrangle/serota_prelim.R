@@ -40,6 +40,18 @@ serota_summary <- serota_sim %>%
             mode = which.max(table(total_lies)))
 
 
+freq_lies <- serota_sim %>% 
+  group_by(lab) %>% 
+  count(lies = serota_sim$total_lies)
+
+freq_lies <- freq_lies %>% 
+  rename(freq = n)
+
+prop_lies <- freq_lies %>%
+  group_by(lab) %>%
+  mutate(prop = freq / sum(freq))
+
+
 # Save data simulated data file ---------------------------------------
 
 if (!file.exists("./data/serota_summary.csv")) {
