@@ -51,6 +51,12 @@ prop_lies <- freq_lies %>%
   group_by(lab) %>%
   mutate(prop = freq / sum(freq))
 
+lab_country <- serota_sim[c("lab","country")]
+
+lab_country <- lab_country %>% 
+  distinct()
+
+serota_summary <- left_join(serota_summary, lab_country, by = "lab")
 
 # Save data simulated data file ---------------------------------------
 
