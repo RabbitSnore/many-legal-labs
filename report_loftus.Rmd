@@ -27,7 +27,11 @@ source("./scripts/analyze/loftus_analysis.R")
 
 # Hypothesis 1
 
+Participants will provide higher speed estimates in the "smashed" condition compared to the "hit" condition.
+
 ## Meta-analysis of Replications
+
+This hypothesis will be tested using standardized mean differences of speed estimates between the "smashed" and "hit" conditions.
 
 ```{r}
 loftus_h1_meta
@@ -41,7 +45,11 @@ loftus_h1_forest
 
 # Hypothesis 2
 
+Participants will more frequently report seeing broken glass in the "smashed" condition compared to the "hit" condition.
+
 ## Meta-analysis of Replications
+
+This hypothesis will be tested using proportion differences (odds ratios) in reporting broken glass between the "smashed" and "hit" conditions.
 
 ```{r}
 loftus_h2_meta
@@ -55,7 +63,11 @@ loftus_h2_forest
 
 # Hypothesis 3
 
+Participants will more frequently report seeing broken glass in the "smashed" condition compared to the "control" condition.
+
 ## Meta-analysis of Replications
+
+This hypothesis will be tested using proportion differences (odds ratios) in reporting broken glass between the "smashed" and "control" conditions.
 
 ```{r}
 loftus_h3_meta
