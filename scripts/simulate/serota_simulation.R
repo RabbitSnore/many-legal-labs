@@ -28,6 +28,7 @@ n_lies    <- 10
 
 mode      <- c("face", "mediated")
 person    <- c("family", "friend", "business", "acquaintance", "stranger")
+country   <- c("Basutoland", "Ceylon", "DDR", "Neutral Moresnet", "Prussia", "Roman empire", "Sikkim", "Tavolara", "Vermont", "Yugoslavia", "Zanzibar")
 
 last_lie <- c("more than 24 hours ago but within the last 2 days", "more than 2 days ago but within the last week", "more than a week ago but within the last month", "more than a month ago", "never")
 
@@ -45,6 +46,13 @@ serota_wide <-
 
 ## Set up data columns
 
+lab_country <-  
+  expand.grid(lab = 1:n_labs)
+
+lab_country$country <- sample(country, nrow(lab_country), replace = TRUE)
+
+serota_wide <- left_join(serota_wide, lab_country, by = "lab", "lab")
+
 lies  <- replicate( n_mode * nrow(expand.grid(person)), rpois(nrow(serota_wide), 1)) %>% 
   as.data.frame()
 
@@ -59,6 +67,7 @@ lie_cols <- apply(lie_combn, 1, paste, collapse = "_")
 colnames(lies) <- lie_cols
 
 serota_wide <- bind_cols(serota_wide, lies)
+
 
 ## Calculate total lies
 
@@ -79,7 +88,7 @@ serota_wide$last_lie[serota_wide$total_lies == 0] <- sample(last_lie, nrow(serot
 
 # Save data simulated data file ---------------------------------------
 
-if (!file.exists("./data/serota_sim.csv")) {
+if (!file.exists("./data/serota_raw.csv")) {
   
   if (!file.exists("./data/")) {
     
@@ -89,7 +98,7 @@ if (!file.exists("./data/serota_sim.csv")) {
   
   write.csv(
     serota_wide,
-    "./data/serota_sim.csv",
+    "./data/serota_raw.csv",
     row.names = FALSE
   )
   
