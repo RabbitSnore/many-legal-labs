@@ -143,7 +143,7 @@ forest_plot_k <- function(meta_analysis, replication_data, org_k, org_ci_lower, 
 
 ### Forest plot for means
 
-forest_plot_mean <- function(meta_analysis, replication_data, org_mean, org_ci_lower, org_ci_upper, title, study_color = "black", boundary_pad = 0.20, breaks = 0.10) {
+forest_plot_mean <- function(meta_analysis, replication_data, org_mean, org_ci_lower, org_ci_upper, title, study_color = "black", boundary_pad = 0.20, breaks = 1) {
   
   ### Set up original and meta-analytic estimates
   
@@ -157,7 +157,7 @@ forest_plot_mean <- function(meta_analysis, replication_data, org_mean, org_ci_l
   
   ### Bind the original and meta-analytic estimates to the calculated effects from each lab
   
-  replication_data$ID <- as.character(replication_data$ID)
+  replication_data$ID <- as.character(replication_data$lab)
   
   forest_estimates <- bind_rows(forest_estimates, replication_data)
   
@@ -291,7 +291,7 @@ serota_mean_meta <- rma(
 serota_mean_forest <- 
   forest_plot_mean(
     meta_analysis = serota_mean_meta, 
-    replication_data = serota_mean_meta, 
+    replication_data = serota_desc, 
     title = "Serota et al (2010), Average Lies per Day",
     study_color = serota_color_1,
     org_mean = serota_org[serota_org$hypothesis == "mean", ]$mean, 
@@ -308,9 +308,8 @@ serota_mean_forest <-
 
 serota_sd_meta <- rma(
   yi = sd,
-  mods = ~ sd_weight,
+  vi = sd_weight,
   data = serota_desc,
-  weighted = FALSE,
   method = "REML"
 )
 
@@ -330,7 +329,7 @@ serota_h1_meta <- rma(
 serota_h1_forest <- 
   forest_plot_k(
     meta_analysis = serota_h1_meta, 
-    replication_data = serota_h1_meta, 
+    replication_data = serota_h1_k, 
     title = "Serota et al (2010), Hypothesis 1",
     study_color = serota_color_1,
     org_k = serota_org[serota_org$hypothesis == "h1", ]$k, 

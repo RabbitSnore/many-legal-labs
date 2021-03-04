@@ -78,7 +78,7 @@ long_lies <- long_lies[order(long_lies$lab),]
 filter_lies <- filter(long_lies, lies != 0)
 
 
-## Getting proportion of lies per lab (should this be after the filter?)
+## Getting proportion of lies per lab
 
 prop_lies <- filter_lies %>%
   group_by(lab) %>%
@@ -118,3 +118,4 @@ if (!file.exists("./data/serota_frequencies.csv")) {
   )
   
 }
+

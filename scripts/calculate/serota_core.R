@@ -52,17 +52,15 @@ power_calc <- function(ID, x, y) {
     
   }
   
-  start <- starting_values(x, y)
+  start <- starting_values(ID, x, y)
   
   model <- nls(y ~ a * x^k, start = list(a = start[1], k = start[2]))
   
   k   <- summary(model)$parameters[2, 1]
   var <- summary(model)$parameters[2, 2]^2
   
-  cis <- confint(model)
-  
-  ci_upper <- cis[2, 2]
-  ci_lower <- cis[2, 1]
+  ci_upper <- k + sqrt(var)*qt(.975, summary(model)$df[2])
+  ci_lower <- k - sqrt(var)*qt(.975, summary(model)$df[2])
   
   a       <- summary(model)$parameters[1, 1]
   var_a   <- summary(model)$parameters[1, 2]^2
@@ -93,7 +91,7 @@ empty_k_data <- function(n) {
 
 # Import wrangled data ------------------------------------------------
 
-serota <- read.csv("./data/serota_wrangle.csv")
+serota <- read.csv("./data/serota_frequencies.csv")
 
 serota_summary <- read.csv("./data/serota_summary.csv")
 
@@ -137,7 +135,7 @@ for (i in 1:lab_count_serota) {
     ID = unique(serota$lab)[i], 
     
     x = serota$lies[serota$lab == unique(serota$lab)[i]], 
-    y = serota$frequency[serota$lab == unique(serota$lab)[i]] 
+    y = serota$freq[serota$lab == unique(serota$lab)[i]] 
   
   )
   
@@ -158,7 +156,7 @@ if (!file.exists("./data/serota_effects/")) {
 if (!file.exists("./data/serota_effects/serota_desc.csv")) {
   
   write.csv(
-    darley_h1_smd,
+    serota_desc,
     "./data/serota_effects/serota_desc.csv",
     row.names = FALSE
   )
@@ -170,7 +168,7 @@ if (!file.exists("./data/serota_effects/serota_desc.csv")) {
 if (!file.exists("./data/serota_effects/serota_h1_k.csv")) {
   
   write.csv(
-    darley_h1_smd,
+    serota_h1_k,
     "./data/serota_effects/serota_h1_k.csv",
     row.names = FALSE
   )
