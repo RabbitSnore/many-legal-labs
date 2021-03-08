@@ -84,7 +84,7 @@ odds_calc <- function(ID, x, y, cond_1, cond_2) {
 empty_smd_data <- function(n) {
   
   out <- data.frame(
-    ID       = 1:n,
+    ID       = rep(NA, n),
     d        = rep(NA, n),
     var      = rep(NA, n),
     ci_lower = rep(NA, n),
@@ -100,7 +100,7 @@ empty_smd_data <- function(n) {
 empty_lor_data <- function(n) {
   
   out <- data.frame(
-    ID       = 1:n,
+    ID       = rep(NA, n),
     log_odds = rep(NA, n),
     var      = rep(NA, n),
     ci_lower = rep(NA, n),

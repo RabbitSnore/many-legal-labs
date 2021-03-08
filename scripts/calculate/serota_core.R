@@ -76,7 +76,7 @@ power_calc <- function(ID, x, y) {
 empty_k_data <- function(n) {
   
   out <- data.frame(
-    ID       = 1:n,
+    ID       = rep(NA, n),
     k        = rep(NA, n),
     var      = rep(NA, n),
     a        = rep(NA, n),
