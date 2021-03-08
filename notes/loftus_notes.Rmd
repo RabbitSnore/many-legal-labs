@@ -1,0 +1,185 @@
+---
+title: "Notes on Loftus and Palmer (1974"
+author: "Timothy J. Luke"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: darkly
+bibliography: refs.bib
+csl: apa.csl # Author and contributor information is stored in the code
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+```
+
+# Overview
+
+@loftus1974 reported a kind of jury rigged mediation analysis without formal inferential statistics. I don't mean to give them a hard time about it. It was 1974, and mediation analysis was not exactly accessible (and modern approaches would have been computationally intractable at the time). But the approach they took and the way they report the analysis poses some interesting problems for replicators (i.e., us).
+
+Here is a recreation of the table of proportions they present.
+
+```{r}
+speed_table <- matrix(
+  c(
+    .09, .06,
+    .27, .09,
+    .41, .25,
+    .62, .50
+    ),
+  nrow = 2,
+  dimnames = list(
+    c("smashed", "hit"),
+    c("1-5", "6-10", "11-15", "16-20")
+  )
+  )
+
+as.data.frame(speed_table)
+```
+
+Each row is a verb condition, and each column is an interval of speed estimates (in MPH). The proportions are the proportion of participants in that cell that reported seeing broken glass.
+
+If we are to take a more contemporary approach to mediation for the analysis of these data in the replications, we should ideally have effect sizes derived from the original to which we can compare. Unfortunately, we cannot exactly reproduce the original data using the reported tables.
+
+# Approach for Replications
+
+@loftus1974 frame their inferences in mediational terms: That speed estimates partly mediate the effect on misreporting the presence of glass in the video, and that  "smashed" is having an effect beyond simply changing the speed estimates. In other words, they argue for a partially mediated effect, such that "smashed" increases speed estimates, which in turn increases reporting of broken glass, but that "smashed" has other (unspecified) effects that increase the reporting of broken glass. In a regression framework, this pattern of relationships would correspond to a positive indirect effect of verb condition through speed estimates on reporting broken glass, as well as a positive direct effect (controlling for speed estimate) of verb condition on reporting broken glass. Thus, the two parameters of interest are the indirect effect (_c_) and the direct effect (_c'_). 
+
+Meta-analyzing indirect effects in mediation models is certainly not conventional (or at least not common), but thankfully there is recent statistical work on how one would go about this. @cheung2020 recommends using the delta method to estimate the sampling variance for the indirect effects and then meta-analyzing the coefficients using a multivariate approach in which each study provides an estimate of the indirect and direct effects, which are synthesized simultaneously. This is the approach we will take in the replications.
+
+To derive "original" effect sizes for comparison, we will create mocked-up data sets based on the tables in @loftus1974 that represent the strongest and weakest possible direct effects that are consistent with the original data.
+
+# Attempting to Recreate the Data
+
+To recreate plausible data sets, let's collect all the information we have from the original paper.
+
+## Reconstructing the Variance
+
+We do not have SDs for the speed estimates for the smashed and hit conditions. However, we have the t-test comparing the speed estimates, and we have the means of the smashed and hit conditions (10.46 and 8.00 respectively). We can calculate the pooled SD from these values and the group sizes.
+
+```{r}
+estimate_sd <- function(difference, t, n1, n2) {
+  
+  d <- t * sqrt((n1 + n2) / (n1 * n2))
+  
+  sd <- difference / d
+  
+  return(sd)
+  
+}
+```
+
+```{r}
+estimate_sd(10.46 - 8.00, 2.00, 50, 50)
+```
+
+## Broken Glass
+
+According to the original paper, in the smashed condition 16 participants reported seeing the broken glass (34 did not), and in the hit condition 7 participants reported seeing the broken glass (43 did not).
+
+If we look at the proportions in Table 3 (as labeled in the original paper), maybe we can figure out how many people might have been in each cell based on the divisibility of the values.
+
+```{r}
+as.data.frame(speed_table)
+```
+
+For example, in the 16-20 bracket in the hit condition, the number of people must be even (at least 2). We furthermore know that there were only 7 people in the hit condition who reported the glass, and the mean was only 8. So there's a good bet there were only a small number of people in that cell. Let's say 4, with two reporting seeing glass.
+
+I'm guessing there were 8 people in the 11-15 bracket for hit, and that two of them reported seeing glass. Otherwise, there would need to be at least 8 people in that cell -- which my gut says would pull the mean too high.
+
+Maybe there were 16 people in the 1-5 bracket, one of whom reported glass. And perhaps 22 in the 6-10 bracket, with two reporting the broken glass. 
+
+Does this add up? That gives 7 total glass-reporters. It seems like a plausible set of values on its face (in sequence: 16. 22, 8, 4).
+
+The smashed condition is a bit trickier... By hand, I can't seem to get values that work. So let's turn this into a complete grid search.
+
+```{r}
+search_hit <- function(x) {
+  
+  a <- x[1]
+  b <- x[2]
+  c <- x[3]
+  d <- x[4]
+  
+  glass <- .06*a + .09*b + .25*c + .50*d - 7 # The cell counts should closely match the proportions and sum to the total number of people reporting broken glass
+
+  glass_check <- sum(c(abs(round(.06*a) - .06*a), 
+                       abs(round(.09*b) - .09*b), 
+                       abs(round(.25*c) - .25*c), 
+                       abs(round(.50*d) - .50*d))) # sum of absolute deviations from the nearest whole number
+  
+  total <- sum((c(a, b, c, d))) - 50 # Require that the values sum to 50
+  
+  fr <- abs(glass) + abs(glass_check) + abs(total)
+  
+  return(fr)
+  
+}
+
+hit_grid <- NMOF::gridSearch(search_hit, list(2:30, 2:30, 2:30, 2:30))
+
+hit_grid$minfun
+hit_grid$minlevels
+sum(hit_grid$values == hit_grid$minfun)
+```
+
+```{r}
+hit_grid$minlevels * speed_table[2, ]
+```
+
+Pretty close to whole numbers. That's promising.
+
+```{r}
+(round(hit_grid$minlevels * speed_table[2, ]) / hit_grid$minlevels) %>% 
+  round(2)
+```
+
+We get values that match the ones derived above, and the proportions match the originally reported ones. Now let's try with the smashed values...
+
+```{r}
+search_smashed <- function(x) {
+  
+  a <- x[1]
+  b <- x[2]
+  c <- x[3]
+  d <- x[4]
+  
+  glass <- .09*a + .27*b + .41*c + .62*d - 16 # The cell counts should closely match the proportions and sum to the total number of people reporting broken glass
+
+  glass_check <- sum(c(abs(round(.09*a) - .09*a), 
+                       abs(round(.27*b) - .27*b), 
+                       abs(round(.41*c) - .41*c), 
+                       abs(round(.62*d) - .62*d))) # sum of absolute deviations from the nearest whole number
+  
+  total <- sum((c(a, b, c, d))) - 50 # Require that the values sum to 50
+  
+  fr <- abs(glass) + abs(glass_check) + abs(total)
+  
+  return(fr)
+  
+}
+
+smashed_grid <- NMOF::gridSearch(search_smashed, list(2:30, 2:30, 2:30, 2:30))
+
+smashed_grid$minfun
+smashed_grid$minlevels
+sum(smashed_grid$values == smashed_grid$minfun)
+```
+
+```{r}
+smashed_grid$minlevels * speed_table[1, ]
+```
+
+Not as close as I would like to whole numbers, but let's see if we can reproduce the original proportions.
+
+```{r}
+(round(smashed_grid$minlevels * speed_table[1, ]) / smashed_grid$minlevels) %>% 
+  round(2)
+```
+
+Not exactly right. I can't account for the imprecision, but we've checked every plausible value.
+
+That was a bit harder than I think it had to be, but we got the most likely cell counts for each interval, for each condition.
