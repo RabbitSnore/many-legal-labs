@@ -56,11 +56,11 @@ mediation_calc <- function(ID, x, m, y) {
   
   # Extract values
   
-  direct            <- med_standard[med_standard$lhs == "direct", ]$est.std
+  direct_est        <- med_standard[med_standard$lhs == "direct", ]$est.std
   direct_var        <- med_standard[med_standard$lhs == "direct", ]$se^2
   direct_ci_upper   <- med_standard[med_standard$lhs == "direct", ]$ci.upper
   direct_ci_lower   <- med_standard[med_standard$lhs == "direct", ]$ci.lower
-  indirect          <- med_standard[med_standard$lhs == "indirect", ]$est.std
+  indirect_est      <- med_standard[med_standard$lhs == "indirect", ]$est.std
   indirect_var      <- med_standard[med_standard$lhs == "indirect", ]$se^2
   indirect_ci_upper <- med_standard[med_standard$lhs == "indirect", ]$ci.upper
   indirect_ci_lower <- med_standard[med_standard$lhs == "indirect", ]$ci.lower
@@ -69,11 +69,11 @@ mediation_calc <- function(ID, x, m, y) {
   
   out <- data.frame(
     ID                = ID, 
-    direct            = direct, 
+    direct_est        = direct_est, 
     direct_var        = direct_var, 
     direct_ci_upper   = direct_ci_upper, 
     direct_ci_lower   = direct_ci_lower, 
-    indirect          = indirect, 
+    indirect_est      = indirect_est, 
     indirect_var      = indirect_var, 
     indirect_ci_upper = indirect_ci_upper, 
     indirect_ci_lower = indirect_ci_lower
@@ -89,11 +89,11 @@ empty_med_data <- function(n) {
   
   out <- data.frame(
     ID                = rep(NA, n),
-    direct            = rep(NA, n),
+    direct_est        = rep(NA, n),
     direct_var        = rep(NA, n),
     direct_ci_upper   = rep(NA, n),
     direct_ci_lower   = rep(NA, n),
-    indirect          = rep(NA, n),
+    indirect_est      = rep(NA, n),
     indirect_var      = rep(NA, n),
     indirect_ci_upper = rep(NA, n), 
     indirect_ci_lower = rep(NA, n)
@@ -289,7 +289,7 @@ if (!file.exists("./data/loftus_effects/loftus_h3_lor.csv")) {
 if (!file.exists("./data/loftus_effects/loftus_h4_med.csv")) {
   
   write.csv(
-    loftus_h4_medr,
+    loftus_h4_med,
     "./data/loftus_effects/loftus_h4_med.csv",
     row.names = FALSE
   )

@@ -28,6 +28,7 @@ source("./scripts/calculate/effect_size_functions.R")
 loftus_h1_smd  <- read.csv("./data/loftus_effects/loftus_h1_smd.csv")
 loftus_h2_lor  <- read.csv("./data/loftus_effects/loftus_h2_lor.csv")
 loftus_h3_lor  <- read.csv("./data/loftus_effects/loftus_h3_lor.csv")
+loftus_h4_med  <- read.csv("./data/loftus_effects/loftus_h4_med.csv")
 
 # Import original effects
 
@@ -108,4 +109,48 @@ loftus_h3_forest <-
     org_ci_lower = loftus_org[loftus_org$hypothesis == "h3", ]$ci_lower, 
     org_ci_upper = loftus_org[loftus_org$hypothesis == "h3", ]$ci_upper
   )
+
+# HYPOTHESIS 4 --------------------------------------------------------
+
+## Data wrangle
+
+loftus_h4_med_long <- loftus_h4_med %>% 
+  pivot_longer(
+    cols = c(ends_with("est")),
+    names_to = c("type", "parameter"),
+    values_to = "estimate",
+    names_pattern = "(.*)_(.*)"
+  ) %>% 
+  mutate(
+    var = case_when(
+      type == "direct"   ~ direct_var,
+      type == "indirect" ~ indirect_var
+    ),
+    ci_upper = case_when(
+      type == "direct"   ~ direct_ci_upper,
+      type == "indirect" ~ indirect_ci_upper
+    ),
+    ci_lower = case_when(
+      type == "direct"   ~ direct_ci_lower,
+      type == "indirect" ~ indirect_ci_lower
+    )
+  ) %>% 
+  select(-starts_with("direct"), -starts_with("indirect"), -parameter)
+
+## Multivariate meta-analysis
+
+# Multivariate meta-analysis simultaneously synthesizing direct and indirect effects, as recommended by Cheung (2020, 10.31234/osf.io/df6jp) and Cheung and Cheung (2016, 10.1002/jrsm.1166).
+
+loftus_h4_meta <- rma.mv(
+  yi = estimate, 
+  V = var,
+  mods = ~ type - 1,
+  random = ~ type|ID,
+  data = loftus_h4_med_long,
+  method = "REML"
+)
+
+## Forest plot (indirect effect)
+
+## Forest plot (direct effect)
 

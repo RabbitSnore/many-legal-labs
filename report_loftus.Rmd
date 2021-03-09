@@ -79,3 +79,16 @@ loftus_h3_meta
 loftus_h3_forest
 ```
 
+# Hypothesis 4
+
+The effect of smashed (vs. hit) on reporting broken glass will be partially (not fully) mediated by increased speed estimates.
+
+## Meta-analysis of Replications
+
+This hypothesis will be tested by estimating the indirect and direct effects of smashed (vs. hit) through speed estimates on reporting the broken glass, in a mediation model. Results will be consistent with partial mediation if both the indirect and direct effects are greater than 0.
+
+```{r}
+loftus_h4_meta
+```
+
+

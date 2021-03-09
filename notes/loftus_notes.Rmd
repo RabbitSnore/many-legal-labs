@@ -1,5 +1,5 @@
 ---
-title: "Notes on Loftus and Palmer (1974"
+title: "Notes on Loftus and Palmer (1974)"
 author: "Timothy J. Luke"
 date: "`r Sys.Date()`"
 output: 
