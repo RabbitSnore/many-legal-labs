@@ -373,7 +373,7 @@ sim_data %>%
   )
 ```
 
-The vast majority of possible direct and indirect effects are nonsignificant. In fact, the proportions of significant results is quite close to the nominal alpha level. This is nearly exactly what one would expect if the null hypothesis were true.
+The vast majority of possible direct and indirect effects are nonsignificant. In fact, the proportions of significant results are quite close to the nominal alpha level. This is nearly exactly what one would expect if the null hypothesis were true.
 
 Let's look at the distribution of plausible direct effects.
 
