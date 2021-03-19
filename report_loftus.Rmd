@@ -91,4 +91,13 @@ This hypothesis will be tested by estimating the indirect and direct effects of 
 loftus_h4_meta
 ```
 
+## Forest plots
+
+```{r}
+loftus_h4_direct_forest
+```
+
+```{r}
+loftus_h4_indirect_forest
+```
 
