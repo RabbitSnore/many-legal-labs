@@ -14,13 +14,6 @@ knit: (function(input_file, encoding) {
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-# Run all necessary scripts
-
-source("./scripts/simulate/darley_simulation.R", local = knitr::knit_global()) # REPLACE WITH DATA IMPORTATION
-source("./scripts/wrangle/darley_prelim.R", local = knitr::knit_global())
-source("./scripts/calculate/darley_core.R", local = knitr::knit_global())
-source("./scripts/analyze/darley_analysis.R", local = knitr::knit_global())
-
 ```
 
 # Overview
@@ -99,7 +92,7 @@ darley_mc1_forest
 
 # Manipulation Check 2
 
-Participants will attribute responsibility to the actor more frequently in the jealous rage condition, compared to when the behavior was caused by an inoperable tumor.
+Participants will attribute responsibility to the actor more frequently in the jealous rage condition, compared to when the behavior was caused by an operable tumor.
 
 ## Meta-analysis of Replications
 

@@ -34,6 +34,8 @@ lapply(dependencies, library, character.only = TRUE)
 
 ### Render report
 
+# This function is used to knit the R Markdown reports using the global environment.
+
 mll_report <- function(input) {
   
   require(rmarkdown)

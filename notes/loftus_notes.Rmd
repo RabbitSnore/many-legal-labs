@@ -13,6 +13,7 @@ csl: apa.csl # Author and contributor information is stored in the code
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
+library(lavaan)
 
 ```
 
@@ -183,3 +184,237 @@ Not as close as I would like to whole numbers, but let's see if we can reproduce
 Not exactly right. I can't account for the imprecision, but we've checked every plausible value.
 
 That was a bit harder than I think it had to be, but we got the most likely cell counts for each interval, for each condition.
+
+```{r}
+freq_table <- matrix(
+  c(
+    smashed_grid$minlevels[1], hit_grid$minlevels[1],
+    smashed_grid$minlevels[2], hit_grid$minlevels[2],
+    smashed_grid$minlevels[3], hit_grid$minlevels[3],
+    smashed_grid$minlevels[4], hit_grid$minlevels[4]
+    ),
+  nrow = 2,
+  dimnames = list(
+    c("smashed", "hit"),
+    c("1-5", "6-10", "11-15", "16-20")
+  )
+  )
+
+freq_table <- as.data.frame(freq_table)
+
+freq_table
+```
+
+Let's transform these cell counts into a mocked up "raw" data table.
+
+```{r}
+mock_data <- data.frame(
+  verb           = c(rep("smashed", 50), rep("hit", 50)),
+  speed_interval = c(
+    rep("1-5", freq_table[1, 1]), rep("6-10", freq_table[1, 2]), rep("11-15", freq_table[1, 3]), rep("16-20", freq_table[1, 4]),
+    rep("1-5", freq_table[2, 1]), rep("6-10", freq_table[2, 2]), rep("11-15", freq_table[2, 3]), rep("16-20", freq_table[2, 4])
+    ) 
+)
+
+head(mock_data, 20)
+```
+
+We now have a mocked up data table, but this table provides only the interval of the speed estimate, rather than each participant's exact estimate. It seems unlikely that we could take a reasonable guess about each person's estimate. Instead, perhaps we can take a Monte Carlo approach to the problem and estimate the minimum and maximum direct and indirect effects by iteratively randomly sampling possible values.
+
+## Monte Carlo Simulation
+
+```{r, eval = FALSE}
+
+model_data <- mock_data
+model_data$verb[model_data$verb == "smashed"] <- 1
+model_data$verb[model_data$verb == "hit"]     <- 0
+
+sims <- 10000
+
+seed <- sample(1:100000, sims)
+
+model_spec <- 
+  '
+  # Regressions
+  
+  speed_estimate ~ a*verb
+  
+  glass ~ c*verb + b*speed_estimate
+  
+  # Defined values
+  
+  indirect := a*b
+  direct   := c
+  
+  '
+
+sim_data <- data.frame(
+    ID                = rep(NA, sims),
+    direct_est        = rep(NA, sims),
+    direct_var        = rep(NA, sims),
+    direct_ci_upper   = rep(NA, sims),
+    direct_ci_lower   = rep(NA, sims),
+    indirect_est      = rep(NA, sims),
+    indirect_var      = rep(NA, sims),
+    indirect_ci_upper = rep(NA, sims), 
+    indirect_ci_lower = rep(NA, sims)
+  )
+
+# Broken glass counts, by interval
+
+smashed_counts <- round(smashed_grid$minlevels * speed_table[1, ])
+hit_counts     <- round(hit_grid$minlevels * speed_table[2, ])
+
+smashed_1_5   <- c(rep(1, smashed_counts[1]), rep(0, freq_table[1, 1] - smashed_counts[1]))
+smashed_6_10  <- c(rep(1, smashed_counts[2]), rep(0, freq_table[1, 2] - smashed_counts[2]))
+smashed_11_15 <- c(rep(1, smashed_counts[3]), rep(0, freq_table[1, 3] - smashed_counts[3]))
+smashed_16_20 <- c(rep(1, smashed_counts[4]), rep(0, freq_table[1, 4] - smashed_counts[4]))
+
+hit_1_5       <- c(rep(1, hit_counts[1]), rep(0, freq_table[2, 1] - hit_counts[1]))
+hit_6_10      <- c(rep(1, hit_counts[2]), rep(0, freq_table[2, 2] - hit_counts[2]))
+hit_11_15     <- c(rep(1, hit_counts[3]), rep(0, freq_table[2, 3] - hit_counts[3]))
+hit_16_20     <- c(rep(1, hit_counts[4]), rep(0, freq_table[2, 4] - hit_counts[4]))
+
+# Simulation
+
+for (i in 1:sims) {
+  
+  set.seed(seed[i])
+  
+  model_data$speed_estimate <- rep(NA, nrow(model_data))
+  model_data$glass          <- rep(NA, nrow(model_data))
+  
+  model_data$speed_estimate[model_data$speed_interval == "1-5"  ] <- 
+    sample(1:5,   sum(model_data$speed_interval == "1-5"  ), replace = TRUE)
+  model_data$speed_estimate[model_data$speed_interval == "6-10" ] <- 
+    sample(6:10,  sum(model_data$speed_interval == "6-10" ), replace = TRUE)
+  model_data$speed_estimate[model_data$speed_interval == "11-15"] <- 
+    sample(11:15, sum(model_data$speed_interval == "11-15"), replace = TRUE)
+  model_data$speed_estimate[model_data$speed_interval == "16-20"] <- 
+    sample(16:20, sum(model_data$speed_interval == "16-20"), replace = TRUE)
+  
+  model_data$glass[model_data$speed_interval == "1-5"   & model_data$verb == 1] <- sample(smashed_1_5)
+  model_data$glass[model_data$speed_interval == "6-10"  & model_data$verb == 1] <- sample(smashed_6_10)
+  model_data$glass[model_data$speed_interval == "11-15" & model_data$verb == 1] <- sample(smashed_11_15)
+  model_data$glass[model_data$speed_interval == "16-20" & model_data$verb == 1] <- sample(smashed_16_20)
+  
+  model_data$glass[model_data$speed_interval == "1-5"   & model_data$verb == 0] <- sample(hit_1_5)
+  model_data$glass[model_data$speed_interval == "6-10"  & model_data$verb == 0] <- sample(hit_6_10)
+  model_data$glass[model_data$speed_interval == "11-15" & model_data$verb == 0] <- sample(hit_11_15)
+  model_data$glass[model_data$speed_interval == "16-20" & model_data$verb == 0] <- sample(hit_16_20)
+
+  med_fit <- sem(
+    model = model_spec,
+    data = model_data,
+    ordered = "glass"
+    )
+  
+  med_standard <- standardizedsolution(med_fit)
+  
+  sim_data[i, ] <- data.frame(
+    ID                = seed[i], # save the seed, in case we need to reproduce any of the data sets
+    direct_est        = med_standard[med_standard$lhs == "direct", ]$est.std,       
+    direct_var        = med_standard[med_standard$lhs == "direct", ]$se^2,       
+    direct_ci_upper   = med_standard[med_standard$lhs == "direct", ]$ci.upper,  
+    direct_ci_lower   = med_standard[med_standard$lhs == "direct", ]$ci.lower,  
+    indirect_est      = med_standard[med_standard$lhs == "indirect", ]$est.std,     
+    indirect_var      = med_standard[med_standard$lhs == "indirect", ]$se^2,     
+    indirect_ci_upper = med_standard[med_standard$lhs == "indirect", ]$ci.upper,
+    indirect_ci_lower = med_standard[med_standard$lhs == "indirect", ]$ci.lower
+  )
+  
+}
+
+write.csv(sim_data, "loftus_palmer_med_simulation.csv", row.names = FALSE)
+
+```
+
+```{r}
+sim_data <- read.csv("loftus_palmer_med_simulation.csv")
+```
+
+With this simulation done, let's have a look at the outcome.
+
+```{r}
+sim_data %>% 
+  summarise(
+    mean_direct      = mean(direct_est),
+    mean_direct_lb   = mean(direct_ci_lower),
+    mean_direct_ub   = mean(direct_ci_upper),
+    max_direct       = max(direct_est),
+    max_direct_lb    = max(direct_ci_lower),
+    max_direct_ub    = max(direct_ci_upper),
+    min_direct       = min(direct_est),
+    min_direct_lb    = min(direct_ci_lower),
+    min_direct_ub    = min(direct_ci_upper)
+  )
+
+sim_data %>% 
+  summarise(
+    mean_indirect      = mean(indirect_est),
+    mean_indirect_lb   = mean(indirect_ci_lower),
+    mean_indirect_ub   = mean(indirect_ci_upper),
+    max_indirect       = max(indirect_est),
+    max_indirect_lb    = max(indirect_ci_lower),
+    max_indirect_ub    = max(indirect_ci_upper),
+    min_indirect       = min(indirect_est),
+    min_indirect_lb    = min(indirect_ci_lower),
+    min_indirect_ub    = min(indirect_ci_upper)
+  )
+```
+
+```{r}
+sim_data %>% 
+  summarise(
+    sig_direct_n      = sum(direct_ci_lower > 0),
+    sig_indirect_n    = sum(indirect_ci_lower > 0),
+    sig_direct_prop   = sum(direct_ci_lower > 0)/n(),
+    sig_indirect_prop = sum(indirect_ci_lower > 0)/n()
+  )
+```
+
+The vast majority of possible direct and indirect effects are nonsignificant. In fact, the proportions of significant results is quite close to the nominal alpha level. This is nearly exactly what one would expect if the null hypothesis were true.
+
+Let's look at the distribution of plausible direct effects.
+
+```{r}
+ggplot(sim_data,
+       aes(
+         x = direct_est
+       )) +
+  geom_histogram(
+    binwidth = .005
+  ) +
+  geom_vline(
+    xintercept = mean(sim_data$direct_est),
+    linetype = "dashed"
+  ) +
+  geom_vline(
+    xintercept = median(sim_data$direct_est),
+    linetype = "dotted"
+  ) +
+  theme_classic()
+```
+
+And the distribution of indirect effects.
+
+```{r}
+ggplot(sim_data,
+       aes(
+         x = indirect_est
+       )) +
+  geom_histogram(
+    binwidth = .005
+  ) +
+  geom_vline(
+    xintercept = mean(sim_data$indirect_est),
+    linetype = "dashed"
+  ) +
+  geom_vline(
+    xintercept = median(sim_data$indirect_est),
+    linetype = "dotted"
+  ) +
+  theme_classic()
+```
+
+This approach seems to give us a reasonable sense of the largest and smallest plausible direct and indirect effects, given the data reported in the original paper. Moreover, the simulated values are quite symmetrically distributed, with a clear location (i.e., the mean and median are very close). Thus, we will use the mean of each simulation as the benchmark for comparison to the replications.
