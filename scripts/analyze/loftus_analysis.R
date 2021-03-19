@@ -9,7 +9,7 @@
 
 ## Packages
 
-packages <- c("metafor", "dplyr", "ggplot2")
+packages <- c("metafor", "dplyr", "tidyr", "ggplot2", "cowplot")
 
 lapply(packages, library, character.only = TRUE)
 
@@ -25,16 +25,16 @@ source("./scripts/calculate/effect_size_functions.R")
 
 ### Forest plot for mediation coefficients
 
-forest_plot_med <- function(meta_analysis, replication_data, org_med, org_ci_lower, org_ci_upper, title, study_color = "black", boundary_pad = 0.20, breaks = 0.10) {
+forest_plot_med <- function(meta_analysis, replication_data, org_med, org_ci_lower, org_ci_upper, meta_effect, meta_ci_lower, meta_ci_upper, title, study_color = "black", boundary_pad = 0.25, multiple = .50) {
   
   ### Set up original and meta-analytic estimates
   
   forest_estimates <- data.frame(
-    ID       = c(rep("Replication", 2), rep("Original", length(org_med))),
-    estimate = c(meta_analysis$beta[[1]], meta_analysis$beta[[2]], org_med),
-    var      = c(NA, NA, rep(NA, length(org_med))),
-    ci_lower = c(meta_analysis$ci.lb[[1]], meta_analysis$ci.lb[[2]], org_ci_lower),
-    ci_upper = c(meta_analysis$ci.ub[[1]], meta_analysis$ci.ub[[2]], org_ci_upper)
+    ID       = c("Replication", rep("Original", length(org_med))),
+    estimate = c(meta_effect, org_med),
+    var      = c(NA, rep(NA, length(org_med))),
+    ci_lower = c(meta_ci_lower, org_ci_lower),
+    ci_upper = c(meta_ci_lower, org_ci_upper)
   )
   
   ### Bind the original and meta-analytic estimates to the calculated effects from each lab
@@ -67,8 +67,8 @@ forest_plot_med <- function(meta_analysis, replication_data, org_med, org_ci_low
   
   ### Set up plot boundaries
   
-  effect_max <- round(max(forest_estimates$ci_upper, na.rm = TRUE), 1) + boundary_pad
-  effect_min <- round(min(forest_estimates$ci_lower, na.rm = TRUE), 1) - boundary_pad
+  effect_max <- round(max(forest_estimates$ci_upper, na.rm = TRUE) / multiple) * multiple
+  effect_min <- round(min(forest_estimates$ci_lower, na.rm = TRUE) / multiple) * multiple
   
   ### Draw the forest plot
   
@@ -80,7 +80,6 @@ forest_plot_med <- function(meta_analysis, replication_data, org_med, org_ci_low
              xmin = ci_lower,
              xmax = ci_upper
            )) +
-    facet_wrap(~ type, nrow = 1) +
     geom_point(
       aes(
         shape = estim,
@@ -98,12 +97,12 @@ forest_plot_med <- function(meta_analysis, replication_data, org_med, org_ci_low
       height = .50,
       color = study_color
     ) +
-    # geom_vline(
-    #   xintercept = meta_analysis$beta[[1]],
-    #   linetype = "dashed",
-    #   color = "black",
-    #   size = 1
-    # ) +
+    geom_vline(
+      xintercept = meta_effect,
+      linetype = "dashed",
+      color = "black",
+      size = 1
+    ) +
     geom_vline(
       xintercept = 0,
       linetype = "dotted"
@@ -112,7 +111,7 @@ forest_plot_med <- function(meta_analysis, replication_data, org_med, org_ci_low
       yintercept = 2.5
     ) +
     scale_x_continuous(
-      breaks = seq(effect_min, effect_max + 0.20, breaks)
+      breaks = seq(effect_min, effect_max, breaks)
     ) +
     coord_cartesian(
       xlim = c(effect_min, effect_max)
@@ -269,18 +268,38 @@ loftus_h4_meta <- rma.mv(
   method = "REML"
 )
 
-## Forest plot 
+## Forest plots 
 
-# THE DIRECT AND INDIRECT EFFECTS ARE PROBABLY BEST PLOTTED SEPARATELY AND THEN COMBINED INTO ONE PLOT
+### Direct effect
 
-loftus_h4_forest <- 
+loftus_h4_direct_forest <- 
   forest_plot_med(
-    meta_analysis = loftus_h4_meta, 
-    replication_data = loftus_h4_med_long, 
-    title = "Loftus & Palmer (1974), Hypothesis 4",
-    study_color = loftus_color_1,
-    org_med = loftus_org[loftus_org$hypothesis == "h4", ]$lor, 
-    org_ci_lower = loftus_org[loftus_org$hypothesis == "h4", ]$ci_lower, 
-    org_ci_upper = loftus_org[loftus_org$hypothesis == "h4", ]$ci_upper
+    meta_analysis    = loftus_h4_meta, 
+    replication_data = loftus_h4_med_long %>% filter(type == "direct"), 
+    title            = "Loftus & Palmer (1974), Hypothesis 4, Direct Effect",
+    study_color      = loftus_color_1,
+    org_med          = loftus_org[loftus_org$hypothesis == "h4", ]$estimate, 
+    org_ci_lower     = loftus_org[loftus_org$hypothesis == "h4", ]$ci_lower, 
+    org_ci_upper     = loftus_org[loftus_org$hypothesis == "h4", ]$ci_upper,
+    meta_effect      = loftus_h4_meta$beta[[1]],
+    meta_ci_lower    = loftus_h4_meta$ci.lb[[1]],
+    meta_ci_upper    = loftus_h4_meta$ci.ub[[1]]
   )
+
+### Indirect effect
+
+loftus_h4_indirect_forest <- 
+  forest_plot_med(
+    meta_analysis    = loftus_h4_meta, 
+    replication_data = loftus_h4_med_long %>% filter(type == "indirect"), 
+    title            = "Loftus & Palmer (1974), Hypothesis 4, Indirect Effect",
+    study_color      = loftus_color_1,
+    org_med          = loftus_org[loftus_org$hypothesis == "h4", ]$estimate, 
+    org_ci_lower     = loftus_org[loftus_org$hypothesis == "h4", ]$ci_lower, 
+    org_ci_upper     = loftus_org[loftus_org$hypothesis == "h4", ]$ci_upper,
+    meta_effect      = loftus_h4_meta$beta[[2]],
+    meta_ci_lower    = loftus_h4_meta$ci.lb[[2]],
+    meta_ci_upper    = loftus_h4_meta$ci.ub[[2]]
+  )
+
 

@@ -46,7 +46,7 @@ mediation_calc <- function(ID, x, m, y) {
   
   # Fitting
   
-  med_fit <- sem(
+  med_fit <- sem( # By default, lavaan estimates sampling variance using the delta method
     model = model_spec,
     data = data.frame(x, m, y),
     ordered = "y" # Set the outcome variable as categorical
@@ -214,7 +214,8 @@ loftus_med <- loftus %>%
       verb_condition == "hit"     ~ 0,
       verb_condition == "control" ~ NA_real_
     )
-  )
+  ) %>% 
+  filter(!is.na(verb_condition))
 
 ## Calculate effect sizes
 

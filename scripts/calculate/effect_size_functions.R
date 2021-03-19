@@ -115,7 +115,7 @@ empty_lor_data <- function(n) {
 
 ### Forest plot
 
-forest_plot_smd <- function(meta_analysis, replication_data, org_d, org_ci_lower, org_ci_upper, title, study_color = "black", boundary_pad = 0.20, breaks = 0.10) {
+forest_plot_smd <- function(meta_analysis, replication_data, org_d, org_ci_lower, org_ci_upper, title, study_color = "black", boundary_pad = 0.25, multiple = 0.50) {
   
   ### Set up original and meta-analytic estimates
   
@@ -157,8 +157,8 @@ forest_plot_smd <- function(meta_analysis, replication_data, org_d, org_ci_lower
   
   ### Set up plot boundaries
   
-  effect_max <- round(max(forest_estimates$ci_upper, na.rm = TRUE), 1) + boundary_pad
-  effect_min <- round(min(forest_estimates$ci_lower, na.rm = TRUE), 1) - boundary_pad
+  effect_max <- round(max(forest_estimates$ci_upper, na.rm = TRUE) / multiple) * multiple
+  effect_min <- round(min(forest_estimates$ci_lower, na.rm = TRUE) / multiple) * multiple
   
   ### Draw the forest plot
   
@@ -201,10 +201,11 @@ forest_plot_smd <- function(meta_analysis, replication_data, org_d, org_ci_lower
       yintercept = 2.5
     ) +
     scale_x_continuous(
-      breaks = seq(effect_min, effect_max + 0.20, breaks)
+      breaks = sort(c(0, seq(effect_min, effect_max, multiple))),
+      labels = format(sort(c(0, seq(effect_min, effect_max, multiple))), nsmall = 2)
     ) +
     coord_cartesian(
-      xlim = c(effect_min, effect_max)
+      xlim = c(effect_min - boundary_pad, effect_max + boundary_pad)
     ) +
     labs(
       title = title,
@@ -235,7 +236,7 @@ forest_plot_smd <- function(meta_analysis, replication_data, org_d, org_ci_lower
 
 ### Forest plot
 
-forest_plot_lor <- function(meta_analysis, replication_data, org_lor, org_ci_lower, org_ci_upper, title, study_color = "black", boundary_pad = 0.20, breaks = 0.10) {
+forest_plot_lor <- function(meta_analysis, replication_data, org_lor, org_ci_lower, org_ci_upper, title, study_color = "black", boundary_pad = 0.25, multiple = 0.50) {
   
   ### Set up original and meta-analytic estimates
   
@@ -277,8 +278,8 @@ forest_plot_lor <- function(meta_analysis, replication_data, org_lor, org_ci_low
   
   ### Set up plot boundaries
   
-  effect_max <- round(max(forest_estimates$ci_upper, na.rm = TRUE), 1) + boundary_pad
-  effect_min <- round(min(forest_estimates$ci_lower, na.rm = TRUE), 1) - boundary_pad
+  effect_max <- round(max(forest_estimates$ci_upper, na.rm = TRUE) / multiple) * multiple
+  effect_min <- round(min(forest_estimates$ci_lower, na.rm = TRUE) / multiple) * multiple
   
   ### Draw the forest plot
   
@@ -321,10 +322,11 @@ forest_plot_lor <- function(meta_analysis, replication_data, org_lor, org_ci_low
       yintercept = 2.5
     ) +
     scale_x_continuous(
-      breaks = seq(effect_min, effect_max + 0.20, breaks)
+      breaks = sort(c(0, seq(effect_min, effect_max, multiple))),
+      labels = format(sort(c(0, seq(effect_min, effect_max, multiple))), nsmall = 2)
     ) +
     coord_cartesian(
-      xlim = c(effect_min, effect_max)
+      xlim = c(effect_min - boundary_pad, effect_max + boundary_pad)
     ) +
     labs(
       title = title,
