@@ -64,6 +64,14 @@ source("./scripts/analyze/serota_analysis.R")
 
 # Markdown reports ----------------------------------------------------
 
+## Set up directory
+
+if (!file.exists("./reports/")) {
+  
+  dir.create("./reports/")
+  
+} 
+
 ## Correll et al  (2002, Study 1)
 
 mll_report("report_correll.Rmd")
@@ -82,4 +90,4 @@ mll_report("report_serota.Rmd")
 
 ## Main report
 
-
+mll_report("MLL_main_report.Rmd")

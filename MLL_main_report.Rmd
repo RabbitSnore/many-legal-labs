@@ -1,0 +1,41 @@
+---
+title: "Main Report on the Replications"
+author: "Many Legal Labs"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+knit: (function(input_file, encoding) {
+    rmarkdown::render(input_file, encoding = encoding, output_dir = "./reports/")
+  })
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+# Overview of Results
+
+```{r}
+
+```
+
+
+# Meta-Analytic Models
+
+## Correll et al  (2002, Study 1)
+
+
+
+## Darley et al (2000, Study 2)
+
+
+
+## Loftus & Palmer (1974, Study 2)
+
+
+
+## Serota et al (2010, Study 3)
+
