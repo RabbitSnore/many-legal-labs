@@ -16,10 +16,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Run all necessary scripts
 
-source("./scripts/simulate/serota_simulation.R") # REPLACE WITH DATA IMPORTATION
-source("./scripts/wrangle/serota_prelim.R")
-source("./scripts/calculate/serota_core.R")
-source("./scripts/analyze/serota_analysis.R")
+source("./scripts/simulate/serota_simulation.R", local = knitr::knit_global()) # REPLACE WITH DATA IMPORTATION
+source("./scripts/wrangle/serota_prelim.R", local = knitr::knit_global())
+source("./scripts/calculate/serota_core.R", local = knitr::knit_global())
+source("./scripts/analyze/serota_analysis.R", local = knitr::knit_global())
 
 ```
 

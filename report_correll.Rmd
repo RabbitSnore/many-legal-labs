@@ -16,10 +16,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Run all necessary scripts
 
-source("./scripts/simulate/correll_simulation.R") # REPLACE WITH DATA IMPORTATION
-source("./scripts/wrangle/correll_prelim.R")
-source("./scripts/calculate/correll_core.R")
-source("./scripts/analyze/correll_analysis.R")
+source("./scripts/simulate/correll_simulation.R", local = knitr::knit_global()) # REPLACE WITH DATA IMPORTATION
+source("./scripts/wrangle/correll_prelim.R", local = knitr::knit_global())
+source("./scripts/calculate/correll_core.R", local = knitr::knit_global())
+source("./scripts/analyze/correll_analysis.R", local = knitr::knit_global())
 
 ```
 

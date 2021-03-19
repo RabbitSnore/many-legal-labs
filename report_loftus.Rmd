@@ -16,10 +16,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Run all necessary scripts
 
-source("./scripts/simulate/loftus_simulation.R") # REPLACE WITH DATA IMPORTATION
-source("./scripts/wrangle/loftus_prelim.R")
-source("./scripts/calculate/loftus_core.R")
-source("./scripts/analyze/loftus_analysis.R")
+source("./scripts/simulate/loftus_simulation.R", local = knitr::knit_global()) # REPLACE WITH DATA IMPORTATION
+source("./scripts/wrangle/loftus_prelim.R", local = knitr::knit_global())
+source("./scripts/calculate/loftus_core.R", local = knitr::knit_global())
+source("./scripts/analyze/loftus_analysis.R", local = knitr::knit_global())
 
 ```
 

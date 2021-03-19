@@ -16,10 +16,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Run all necessary scripts
 
-source("./scripts/simulate/darley_simulation.R") # REPLACE WITH DATA IMPORTATION
-source("./scripts/wrangle/darley_prelim.R")
-source("./scripts/calculate/darley_core.R")
-source("./scripts/analyze/darley_analysis.R")
+source("./scripts/simulate/darley_simulation.R", local = knitr::knit_global()) # REPLACE WITH DATA IMPORTATION
+source("./scripts/wrangle/darley_prelim.R", local = knitr::knit_global())
+source("./scripts/calculate/darley_core.R", local = knitr::knit_global())
+source("./scripts/analyze/darley_analysis.R", local = knitr::knit_global())
 
 ```
 
