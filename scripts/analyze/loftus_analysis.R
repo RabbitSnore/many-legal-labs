@@ -111,10 +111,11 @@ forest_plot_med <- function(meta_analysis, replication_data, org_med, org_ci_low
       yintercept = 2.5
     ) +
     scale_x_continuous(
-      breaks = seq(effect_min, effect_max, breaks)
+      breaks = sort(c(0, seq(effect_min, effect_max, multiple))),
+      labels = format(sort(c(0, seq(effect_min, effect_max, multiple))), nsmall = 2)
     ) +
     coord_cartesian(
-      xlim = c(effect_min, effect_max)
+      xlim = c(effect_min - boundary_pad, effect_max + boundary_pad)
     ) +
     labs(
       title = title,
