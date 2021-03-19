@@ -17,12 +17,6 @@
 
 # The output should be a series of frequency tables appended to each other, with identifiers (lab IDs)
 
-## Packages
-
-packages <- c("dplyr", "tidyr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Import
 
 serota_raw <- read.csv("./data/serota_raw.csv")

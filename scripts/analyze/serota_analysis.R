@@ -7,12 +7,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("metafor", "dplyr", "ggplot2")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Seed
 
 set.seed(1919)

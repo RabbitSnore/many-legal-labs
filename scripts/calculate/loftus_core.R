@@ -7,12 +7,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("dplyr", "tidyr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Functions
 
 ### General effect size functions

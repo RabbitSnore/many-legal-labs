@@ -7,12 +7,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("dplyr", "tidyr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Import
 
 loftus_sim <- read.csv("./data/loftus_sim.csv")

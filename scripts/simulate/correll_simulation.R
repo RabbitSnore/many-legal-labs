@@ -15,12 +15,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("dplyr", "stringr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Seed
 
 set.seed(42069)

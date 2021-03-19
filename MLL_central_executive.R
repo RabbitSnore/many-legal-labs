@@ -8,9 +8,27 @@
 
 # Set up environment --------------------------------------------------
 
-packages_central <- c("rmarkdown")
+## Check and install necessary packages for the project
 
-lapply(packages_central, library, character.only = TRUE)
+### Packages required by the Many Legal Labs project
+
+dependencies <- c("dplyr", "tidyr", "stringr", "metafor", "ggplot2", "cowplot", "rmarkdown")
+
+### Check whether packages are installed locally and get list of what needs to be installed
+
+installation_list <- dependencies[!(dependencies %in% rownames(installed.packages()))]
+
+### Install necessary packages
+
+if (length(installation_list) > 0) {
+  
+  install.packages(installation_list, dependencies = TRUE)
+  
+}
+
+## Load packages
+
+lapply(dependencies, library, character.only = TRUE)
 
 ## Functions
 

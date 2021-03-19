@@ -7,12 +7,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("metafor", "dplyr", "tidyr", "ggplot2", "cowplot")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Seed
 
 set.seed(1621)

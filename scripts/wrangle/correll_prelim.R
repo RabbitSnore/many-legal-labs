@@ -25,14 +25,6 @@
 
 # Calculate errors for each cell, within participants
 
-
-
-## Packages
-
-packages <- c("dplyr", "stringr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Import
 
 
