@@ -61,3 +61,22 @@ serota_h1_meta
 ```{r}
 serota_h1_forest
 ```
+
+# Moderator Analysis
+
+## Country
+
+We will examine whether the country in which the data were collected moderates the power function that characterizes the distribution of lies told per day.
+
+We will assess the moderating effect of country using a Q test.
+
+```{r}
+list(Q = serota_country_QM, p = serota_country_QMp)
+```
+
+We will also examine the coefficient for each country.
+
+```{r}
+serota_country_meta
+```
+

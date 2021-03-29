@@ -135,6 +135,15 @@ for (i in 1:lab_count_serota) {
   
 }
 
+### Link moderators with effects
+
+serota_mods <- serota_raw %>% 
+  select(ID = lab, country) %>% 
+  unique()
+
+serota_h1_k <- serota_h1_k %>% 
+  left_join(serota_mods, by = "ID")
+
 # Export Calculated Effect Sizes --------------------------------------
 
 ## If the data directory does not exist, it will be necessary to create it

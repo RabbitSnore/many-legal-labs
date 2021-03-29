@@ -330,3 +330,26 @@ serota_h1_forest <-
     org_ci_lower = serota_org[serota_org$hypothesis == "h1", ]$ci_lower, 
     org_ci_upper = serota_org[serota_org$hypothesis == "h1", ]$ci_upper
   )
+
+# MODERATOR ANALYSIS: COUNTRY -----------------------------------------
+
+## Random effects meta-analysis
+
+serota_country_intercept <- rma(
+  yi = k, 
+  vi = var,
+  mods = ~ country,
+  data = serota_h1_k,
+  method = "REML"
+)
+
+serota_country_QM  <- serota_country_intercept$QM
+serota_country_QMp <- serota_country_intercept$QMp
+
+serota_country_meta <- rma(
+  yi = k, 
+  vi = var,
+  mods = ~ country - 1,
+  data = serota_h1_k,
+  method = "REML"
+)
