@@ -144,6 +144,14 @@ serota_mods <- serota_raw %>%
 serota_h1_k <- serota_h1_k %>% 
   left_join(serota_mods, by = "ID")
 
+serota_h1_k <- serota_h1_k %>% 
+  mutate(
+    usa = case_when(
+      country == "United States" ~ "US",
+      !is.na(country)            ~ "Non-US"
+    )
+  )
+
 # Export Calculated Effect Sizes --------------------------------------
 
 ## If the data directory does not exist, it will be necessary to create it

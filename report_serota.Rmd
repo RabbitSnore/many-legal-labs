@@ -64,7 +64,23 @@ serota_h1_forest
 
 # Moderator Analysis
 
-## Country
+## US compared to non-US countries
+
+We will examine whether the United States differs from other countries with regard to the power function that characterizes the distribution of lies told per day.
+
+We will assess whether the US differs from other countries using a Q test.
+
+```{r}
+list(Q = serota_usa_QM, p = serota_usa_QMp)
+```
+
+We will also examine each country
+
+```{r}
+serota_usa_meta
+```
+
+## Individual Countries
 
 We will examine whether the country in which the data were collected moderates the power function that characterizes the distribution of lies told per day.
 
@@ -74,7 +90,7 @@ We will assess the moderating effect of country using a Q test.
 list(Q = serota_country_QM, p = serota_country_QMp)
 ```
 
-We will also examine the coefficient for each country.
+We will also examine the effect size estimates for each country.
 
 ```{r}
 serota_country_meta

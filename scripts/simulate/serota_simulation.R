@@ -22,7 +22,7 @@ n_lies    <- 10
 
 mode      <- c("face", "mediated")
 person    <- c("family", "friend", "business", "acquaintance", "stranger")
-country   <- c("Basutoland", "Ceylon", "DDR", "Neutral Moresnet", "Prussia", "Roman empire", "Sikkim", "Tavolara", "Vermont", "Yugoslavia", "Zanzibar")
+country   <- c("Basutoland", "Ceylon", "DDR", "Neutral Moresnet", "Prussia", "Roman empire", "Sikkim", "Tavolara", "Vermont", "Yugoslavia", "Zanzibar", "United States")
 
 last_lie <- c("more than 24 hours ago but within the last 2 days", "more than 2 days ago but within the last week", "more than a week ago but within the last month", "more than a month ago", "never")
 

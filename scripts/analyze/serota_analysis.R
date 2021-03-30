@@ -334,7 +334,30 @@ serota_h1_forest <-
 
 # MODERATOR ANALYSIS: COUNTRY -----------------------------------------
 
-## Random effects meta-analysis
+## US vs. non-US
+
+serota_usa_intercept <- rma(
+  yi = k, 
+  vi = var,
+  mods = ~ usa,
+  data = serota_h1_k,
+  method = "REML"
+)
+
+serota_usa_QM  <- serota_usa_intercept$QM
+serota_usa_QMp <- serota_usa_intercept$QMp
+
+serota_usa_meta <- rma(
+  yi = k, 
+  vi = var,
+  mods = ~ usa - 1,
+  data = serota_h1_k,
+  method = "REML"
+)
+
+## Each country
+
+### Random effects meta-analysis
 
 serota_country_intercept <- rma(
   yi = k, 
