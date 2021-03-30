@@ -7,7 +7,15 @@
 
 ## Import
 
-darley_sim <- read.csv("./data/darley_sim.csv")
+if (read_data == TRUE) {
+  
+  darley_sim <- read.csv("./data/darley_sim.csv")
+  
+} else {
+  
+  darley_sim <- darley_wide
+  
+}
 
 ## Wrangle
 
@@ -42,7 +50,7 @@ darley_wrangle <- darley_sim # Right now this is very silly. But we might have t
 
 ## Save data
 
-if (!file.exists("./data/darley_wrangle.csv")) {
+if (write_data == TRUE) {
   
   if (!file.exists("./data/")) {
     

@@ -15,7 +15,15 @@ source("./scripts/calculate/effect_size_functions.R")
 
 # Import wrangled data ------------------------------------------------
 
-darley <- read.csv("./data/darley_wrangle.csv")
+if (read_data == TRUE) {
+  
+  darley <- read.csv("./data/darley_wrangle.csv")
+  
+} else {
+  
+  darley <- darley_wrangle
+  
+}
 
 # Set up basic information --------------------------------------------
 
@@ -469,7 +477,7 @@ if (!file.exists("./data/darley_effects/")) {
 
 ## Hypothesis 1
 
-if (!file.exists("./data/darley_effects/darley_h1_smd.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_h1_smd,
@@ -481,7 +489,7 @@ if (!file.exists("./data/darley_effects/darley_h1_smd.csv")) {
 
 ## Hypothesis 2
 
-if (!file.exists("./data/darley_effects/darley_h2_smd.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_h2_smd,
@@ -493,7 +501,7 @@ if (!file.exists("./data/darley_effects/darley_h2_smd.csv")) {
 
 ## Hypothesis 3
 
-if (!file.exists("./data/darley_effects/darley_h3_smd.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_h3_smd,
@@ -505,7 +513,7 @@ if (!file.exists("./data/darley_effects/darley_h3_smd.csv")) {
 
 ## Manipulation check 1
 
-if (!file.exists("./data/darley_effects/darley_mc1_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc1_lor,
@@ -517,7 +525,7 @@ if (!file.exists("./data/darley_effects/darley_mc1_lor.csv")) {
 
 ## Manipulation check 2
 
-if (!file.exists("./data/darley_effects/darley_mc2_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc2_lor,
@@ -529,7 +537,7 @@ if (!file.exists("./data/darley_effects/darley_mc2_lor.csv")) {
 
 ## Manipulation check 3
 
-if (!file.exists("./data/darley_effects/darley_mc3_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc3_lor,
@@ -541,7 +549,7 @@ if (!file.exists("./data/darley_effects/darley_mc3_lor.csv")) {
 
 ## Manipulation check 4
 
-if (!file.exists("./data/darley_effects/darley_mc4_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc4_lor,
@@ -553,7 +561,7 @@ if (!file.exists("./data/darley_effects/darley_mc4_lor.csv")) {
 
 ## Manipulation check 5
 
-if (!file.exists("./data/darley_effects/darley_mc5_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc5_lor,
@@ -565,7 +573,7 @@ if (!file.exists("./data/darley_effects/darley_mc5_lor.csv")) {
 
 ## Manipulation check 6
 
-if (!file.exists("./data/darley_effects/darley_mc6_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc6_lor,
@@ -577,7 +585,7 @@ if (!file.exists("./data/darley_effects/darley_mc6_lor.csv")) {
 
 ## Manipulation check 7
 
-if (!file.exists("./data/darley_effects/darley_mc7_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc7_lor,
@@ -589,7 +597,7 @@ if (!file.exists("./data/darley_effects/darley_mc7_lor.csv")) {
 
 ## Manipulation check 8
 
-if (!file.exists("./data/darley_effects/darley_mc8_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc8_lor,
@@ -601,7 +609,7 @@ if (!file.exists("./data/darley_effects/darley_mc8_lor.csv")) {
 
 ## Manipulation check 9
 
-if (!file.exists("./data/darley_effects/darley_mc9_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc9_lor,
@@ -613,7 +621,7 @@ if (!file.exists("./data/darley_effects/darley_mc9_lor.csv")) {
 
 ## Manipulation check 10
 
-if (!file.exists("./data/darley_effects/darley_mc10_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc10_lor,
@@ -625,7 +633,7 @@ if (!file.exists("./data/darley_effects/darley_mc10_lor.csv")) {
 
 ## Manipulation check 11
 
-if (!file.exists("./data/darley_effects/darley_mc11_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc11_lor,
@@ -637,7 +645,7 @@ if (!file.exists("./data/darley_effects/darley_mc11_lor.csv")) {
 
 ## Manipulation check 12
 
-if (!file.exists("./data/darley_effects/darley_mc12_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     darley_mc12_lor,

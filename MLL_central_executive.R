@@ -8,6 +8,23 @@
 
 # Set up environment --------------------------------------------------
 
+## Set parameters
+
+# Should the project save data output when built?
+
+## When set to TRUE, scripts will save calculated data files, including wrangled data and effect size calculations
+## Note that if this parameter is set to TRUE, the scripts will overwrite any existing data files from previous builds of the project.
+
+write_data <- TRUE
+
+# Should the project read calculated data from stored files?
+
+## When set to TRUE, scripts will import data files, rather than relying on the objects produced by previous source files
+## The functionality of this parameter is currently very limited.
+## Only change this to TRUE if you know what you are doing.
+
+read_data  <- FALSE
+
 ## Check and install necessary packages for the project
 
 ### Packages required by the Many Legal Labs project

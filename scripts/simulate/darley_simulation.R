@@ -47,7 +47,7 @@ darley_wide$outcome <-sample(outcome, nrow(darley_wide), replace = TRUE)
 
 # Save data simulated data file ---------------------------------------
 
-if (!file.exists("./data/darley_sim.csv")) {
+if (write_data == TRUE) {
   
   if (!file.exists("./data/")) {
     

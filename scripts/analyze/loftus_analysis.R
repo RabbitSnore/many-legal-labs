@@ -138,10 +138,14 @@ forest_plot_med <- function(meta_analysis, replication_data, org_med, org_ci_low
 
 # Import calculated effect data ---------------------------------------
 
-loftus_h1_smd  <- read.csv("./data/loftus_effects/loftus_h1_smd.csv")
-loftus_h2_lor  <- read.csv("./data/loftus_effects/loftus_h2_lor.csv")
-loftus_h3_lor  <- read.csv("./data/loftus_effects/loftus_h3_lor.csv")
-loftus_h4_med  <- read.csv("./data/loftus_effects/loftus_h4_med.csv")
+if (read_data == TRUE) {
+  
+  loftus_h1_smd  <- read.csv("./data/loftus_effects/loftus_h1_smd.csv")
+  loftus_h2_lor  <- read.csv("./data/loftus_effects/loftus_h2_lor.csv")
+  loftus_h3_lor  <- read.csv("./data/loftus_effects/loftus_h3_lor.csv")
+  loftus_h4_med  <- read.csv("./data/loftus_effects/loftus_h4_med.csv")
+  
+}
 
 # Import original effects
 

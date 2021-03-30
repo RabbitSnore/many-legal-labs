@@ -82,7 +82,7 @@ serota_wide$last_lie[serota_wide$total_lies == 0] <- sample(last_lie, nrow(serot
 
 # Save data simulated data file ---------------------------------------
 
-if (!file.exists("./data/serota_raw.csv")) {
+if (write_data == TRUE) {
   
   if (!file.exists("./data/")) {
     

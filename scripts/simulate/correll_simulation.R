@@ -79,7 +79,7 @@ correll_wide <- bind_cols(correll_wide, response_data)
 
 # Save data simulated data file ---------------------------------------
 
-if (!file.exists("./data/correll_sim.csv")) {
+if (write_data == TRUE) {
   
   if (!file.exists("./data/")) {
     

@@ -256,9 +256,13 @@ forest_plot_mean <- function(meta_analysis, replication_data, org_mean, org_ci_l
 
 # Import calculated effect data ---------------------------------------
 
-serota_h1_k <- read.csv("./data/serota_effects/serota_h1_k.csv")
-
-serota_desc <- read.csv("./data/serota_effects/serota_desc.csv")
+if (read_data == TRUE) {
+  
+  serota_h1_k <- read.csv("./data/serota_effects/serota_h1_k.csv")
+  
+  serota_desc <- read.csv("./data/serota_effects/serota_desc.csv")
+  
+}
 
 # Import original effects
 

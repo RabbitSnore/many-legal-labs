@@ -19,10 +19,14 @@ source("./scripts/calculate/effect_size_functions.R")
 
 # Import calculated effect data ---------------------------------------
 
-correll_h1_smd <- read.csv("./data/correll_effects/correll_h1_smd.csv")
-correll_h2_smd <- read.csv("./data/correll_effects/correll_h2_smd.csv")
-correll_h3_smd <- read.csv("./data/correll_effects/correll_h3_smd.csv")
-correll_h4_smd <- read.csv("./data/correll_effects/correll_h4_smd.csv")
+if (read_data == TRUE) {
+  
+  correll_h1_smd <- read.csv("./data/correll_effects/correll_h1_smd.csv")
+  correll_h2_smd <- read.csv("./data/correll_effects/correll_h2_smd.csv")
+  correll_h3_smd <- read.csv("./data/correll_effects/correll_h3_smd.csv")
+  correll_h4_smd <- read.csv("./data/correll_effects/correll_h4_smd.csv")
+  
+}
 
 # Import original effects
 

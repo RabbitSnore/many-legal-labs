@@ -11,3 +11,5 @@ source("MLL_central_executive.R")
 ```
 
 Running this script will reproduce all the analyses for the project and render the main report and supplementary reports. The script also automatically detects what packages needed for the project must be installed and installs them.
+
+More control can be achieved by changing parameters in `MLL_central_executive.R` and/or by manually executing the scripts.

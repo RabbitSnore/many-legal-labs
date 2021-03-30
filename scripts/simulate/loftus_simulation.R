@@ -53,7 +53,7 @@ loftus_wide$broken_glass <- broken_glass
 
 # Save data simulated data file ---------------------------------------
 
-if (!file.exists("./data/loftus_sim.csv")) {
+if (write_data == TRUE) {
   
   if (!file.exists("./data/")) {
     
