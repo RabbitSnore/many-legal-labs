@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Mean Lies per Day
 
-Serota et al (2010, Study 1) found that people told on average M = 1.65, 95% CI [1.37, 1.93] lies per day (SD = 4.45, Mdn = 0, Mode = 0, N = 998, Max = 53 lies).
+Serota et al (2010, Study 3) found that people told on average M = 1.65, 95% CI [1.37, 1.93] lies per day (SD = 4.45, Mdn = 0, Mode = 0, N = 998, Max = 53 lies).
 
 Study 3 found that students told an average of M = 2.34, 95% CI [1.95, 2.72] lies per day (SD = 2.94, Mdn = 1, Mode = 0, N = 225, Max = 21 lies).
 
