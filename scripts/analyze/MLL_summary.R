@@ -10,7 +10,7 @@
 
 ### Function to format lines for the main table
 
-meta_extraction <- function(hypothesis, meta, original, org_lower, org_upper, index = 1, data = NULL) {
+meta_extraction <- function(study, hypothesis, meta, original, org_lower, org_upper, index = 1, data = NULL) {
   
   require(metafor)
   
@@ -90,13 +90,13 @@ meta_extraction <- function(hypothesis, meta, original, org_lower, org_upper, in
     
     consistency <- "Inconsistent"
     
-    if (signal == "Signal") {
+    if (signal == "Signal - ") {
       
       if (original > b) {
         
         size     <- round(b/original * 100)
         
-        modifier <- paste(" (Smaller, ", size, "% of original)")
+        modifier <- paste(" (Smaller, ", size, "% of original)", sep = "")
         
       }
       
@@ -104,7 +104,7 @@ meta_extraction <- function(hypothesis, meta, original, org_lower, org_upper, in
         
         size     <- round(b/original * 100)
         
-        modifier <- paste(" (Larger, ", size, "% of original)")
+        modifier <- paste(" (Larger, ", size, "% of original)", sep = "")
         
       }
       
@@ -129,6 +129,7 @@ meta_extraction <- function(hypothesis, meta, original, org_lower, org_upper, in
   # Output
   
   out <- data.frame(
+    study       = study,
     Hypothesis  = hypothesis,
     Replication = meta_est, 
     Original    = org_est,
@@ -147,6 +148,7 @@ meta_extraction <- function(hypothesis, meta, original, org_lower, org_upper, in
 focal_effects <- 15 # Number of 
 
 main_table_data <- data.frame(
+  study         = rep(NA, focal_effects),
   hypothesis    = rep(NA, focal_effects),
   meta_analysis = rep(NA, focal_effects),
   data          = rep(NA, focal_effects),
@@ -161,6 +163,7 @@ main_table_data <- data.frame(
 # Race-Biased Shooting
 
 main_table_data[1, ] <- data.frame(
+  study         = "Correll et al  (2002, Study 1)",
   hypothesis    = "Race-Biased Shooting",
   meta_analysis = "correll_h2_meta",
   data          = "correll_h2_smd",
@@ -173,6 +176,7 @@ main_table_data[1, ] <- data.frame(
 # Race-Biased Holding Fire
 
 main_table_data[2, ] <- data.frame(
+  study         = "Correll et al  (2002, Study 1)",
   hypothesis    = "Race-Biased Holding Fire",
   meta_analysis = "correll_h3_meta",
   data          = "correll_h3_smd",
@@ -185,6 +189,7 @@ main_table_data[2, ] <- data.frame(
 # Race-Biased False Alarms
 
 main_table_data[3, ] <- data.frame(
+  study         = "Correll et al  (2002, Study 1)",
   hypothesis    = "Race-Biased False Alarms",
   meta_analysis = "correll_h5_meta",
   data          = "correll_h5_smd",
@@ -199,6 +204,7 @@ main_table_data[3, ] <- data.frame(
 # Punishment, Jealousy vs. Inoperable Tumor
 
 main_table_data[4, ] <- data.frame(
+  study         = "Darley et al (2000, Study 2)",
   hypothesis    = "Punishment, Jealousy vs. Inoperable Tumor",
   meta_analysis = "darley_h1_meta",
   data          = "darley_h1_smd",
@@ -211,6 +217,7 @@ main_table_data[4, ] <- data.frame(
 # Punishment, Jealousy vs. Operable Tumor
 
 main_table_data[5, ] <- data.frame(
+  study         = "Darley et al (2000, Study 2)",
   hypothesis    = "Punishment, Jealousy vs. Operable Tumor",
   meta_analysis = "darley_h2_meta",
   data          = "darley_h2_smd",
@@ -223,6 +230,7 @@ main_table_data[5, ] <- data.frame(
 # Punishment, Inoperable vs. Operable Tumor
 
 main_table_data[6, ] <- data.frame(
+  study         = "Darley et al (2000, Study 2)",
   hypothesis    = "Punishment, Inoperable vs. Operable Tumor",
   meta_analysis = "darley_h3_meta",
   data          = "darley_h3_smd",
@@ -237,6 +245,7 @@ main_table_data[6, ] <- data.frame(
 # Speed Estimates, Smashed vs. Hit
 
 main_table_data[7, ] <- data.frame(
+  study         = "Loftus & Palmer (1974, Study 2)",
   hypothesis    = "Speed Estimates, Smashed vs. Hit",
   meta_analysis = "loftus_h1_meta",
   data          = "loftus_h1_smd",
@@ -249,6 +258,7 @@ main_table_data[7, ] <- data.frame(
 # Broken Glass, Smashed vs. Hit
 
 main_table_data[8, ] <- data.frame(
+  study         = "Loftus & Palmer (1974, Study 2)",
   hypothesis    = "Broken Glass, Smashed vs. Hit",
   meta_analysis = "loftus_h2_meta",
   data          = "loftus_h2_lor",
@@ -261,6 +271,7 @@ main_table_data[8, ] <- data.frame(
 # Broken Glass, Smashed vs. Control
 
 main_table_data[9, ] <- data.frame(
+  study         = "Loftus & Palmer (1974, Study 2)",
   hypothesis    = "Broken Glass, Smashed vs. Control",
   meta_analysis = "loftus_h3_meta",
   data          = "loftus_h3_lor",
@@ -273,9 +284,10 @@ main_table_data[9, ] <- data.frame(
 # Speed Estimates as a Partial Mediator (indirect)
 
 main_table_data[10, ] <- data.frame(
+  study         = "Loftus & Palmer (1974, Study 2)",
   hypothesis    = "Speed Estimates as a Partial Mediator (indirect)",
   meta_analysis = "loftus_h4_meta",
-  data          = "loftus_h4_med",
+  data          = "loftus_h4_med_long",
   original      = loftus_org$b[loftus_org$hypothesis == "h4_indirect"],
   org_ci_lower  = loftus_org$ci_lower[loftus_org$hypothesis == "h4_indirect"],
   org_ci_upper  = loftus_org$ci_upper[loftus_org$hypothesis == "h4_indirect"],
@@ -285,9 +297,10 @@ main_table_data[10, ] <- data.frame(
 # Speed Estimates as a Partial Mediator (direct)
 
 main_table_data[11, ] <- data.frame(
+  study         = "Loftus & Palmer (1974, Study 2)",
   hypothesis    = "Speed Estimates as a Partial Mediator (direct)",
   meta_analysis = "loftus_h4_meta",
-  data          = "loftus_h4_med",
+  data          = "loftus_h4_med_long",
   original      = loftus_org$b[loftus_org$hypothesis == "h4_direct"],
   org_ci_lower  = loftus_org$ci_lower[loftus_org$hypothesis == "h4_direct"],
   org_ci_upper  = loftus_org$ci_upper[loftus_org$hypothesis == "h4_direct"],
@@ -299,6 +312,7 @@ main_table_data[11, ] <- data.frame(
 # Average Number of Lies
 
 main_table_data[12, ] <- data.frame(
+  study         = "Serota et al (2010, Study 3)",
   hypothesis    = "Average Number of Lies",
   meta_analysis = "serota_mean_meta",
   data          = "serota_desc",
@@ -311,6 +325,7 @@ main_table_data[12, ] <- data.frame(
 # Distribution of Lies
 
 main_table_data[13, ] <- data.frame(
+  study         = "Serota et al (2010, Study 3)",
   hypothesis    = "Distribution of Lies",
   meta_analysis = "serota_h1_meta",
   data          = "serota_h1_k",
@@ -323,6 +338,7 @@ main_table_data[13, ] <- data.frame(
 # Distribution of Lies (US)
 
 main_table_data[14, ] <- data.frame(
+  study         = "Serota et al (2010, Study 3)",
   hypothesis    = "Distribution of Lies (US)",
   meta_analysis = "serota_usa_meta",
   data          = "serota_h1_k",
@@ -335,6 +351,7 @@ main_table_data[14, ] <- data.frame(
 # Distribution of Lies (non-US)
 
 main_table_data[15, ] <- data.frame(
+  study         = "Serota et al (2010, Study 3)",
   hypothesis    = "Distribution of Lies (non-US)",
   meta_analysis = "serota_usa_meta",
   data          = "serota_h1_k",
@@ -343,5 +360,43 @@ main_table_data[15, ] <- data.frame(
   org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "h1"],
   index         = 1
 )
+
+# Create main table ---------------------------------------------------
+
+## Empty table
+
+main_table <- 
+data.frame(
+  Study       = rep(NA, focal_effects),
+  Hypothesis  = rep(NA, focal_effects),
+  Replication = rep(NA, focal_effects), 
+  Original    = rep(NA, focal_effects),
+  Outcome     = rep(NA, focal_effects),
+  Q           = rep(NA, focal_effects),
+  Tau         = rep(NA, focal_effects),
+  I2          = rep(NA, focal_effects)
+)
+
+## Add table data
+
+for (i in 1:nrow(main_table_data)) {
+  
+  temp_effect <- main_table_data[i, ]
+  
+  main_table[i, ] <- meta_extraction(
+    study      = temp_effect$study,
+    hypothesis = temp_effect$hypothesis, 
+    meta       = get(temp_effect$meta_analysis), 
+    original   = temp_effect$original, 
+    org_lower  = temp_effect$org_ci_lower, 
+    org_upper  = temp_effect$org_ci_upper, 
+    index      = temp_effect$index, 
+    data       = get(temp_effect$data)
+  )
+  
+}
+
+
+
 
 
