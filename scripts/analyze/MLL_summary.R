@@ -4,7 +4,13 @@
 
 #######################################################################
 
-meta_extraction <- function(meta, original, org_lower, org_upper, index = 1, data = NULL) {
+# Set up environment --------------------------------------------------
+
+## Functions
+
+### Function to format lines for the main table
+
+meta_extraction <- function(hypothesis, meta, original, org_lower, org_upper, index = 1, data = NULL) {
   
   require(metafor)
   
@@ -123,6 +129,7 @@ meta_extraction <- function(meta, original, org_lower, org_upper, index = 1, dat
   # Output
   
   out <- data.frame(
+    Hypothesis  = hypothesis,
     Replication = meta_est, 
     Original    = org_est,
     Outcome     = interpret,
@@ -134,3 +141,207 @@ meta_extraction <- function(meta, original, org_lower, org_upper, index = 1, dat
   return(out)
   
 }
+
+# Organize data -------------------------------------------------------
+
+focal_effects <- 15 # Number of 
+
+main_table_data <- data.frame(
+  hypothesis    = rep(NA, focal_effects),
+  meta_analysis = rep(NA, focal_effects),
+  data          = rep(NA, focal_effects),
+  original      = rep(NA, focal_effects),
+  org_ci_lower  = rep(NA, focal_effects),
+  org_ci_upper  = rep(NA, focal_effects),
+  index         = rep(NA, focal_effects)
+)
+
+## Correll et al  (2002, Study 1)
+
+# Race-Biased Shooting
+
+main_table_data[1, ] <- data.frame(
+  hypothesis    = "Race-Biased Shooting",
+  meta_analysis = "correll_h2_meta",
+  data          = "correll_h2_smd",
+  original      = correll_org$d[correll_org$hypothesis == "h2"],
+  org_ci_lower  = correll_org$ci_lower[correll_org$hypothesis == "h2"],
+  org_ci_upper  = correll_org$ci_upper[correll_org$hypothesis == "h2"],
+  index         = 1
+)
+
+# Race-Biased Holding Fire
+
+main_table_data[2, ] <- data.frame(
+  hypothesis    = "Race-Biased Holding Fire",
+  meta_analysis = "correll_h3_meta",
+  data          = "correll_h3_smd",
+  original      = correll_org$d[correll_org$hypothesis == "h3"],
+  org_ci_lower  = correll_org$ci_lower[correll_org$hypothesis == "h3"],
+  org_ci_upper  = correll_org$ci_upper[correll_org$hypothesis == "h3"],
+  index         = 1
+)
+
+# Race-Biased False Alarms
+
+main_table_data[3, ] <- data.frame(
+  hypothesis    = "Race-Biased False Alarms",
+  meta_analysis = "correll_h5_meta",
+  data          = "correll_h5_smd",
+  original      = correll_org$d[correll_org$hypothesis == "h5"],
+  org_ci_lower  = correll_org$ci_lower[correll_org$hypothesis == "h5"],
+  org_ci_upper  = correll_org$ci_upper[correll_org$hypothesis == "h5"],
+  index         = 1
+)
+
+## Darley et al (2000, Study 2)
+
+# Punishment, Jealousy vs. Inoperable Tumor
+
+main_table_data[4, ] <- data.frame(
+  hypothesis    = "Punishment, Jealousy vs. Inoperable Tumor",
+  meta_analysis = "darley_h1_meta",
+  data          = "darley_h1_smd",
+  original      = darley_org$d[darley_org$hypothesis == "h1"],
+  org_ci_lower  = darley_org$ci_lower[darley_org$hypothesis == "h1"],
+  org_ci_upper  = darley_org$ci_upper[darley_org$hypothesis == "h1"],
+  index         = 1
+)
+
+# Punishment, Jealousy vs. Operable Tumor
+
+main_table_data[5, ] <- data.frame(
+  hypothesis    = "Punishment, Jealousy vs. Operable Tumor",
+  meta_analysis = "darley_h2_meta",
+  data          = "darley_h2_smd",
+  original      = darley_org$d[darley_org$hypothesis == "h2"],
+  org_ci_lower  = darley_org$ci_lower[darley_org$hypothesis == "h2"],
+  org_ci_upper  = darley_org$ci_upper[darley_org$hypothesis == "h2"],
+  index         = 1
+)
+
+# Punishment, Inoperable vs. Operable Tumor
+
+main_table_data[6, ] <- data.frame(
+  hypothesis    = "Punishment, Inoperable vs. Operable Tumor",
+  meta_analysis = "darley_h3_meta",
+  data          = "darley_h3_smd",
+  original      = darley_org$d[darley_org$hypothesis == "h3"],
+  org_ci_lower  = darley_org$ci_lower[darley_org$hypothesis == "h3"],
+  org_ci_upper  = darley_org$ci_upper[darley_org$hypothesis == "h3"],
+  index         = 1
+)
+
+## Loftus & Palmer (1974, Study 2)
+
+# Speed Estimates, Smashed vs. Hit
+
+main_table_data[7, ] <- data.frame(
+  hypothesis    = "Speed Estimates, Smashed vs. Hit",
+  meta_analysis = "loftus_h1_meta",
+  data          = "loftus_h1_smd",
+  original      = loftus_org$d[loftus_org$hypothesis == "h1"],
+  org_ci_lower  = loftus_org$ci_lower[loftus_org$hypothesis == "h1"],
+  org_ci_upper  = loftus_org$ci_upper[loftus_org$hypothesis == "h1"],
+  index         = 1
+)
+
+# Broken Glass, Smashed vs. Hit
+
+main_table_data[8, ] <- data.frame(
+  hypothesis    = "Broken Glass, Smashed vs. Hit",
+  meta_analysis = "loftus_h2_meta",
+  data          = "loftus_h2_lor",
+  original      = loftus_org$lor[loftus_org$hypothesis == "h2"],
+  org_ci_lower  = loftus_org$ci_lower[loftus_org$hypothesis == "h2"],
+  org_ci_upper  = loftus_org$ci_upper[loftus_org$hypothesis == "h2"],
+  index         = 1
+)
+
+# Broken Glass, Smashed vs. Control
+
+main_table_data[9, ] <- data.frame(
+  hypothesis    = "Broken Glass, Smashed vs. Control",
+  meta_analysis = "loftus_h3_meta",
+  data          = "loftus_h3_lor",
+  original      = loftus_org$lor[loftus_org$hypothesis == "h3"],
+  org_ci_lower  = loftus_org$ci_lower[loftus_org$hypothesis == "h3"],
+  org_ci_upper  = loftus_org$ci_upper[loftus_org$hypothesis == "h3"],
+  index         = 1
+)
+
+# Speed Estimates as a Partial Mediator (indirect)
+
+main_table_data[10, ] <- data.frame(
+  hypothesis    = "Speed Estimates as a Partial Mediator (indirect)",
+  meta_analysis = "loftus_h4_meta",
+  data          = "loftus_h4_med",
+  original      = loftus_org$b[loftus_org$hypothesis == "h4_indirect"],
+  org_ci_lower  = loftus_org$ci_lower[loftus_org$hypothesis == "h4_indirect"],
+  org_ci_upper  = loftus_org$ci_upper[loftus_org$hypothesis == "h4_indirect"],
+  index         = 2
+)
+
+# Speed Estimates as a Partial Mediator (direct)
+
+main_table_data[11, ] <- data.frame(
+  hypothesis    = "Speed Estimates as a Partial Mediator (direct)",
+  meta_analysis = "loftus_h4_meta",
+  data          = "loftus_h4_med",
+  original      = loftus_org$b[loftus_org$hypothesis == "h4_direct"],
+  org_ci_lower  = loftus_org$ci_lower[loftus_org$hypothesis == "h4_direct"],
+  org_ci_upper  = loftus_org$ci_upper[loftus_org$hypothesis == "h4_direct"],
+  index         = 1
+)
+
+## Serota et al (2010, Study 3)
+
+# Average Number of Lies
+
+main_table_data[12, ] <- data.frame(
+  hypothesis    = "Average Number of Lies",
+  meta_analysis = "serota_mean_meta",
+  data          = "serota_desc",
+  original      = serota_org$mean[serota_org$hypothesis == "mean"],
+  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "mean"],
+  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "mean"],
+  index         = 1
+)
+
+# Distribution of Lies
+
+main_table_data[13, ] <- data.frame(
+  hypothesis    = "Distribution of Lies",
+  meta_analysis = "serota_h1_meta",
+  data          = "serota_h1_k",
+  original      = serota_org$k[serota_org$hypothesis == "h1"],
+  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "h1"],
+  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "h1"],
+  index         = 1
+)
+
+# Distribution of Lies (US)
+
+main_table_data[14, ] <- data.frame(
+  hypothesis    = "Distribution of Lies (US)",
+  meta_analysis = "serota_usa_meta",
+  data          = "serota_h1_k",
+  original      = serota_org$k[serota_org$hypothesis == "h1"],
+  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "h1"],
+  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "h1"],
+  index         = 2
+)
+
+# Distribution of Lies (non-US)
+
+main_table_data[15, ] <- data.frame(
+  hypothesis    = "Distribution of Lies (non-US)",
+  meta_analysis = "serota_usa_meta",
+  data          = "serota_h1_k",
+  original      = serota_org$k[serota_org$hypothesis == "h1"],
+  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "h1"],
+  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "h1"],
+  index         = 1
+)
+
+
