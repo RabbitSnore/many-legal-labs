@@ -7,12 +7,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("metafor", "dplyr", "ggplot2")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Seed
 
 set.seed(1919)
@@ -25,7 +19,7 @@ source("./scripts/calculate/effect_size_functions.R")
 
 ### Forest plot for exponential coefficients
 
-forest_plot_k <- function(meta_analysis, replication_data, org_k, org_ci_lower, org_ci_upper, title, study_color = "black", boundary_pad = 0.20, breaks = 0.10) {
+forest_plot_k <- function(meta_analysis, replication_data, org_k, org_ci_lower, org_ci_upper, title, study_color = "black", boundary_pad = 0.25, multiple = 0.50) {
   
   ### Set up original and meta-analytic estimates
   
@@ -67,8 +61,8 @@ forest_plot_k <- function(meta_analysis, replication_data, org_k, org_ci_lower, 
   
   ### Set up plot boundaries
   
-  effect_max <- round(max(forest_estimates$ci_upper, na.rm = TRUE), 1) + boundary_pad
-  effect_min <- round(min(forest_estimates$ci_lower, na.rm = TRUE), 1) - boundary_pad
+  effect_max <- round(max(forest_estimates$ci_upper, na.rm = TRUE) / multiple) * multiple
+  effect_min <- round(min(forest_estimates$ci_lower, na.rm = TRUE) / multiple) * multiple
   
   ### Draw the forest plot
   
@@ -111,10 +105,11 @@ forest_plot_k <- function(meta_analysis, replication_data, org_k, org_ci_lower, 
       yintercept = 2.5
     ) +
     scale_x_continuous(
-      breaks = seq(effect_min, effect_max + 0.20, breaks)
+      breaks = sort(c(0, seq(effect_min, effect_max, multiple))),
+      labels = format(sort(c(0, seq(effect_min, effect_max, multiple))), nsmall = 2)
     ) +
     coord_cartesian(
-      xlim = c(effect_min, effect_max)
+      xlim = c(effect_min - boundary_pad, effect_max + boundary_pad)
     ) +
     labs(
       title = title,
@@ -261,9 +256,13 @@ forest_plot_mean <- function(meta_analysis, replication_data, org_mean, org_ci_l
 
 # Import calculated effect data ---------------------------------------
 
-serota_h1_k <- read.csv("./data/serota_effects/serota_h1_k.csv")
-
-serota_desc <- read.csv("./data/serota_effects/serota_desc.csv")
+if (read_data == TRUE) {
+  
+  serota_h1_k <- read.csv("./data/serota_effects/serota_h1_k.csv")
+  
+  serota_desc <- read.csv("./data/serota_effects/serota_desc.csv")
+  
+}
 
 # Import original effects
 
@@ -336,3 +335,49 @@ serota_h1_forest <-
     org_ci_lower = serota_org[serota_org$hypothesis == "h1", ]$ci_lower, 
     org_ci_upper = serota_org[serota_org$hypothesis == "h1", ]$ci_upper
   )
+
+# MODERATOR ANALYSIS: COUNTRY -----------------------------------------
+
+## US vs. non-US
+
+serota_usa_intercept <- rma(
+  yi = k, 
+  vi = var,
+  mods = ~ usa,
+  data = serota_h1_k,
+  method = "REML"
+)
+
+serota_usa_QM  <- serota_usa_intercept$QM
+serota_usa_QMp <- serota_usa_intercept$QMp
+
+serota_usa_meta <- rma(
+  yi = k, 
+  vi = var,
+  mods = ~ usa - 1,
+  data = serota_h1_k,
+  method = "REML"
+)
+
+## Each country
+
+### Random effects meta-analysis
+
+serota_country_intercept <- rma(
+  yi = k, 
+  vi = var,
+  mods = ~ country,
+  data = serota_h1_k,
+  method = "REML"
+)
+
+serota_country_QM  <- serota_country_intercept$QM
+serota_country_QMp <- serota_country_intercept$QMp
+
+serota_country_meta <- rma(
+  yi = k, 
+  vi = var,
+  mods = ~ country - 1,
+  data = serota_h1_k,
+  method = "REML"
+)

@@ -7,12 +7,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("dplyr", "tidyr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Functions
 
 ### General effect size functions
@@ -105,7 +99,15 @@ empty_med_data <- function(n) {
 
 # Import wrangled data ------------------------------------------------
 
-loftus <- read.csv("./data/loftus_wrangle.csv")
+if (read_data == TRUE) {
+  
+  loftus <- read.csv("./data/loftus_wrangle.csv")
+  
+} else {
+  
+  loftus <- loftus_wrangle
+  
+}
 
 # Set up basic information --------------------------------------------
 
@@ -243,7 +245,7 @@ for (i in 1:lab_count_loftus) {
 
 ## If the data directory does not exist, it will be necessary to create it
 
-if (!file.exists("./data/loftus_effects/")) {
+if (write_data == TRUE) {
   
   dir.create("./data/loftus_effects/")
   
@@ -251,7 +253,7 @@ if (!file.exists("./data/loftus_effects/")) {
 
 ## Hypothesis 1
 
-if (!file.exists("./data/loftus_effects/darley_h1_smd.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     loftus_h1_smd,
@@ -263,7 +265,7 @@ if (!file.exists("./data/loftus_effects/darley_h1_smd.csv")) {
 
 ## Hypothesis 2
 
-if (!file.exists("./data/loftus_effects/loftus_h2_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     loftus_h2_lor,
@@ -275,7 +277,7 @@ if (!file.exists("./data/loftus_effects/loftus_h2_lor.csv")) {
 
 ## Hypothesis 3
 
-if (!file.exists("./data/loftus_effects/loftus_h3_lor.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     loftus_h3_lor,
@@ -287,7 +289,7 @@ if (!file.exists("./data/loftus_effects/loftus_h3_lor.csv")) {
 
 ## Hypothesis 4
 
-if (!file.exists("./data/loftus_effects/loftus_h4_med.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     loftus_h4_med,

@@ -7,12 +7,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("metafor", "dplyr", "ggplot2")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Seed
 
 set.seed(540)
@@ -27,27 +21,31 @@ source("./scripts/calculate/effect_size_functions.R")
 
 ## Recommended punishment
 
-darley_h1_smd  <- read.csv("./data/darley_effects/darley_h1_smd.csv")
-darley_h2_smd  <- read.csv("./data/darley_effects/darley_h2_smd.csv")
-darley_h3_smd  <- read.csv("./data/darley_effects/darley_h3_smd.csv")
-
-## Attributions of responsibility
-
-darley_mc1_lor <- read.csv("./data/darley_effects/darley_mc1_lor.csv")
-darley_mc2_lor <- read.csv("./data/darley_effects/darley_mc2_lor.csv")
-darley_mc3_lor <- read.csv("./data/darley_effects/darley_mc3_lor.csv")
-
-## Recommended outcomes
-
-darley_mc4_lor  <- read.csv("./data/darley_effects/darley_mc4_lor.csv")
-darley_mc5_lor  <- read.csv("./data/darley_effects/darley_mc5_lor.csv")
-darley_mc6_lor  <- read.csv("./data/darley_effects/darley_mc6_lor.csv")
-darley_mc7_lor  <- read.csv("./data/darley_effects/darley_mc7_lor.csv")
-darley_mc8_lor  <- read.csv("./data/darley_effects/darley_mc8_lor.csv")
-darley_mc9_lor  <- read.csv("./data/darley_effects/darley_mc9_lor.csv")
-darley_mc10_lor <- read.csv("./data/darley_effects/darley_mc10_lor.csv")
-darley_mc11_lor <- read.csv("./data/darley_effects/darley_mc11_lor.csv")
-darley_mc12_lor <- read.csv("./data/darley_effects/darley_mc12_lor.csv")
+if (read_data == TRUE) {
+  
+  darley_h1_smd  <- read.csv("./data/darley_effects/darley_h1_smd.csv")
+  darley_h2_smd  <- read.csv("./data/darley_effects/darley_h2_smd.csv")
+  darley_h3_smd  <- read.csv("./data/darley_effects/darley_h3_smd.csv")
+  
+  ## Attributions of responsibility
+  
+  darley_mc1_lor <- read.csv("./data/darley_effects/darley_mc1_lor.csv")
+  darley_mc2_lor <- read.csv("./data/darley_effects/darley_mc2_lor.csv")
+  darley_mc3_lor <- read.csv("./data/darley_effects/darley_mc3_lor.csv")
+  
+  ## Recommended outcomes
+  
+  darley_mc4_lor  <- read.csv("./data/darley_effects/darley_mc4_lor.csv")
+  darley_mc5_lor  <- read.csv("./data/darley_effects/darley_mc5_lor.csv")
+  darley_mc6_lor  <- read.csv("./data/darley_effects/darley_mc6_lor.csv")
+  darley_mc7_lor  <- read.csv("./data/darley_effects/darley_mc7_lor.csv")
+  darley_mc8_lor  <- read.csv("./data/darley_effects/darley_mc8_lor.csv")
+  darley_mc9_lor  <- read.csv("./data/darley_effects/darley_mc9_lor.csv")
+  darley_mc10_lor <- read.csv("./data/darley_effects/darley_mc10_lor.csv")
+  darley_mc11_lor <- read.csv("./data/darley_effects/darley_mc11_lor.csv")
+  darley_mc12_lor <- read.csv("./data/darley_effects/darley_mc12_lor.csv")
+  
+}
 
 # Import original effects
 

@@ -7,12 +7,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("dplyr", "tidyr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Functions
 
 ### General effect size functions
@@ -91,9 +85,19 @@ empty_k_data <- function(n) {
 
 # Import wrangled data ------------------------------------------------
 
-serota <- read.csv("./data/serota_frequencies.csv")
-
-serota_summary <- read.csv("./data/serota_summary.csv")
+if (read_data == TRUE) {
+  
+  serota <- read.csv("./data/serota_frequencies.csv")
+  
+  serota_summary <- read.csv("./data/serota_summary.csv")
+  
+} else {
+  
+  serota <- prop_lies
+  
+  serota_summary <- serota_summary
+  
+}
 
 # Set up basic information --------------------------------------------
 
@@ -141,11 +145,28 @@ for (i in 1:lab_count_serota) {
   
 }
 
+### Link moderators with effects
+
+serota_mods <- serota_raw %>% 
+  select(ID = lab, country) %>% 
+  unique()
+
+serota_h1_k <- serota_h1_k %>% 
+  left_join(serota_mods, by = "ID")
+
+serota_h1_k <- serota_h1_k %>% 
+  mutate(
+    usa = case_when(
+      country == "United States" ~ "US",
+      !is.na(country)            ~ "Non-US"
+    )
+  )
+
 # Export Calculated Effect Sizes --------------------------------------
 
 ## If the data directory does not exist, it will be necessary to create it
 
-if (!file.exists("./data/serota_effects/")) {
+if (write_data == TRUE) {
   
   dir.create("./data/serota_effects/")
   
@@ -153,7 +174,7 @@ if (!file.exists("./data/serota_effects/")) {
 
 ## Descriptives
 
-if (!file.exists("./data/serota_effects/serota_desc.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     serota_desc,
@@ -165,7 +186,7 @@ if (!file.exists("./data/serota_effects/serota_desc.csv")) {
 
 ## Hypothesis 1
 
-if (!file.exists("./data/serota_effects/serota_h1_k.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     serota_h1_k,

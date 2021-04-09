@@ -6,12 +6,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("dplyr", "stringr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Seed
 
 set.seed(666)
@@ -53,7 +47,7 @@ darley_wide$outcome <-sample(outcome, nrow(darley_wide), replace = TRUE)
 
 # Save data simulated data file ---------------------------------------
 
-if (!file.exists("./data/darley_sim.csv")) {
+if (write_data == TRUE) {
   
   if (!file.exists("./data/")) {
     

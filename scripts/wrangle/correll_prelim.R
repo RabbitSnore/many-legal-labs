@@ -5,39 +5,19 @@
 
 #######################################################################
 
-# DATA EXCLUSIONS -----------------------------------------------------
+# Import data ---------------------------------------------------------
 
-# Remove trials that exceed 850ms response window
+if (read_data == TRUE) {
+  
+  correll_sim <- read.csv("./data/correll_sim.csv")
+  
+} else {
+  
+  correll_sim <- correll_wide
+  
+}
 
-# Remove trials with incorrect responses
-
-## Check exclusion rate
-
-### Between subjects
-
-### Within subjects
-
-# TRANSFORMATIONS -----------------------------------------------------
-
-# Log transform response latencies
-
-# Calculate within participant cell means for response latencies
-
-# Calculate errors for each cell, within participants
-
-
-
-## Packages
-
-packages <- c("dplyr", "stringr")
-
-lapply(packages, library, character.only = TRUE)
-
-## Import
-
-
-correll_sim <- read.csv("./data/correll_sim.csv")
-
+# Data simulation -----------------------------------------------------
 
 ## Basic study design
 
@@ -174,7 +154,7 @@ correll_wrangle <- bind_cols (lab = correll_sim$lab, subject = correll_sim$subje
 
 ## Save data
 
-if (!file.exists("./data/correll_wrangle.csv")) {
+if (write_data == TRUE) {
   
   if (!file.exists("./data/")) {
     

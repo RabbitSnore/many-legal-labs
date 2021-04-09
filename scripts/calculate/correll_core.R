@@ -7,12 +7,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("dplyr", "tidyr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Functions
 
 ### General effect size functions
@@ -21,7 +15,15 @@ source("./scripts/calculate/effect_size_functions.R")
 
 # Import wrangled data ------------------------------------------------
 
-correll <- read.csv("./data/correll_wrangle.csv")
+if (read_data == TRUE) {
+  
+  correll <- read.csv("./data/correll_wrangle.csv")
+  
+} else {
+  
+  correll <- correll_wrangle
+  
+}
 
 # Set up basic information --------------------------------------------
 
@@ -273,7 +275,7 @@ if (!file.exists("./data/correll_effects/")) {
 
 ## Hypothesis 1
 
-if (!file.exists("./data/correll_effects/correll_h1_smd.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     correll_h1_smd,
@@ -285,7 +287,7 @@ if (!file.exists("./data/correll_effects/correll_h1_smd.csv")) {
 
 ## Hypothesis 2
 
-if (!file.exists("./data/correll_effects/correll_h2_smd.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     correll_h2_smd,
@@ -297,7 +299,7 @@ if (!file.exists("./data/correll_effects/correll_h2_smd.csv")) {
 
 ## Hypothesis 3
 
-if (!file.exists("./data/correll_effects/correll_h3_smd.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     correll_h3_smd,
@@ -309,7 +311,7 @@ if (!file.exists("./data/correll_effects/correll_h3_smd.csv")) {
 
 ## Hypothesis 4
 
-if (!file.exists("./data/correll_effects/correll_h4_smd.csv")) {
+if (write_data == TRUE) {
   
   write.csv(
     correll_h4_smd,

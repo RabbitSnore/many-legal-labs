@@ -7,15 +7,17 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("dplyr", "tidyr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Import
 
-loftus_sim <- read.csv("./data/loftus_sim.csv")
+if (read_data == TRUE) {
+  
+  loftus_sim <- read.csv("./data/loftus_sim.csv")
+  
+} else {
+  
+  loftus_sim <- loftus_wide
+  
+}
 
 # Wrangle -------------------------------------------------------------
 
@@ -31,7 +33,7 @@ loftus_wrangle <- loftus_sim %>%
 
 # Save data -----------------------------------------------------------
 
-if (!file.exists("./data/loftus_wrangle.csv")) {
+if (write_data == TRUE) {
   
   if (!file.exists("./data/")) {
     

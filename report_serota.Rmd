@@ -14,13 +14,6 @@ knit: (function(input_file, encoding) {
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-# Run all necessary scripts
-
-source("./scripts/simulate/serota_simulation.R", local = knitr::knit_global()) # REPLACE WITH DATA IMPORTATION
-source("./scripts/wrangle/serota_prelim.R", local = knitr::knit_global())
-source("./scripts/calculate/serota_core.R", local = knitr::knit_global())
-source("./scripts/analyze/serota_analysis.R", local = knitr::knit_global())
-
 ```
 
 # Overview
@@ -29,7 +22,7 @@ source("./scripts/analyze/serota_analysis.R", local = knitr::knit_global())
 
 ## Mean Lies per Day
 
-Serota et al (2010, Study 1) found that people told on average M = 1.65, 95% CI [1.37, 1.93] lies per day (SD = 4.45, Mdn = 0, Mode = 0, N = 998, Max = 53 lies).
+Serota et al (2010, Study 3) found that people told on average M = 1.65, 95% CI [1.37, 1.93] lies per day (SD = 4.45, Mdn = 0, Mode = 0, N = 998, Max = 53 lies).
 
 Study 3 found that students told an average of M = 2.34, 95% CI [1.95, 2.72] lies per day (SD = 2.94, Mdn = 1, Mode = 0, N = 225, Max = 21 lies).
 
@@ -68,3 +61,38 @@ serota_h1_meta
 ```{r}
 serota_h1_forest
 ```
+
+# Moderator Analysis
+
+## US compared to non-US countries
+
+We will examine whether the United States differs from other countries with regard to the power function that characterizes the distribution of lies told per day.
+
+We will assess whether the US differs from other countries using a Q test.
+
+```{r}
+list(Q = serota_usa_QM, p = serota_usa_QMp)
+```
+
+We will also examine each country
+
+```{r}
+serota_usa_meta
+```
+
+## Individual Countries
+
+We will examine whether the country in which the data were collected moderates the power function that characterizes the distribution of lies told per day.
+
+We will assess the moderating effect of country using a Q test.
+
+```{r}
+list(Q = serota_country_QM, p = serota_country_QMp)
+```
+
+We will also examine the effect size estimates for each country.
+
+```{r}
+serota_country_meta
+```
+

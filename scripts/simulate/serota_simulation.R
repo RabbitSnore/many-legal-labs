@@ -6,12 +6,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("dplyr", "stringr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Seed
 
 set.seed(5318008)
@@ -28,7 +22,7 @@ n_lies    <- 10
 
 mode      <- c("face", "mediated")
 person    <- c("family", "friend", "business", "acquaintance", "stranger")
-country   <- c("Basutoland", "Ceylon", "DDR", "Neutral Moresnet", "Prussia", "Roman empire", "Sikkim", "Tavolara", "Vermont", "Yugoslavia", "Zanzibar")
+country   <- c("Basutoland", "Ceylon", "DDR", "Neutral Moresnet", "Prussia", "Roman empire", "Sikkim", "Tavolara", "Vermont", "Yugoslavia", "Zanzibar", "United States")
 
 last_lie <- c("more than 24 hours ago but within the last 2 days", "more than 2 days ago but within the last week", "more than a week ago but within the last month", "more than a month ago", "never")
 
@@ -88,7 +82,7 @@ serota_wide$last_lie[serota_wide$total_lies == 0] <- sample(last_lie, nrow(serot
 
 # Save data simulated data file ---------------------------------------
 
-if (!file.exists("./data/serota_raw.csv")) {
+if (write_data == TRUE) {
   
   if (!file.exists("./data/")) {
     

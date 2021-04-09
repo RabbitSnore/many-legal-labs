@@ -14,13 +14,6 @@ knit: (function(input_file, encoding) {
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-# Run all necessary scripts
-
-source("./scripts/simulate/correll_simulation.R", local = knitr::knit_global()) # REPLACE WITH DATA IMPORTATION
-source("./scripts/wrangle/correll_prelim.R", local = knitr::knit_global())
-source("./scripts/calculate/correll_core.R", local = knitr::knit_global())
-source("./scripts/analyze/correll_analysis.R", local = knitr::knit_global())
-
 ```
 
 # Overview

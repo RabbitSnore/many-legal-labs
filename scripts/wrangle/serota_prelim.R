@@ -17,15 +17,17 @@
 
 # The output should be a series of frequency tables appended to each other, with identifiers (lab IDs)
 
-## Packages
-
-packages <- c("dplyr", "tidyr")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Import
 
-serota_raw <- read.csv("./data/serota_raw.csv")
+if (read_data == TRUE) {
+  
+  serota_raw <- read.csv("./data/serota_raw.csv")
+  
+} else {
+  
+  serota_raw <- serota_wide
+  
+}
 
 # Wrangle -------------------------------------------------------------
 
@@ -62,7 +64,7 @@ df_lies$lab = serota_summary$lab
 
 long_lies <- reshape(df_lies, 
                      direction = "long",
-                     varying = list(names(df_lies)[1:(ncol(df_lies)-1                       )]), 
+                     varying = list(names(df_lies)[1:(ncol(df_lies)-1)]), 
                      v.names = "freq",
                      idvar = "lab",
                      timevar = "lies",
@@ -87,7 +89,7 @@ prop_lies <- filter_lies %>%
 
 # Save data simulated data file ---------------------------------------
 
-if (!file.exists("./data/serota_summary.csv")) {
+if (write_data == TRUE) {
   
   if (!file.exists("./data/")) {
     
@@ -103,7 +105,7 @@ if (!file.exists("./data/serota_summary.csv")) {
   
 }
 
-if (!file.exists("./data/serota_frequencies.csv")) {
+if (write_data == TRUE) {
   
   if (!file.exists("./data/")) {
     

@@ -7,12 +7,6 @@
 
 # Set up environment --------------------------------------------------
 
-## Packages
-
-packages <- c("metafor", "dplyr", "ggplot2")
-
-lapply(packages, library, character.only = TRUE)
-
 ## Seed
 
 set.seed(666)
@@ -25,11 +19,15 @@ source("./scripts/calculate/effect_size_functions.R")
 
 # Import calculated effect data ---------------------------------------
 
-correll_h1_smd <- read.csv("./data/correll_effects/correll_h1_smd.csv")
-correll_h2_smd <- read.csv("./data/correll_effects/correll_h2_smd.csv")
-correll_h3_smd <- read.csv("./data/correll_effects/correll_h3_smd.csv")
-correll_h4_smd <- read.csv("./data/correll_effects/correll_h4_smd.csv")
-correll_h5_smd <- read.csv("./data/correll_effects/correll_h5_smd.csv")
+if (read_data == TRUE) {
+  
+  correll_h1_smd <- read.csv("./data/correll_effects/correll_h1_smd.csv")
+  correll_h2_smd <- read.csv("./data/correll_effects/correll_h2_smd.csv")
+  correll_h3_smd <- read.csv("./data/correll_effects/correll_h3_smd.csv")
+  correll_h4_smd <- read.csv("./data/correll_effects/correll_h4_smd.csv")
+  correll_h5_smd <- read.csv("./data/correll_effects/correll_h5_smd.csv")
+  
+}
 
 # Import original effects
 
