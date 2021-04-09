@@ -145,7 +145,9 @@ meta_extraction <- function(study, hypothesis, meta, original, org_lower, org_up
 
 # Organize data -------------------------------------------------------
 
-focal_effects <- 15 # Number of 
+## Set up empty data frame for table
+
+focal_effects <- 15 # Number of effects to include in main report
 
 main_table_data <- data.frame(
   study         = rep(NA, focal_effects),
