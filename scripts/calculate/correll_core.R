@@ -217,6 +217,50 @@ for (i in 1:lab_count_correll) {
   
 }
 
+# HYPOTHESIS 5 --------------------------------------------------------
+
+# Participants are more likely to shoot an unarmed target (i.e., false alarms) if the target is African American rather than white. 
+
+# Standardized mean difference in Errors for Ethnicity, for No-Gun trials
+
+## Set up data
+
+correll_h5_data <- correll %>% 
+  pivot_longer(
+    cols = all_of(accuracy_cols),
+    names_to = "trial_type",
+    values_to = "accuracy"
+  ) %>% 
+  extract(
+    col = "trial_type", 
+    into = c("race", "object", "variable"), 
+    regex = "(.*)_(.*)_(.*)"
+  ) %>% filter(object == "unarmed")
+
+## Calculate effect sizes
+
+### Set up empty data frame for effects
+
+correll_h5_smd <- empty_smd_data(lab_count_correll)
+
+### Compute standardized mean differences for each lab
+
+for (i in 1:lab_count_correll) {
+  
+  correll_h5_smd[i, ] <- d_calc(
+    
+    ID = unique(correll_h5_data$lab)[i], 
+    
+    x = correll_h5_data$race[correll_h5_data$lab == unique(correll_h5_data$lab)[i]], 
+    y = correll_h5_data$accuracy[correll_h5_data$lab == unique(correll_h5_data$lab)[i]], 
+    
+    cond_1 = "black", 
+    cond_2 = "white"
+    
+  )
+  
+}
+
 # Export Calculated Effect Sizes --------------------------------------
 
 ## If the data directory does not exist, it will be necessary to create it
@@ -275,3 +319,14 @@ if (!file.exists("./data/correll_effects/correll_h4_smd.csv")) {
   
 }
 
+## Hypothesis 5
+
+if (!file.exists("./data/correll_effects/correll_h5_smd.csv")) {
+  
+  write.csv(
+    correll_h5_smd,
+    "./data/correll_effects/correll_h5_smd.csv",
+    row.names = FALSE
+  )
+  
+}
