@@ -396,7 +396,17 @@ for (i in 1:nrow(main_table_data)) {
   
 }
 
+## Export main table
 
+if (write_data == TRUE) {
+  
+  write.csv(
+    main_table,
+    "./data/main_table.csv",
+    row.names = FALSE
+  )
+  
+}
 
 
 
