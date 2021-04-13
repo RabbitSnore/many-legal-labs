@@ -1,5 +1,5 @@
 hypothesis,k,ci_lower,ci_upper,mean
 h1,-1.209,-1.209,-1.209,
-h1_student,-0.79,-0.79,-0.79,
+h1_student,-1.012,-1.012,-1.012,
 mean,,1.37,1.93,1.65
 mean_student,,1.95,2.72,2.34

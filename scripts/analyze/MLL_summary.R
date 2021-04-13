@@ -348,9 +348,9 @@ main_table_data[12, ] <- data.frame(
   metric        = "mean",
   meta_analysis = "serota_mean_meta",
   data          = "serota_desc",
-  original      = serota_org$mean[serota_org$hypothesis == "mean"],
-  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "mean"],
-  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "mean"],
+  original      = serota_org$mean[serota_org$hypothesis == "mean_student"],
+  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "mean_student"],
+  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "mean_student"],
   index         = 1
 )
 
@@ -362,9 +362,9 @@ main_table_data[13, ] <- data.frame(
   metric        = "exponent",
   meta_analysis = "serota_h1_meta",
   data          = "serota_h1_k",
-  original      = serota_org$k[serota_org$hypothesis == "h1"],
-  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "h1"],
-  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "h1"],
+  original      = serota_org$k[serota_org$hypothesis == "h1_student"],
+  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "h1_student"],
+  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "h1_student"],
   index         = 1
 )
 
@@ -376,9 +376,9 @@ main_table_data[14, ] <- data.frame(
   metric        = "exponent",
   meta_analysis = "serota_usa_meta",
   data          = "serota_h1_k",
-  original      = serota_org$k[serota_org$hypothesis == "h1"],
-  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "h1"],
-  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "h1"],
+  original      = serota_org$k[serota_org$hypothesis == "h1_student"],
+  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "h1_student"],
+  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "h1_student"],
   index         = 2
 )
 
@@ -390,9 +390,9 @@ main_table_data[15, ] <- data.frame(
   metric        = "exponent",
   meta_analysis = "serota_usa_meta",
   data          = "serota_h1_k",
-  original      = serota_org$k[serota_org$hypothesis == "h1"],
-  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "h1"],
-  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "h1"],
+  original      = serota_org$k[serota_org$hypothesis == "h1_student"],
+  org_ci_lower  = serota_org$ci_lower[serota_org$hypothesis == "h1_student"],
+  org_ci_upper  = serota_org$ci_upper[serota_org$hypothesis == "h1_student"],
   index         = 1
 )
 
