@@ -14,37 +14,53 @@ meta_extraction <- function(study, hypothesis, meta, metric, original, org_lower
   
   require(metafor)
   
+  rounder <- function(x, n) {
+    
+    format(round(x, n), nsmall = n)
+    
+  }
+  
   # Estimate
   
   b        <- meta$beta[index]
   lower    <- meta$ci.lb[index]
   upper    <- meta$ci.ub[index]
   
-  meta_est <- paste(round(b, 3), " [", round(lower, 3), ", ", round(upper, 3), "]", sep = "")
+  meta_est <- paste(rounder(b, 3), " [", rounder(lower, 3), ", ", rounder(upper, 3), "]", sep = "")
   
-  org_est <- paste(round(original, 3), " [", round(org_lower, 3), ", ", round(org_upper, 3), "]", sep = "")
+  org_est <- paste(rounder(original, 3), " [", rounder(org_lower, 3), ", ", rounder(org_upper, 3), "]", sep = "")
   
   # Heterogeneity
   
-  Q        <- round(meta$QE, 3)
+  Q        <- rounder(meta$QE, 3)
   Q_df     <- meta$k - length(meta$beta)
   
   if (meta$QEp < .001) {
     
     Q_p    <- "< .001"
     
-  } else (
+  } else {
     
-    Q_p      <- paste("= ", round(meta$QEp, 3), sep = "")
+    if (round(meta$QEp, 3) == 1) {
+      
+      Q_p  <- "= .999"
+      
+    } else {
+      
+      Q_p  <- paste("= ", sub("0.", ".", rounder(meta$QEp, 3)), sep = "")
+      
+    }
     
-  )
+  } 
+  
+  
   
   
   
   
   Q_stat   <- paste("Q (", Q_df, ") = ", Q, ", p ", Q_p, sep = "") 
   
-  tau      <- round(sqrt(meta$tau2), 3)
+  tau      <- rounder(sqrt(meta$tau2), 3)
   I2       <- meta$I2
   
   if (is.null(I2)) {
@@ -62,7 +78,7 @@ meta_extraction <- function(study, hypothesis, meta, metric, original, org_lower
     
   }
   
-  I2 <- round(I2, 3)
+  I2 <- rounder(I2, 3)
   
   # Interpretation
   
@@ -167,7 +183,7 @@ main_table_data <- data.frame(
 # Race-Biased Shooting
 
 main_table_data[1, ] <- data.frame(
-  study         = "Correll et al  (2002, Study 1)",
+  study         = "Correll et al (2002, Study 1)",
   hypothesis    = "Race-Biased Shooting",
   metric        = "d",
   meta_analysis = "correll_h2_meta",
@@ -181,7 +197,7 @@ main_table_data[1, ] <- data.frame(
 # Race-Biased Holding Fire
 
 main_table_data[2, ] <- data.frame(
-  study         = "Correll et al  (2002, Study 1)",
+  study         = "Correll et al (2002, Study 1)",
   hypothesis    = "Race-Biased Holding Fire",
   metric        = "d",
   meta_analysis = "correll_h3_meta",
@@ -195,7 +211,7 @@ main_table_data[2, ] <- data.frame(
 # Race-Biased False Alarms
 
 main_table_data[3, ] <- data.frame(
-  study         = "Correll et al  (2002, Study 1)",
+  study         = "Correll et al (2002, Study 1)",
   hypothesis    = "Race-Biased False Alarms",
   metric        = "d",
   meta_analysis = "correll_h5_meta",
