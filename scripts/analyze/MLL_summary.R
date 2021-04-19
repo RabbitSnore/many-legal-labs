@@ -454,7 +454,8 @@ main_table_manuscript <- main_table %>%
   italic(i = ~ !is.na(Study)) %>% 
   fontsize(size = 10, part = "all") %>% 
   font(fontname = "Times New Roman", part = "all") %>% 
-  autofit()
+  autofit(part = "all") %>% 
+  padding(padding = .8, part = "all")
   
 heterogeneity_table <- main_table %>% 
   select(Study, Hypothesis, Q, Tau, I2) %>% 
@@ -463,7 +464,8 @@ heterogeneity_table <- main_table %>%
   italic(i = ~ !is.na(Study)) %>% 
   fontsize(size = 10, part = "all") %>% 
   font(fontname = "Times New Roman", part = "all") %>% 
-  autofit()
+  autofit(part = "all") %>% 
+  padding(padding = .8, part = "all")
 
 #### Export formatted tables
 
