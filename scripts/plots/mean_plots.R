@@ -1,3 +1,6 @@
+
+
+
 serota_mean <- serota_desc
 serota_mean$hypothesis <- "mean"
 
@@ -27,9 +30,19 @@ estimates_serota_mean$hypothesis <- factor(estimates_serota_mean$hypothesis, lev
 serota_mean$hypothesis <- factor(serota_mean$hypothesis, levels = rev(c("mean")))
 
 
-plot_func_mean <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25, multiple = .50) {
+plot_func_mean <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25) {
   
   # Set up plot boundaries
+
+if(sum(estimate$mean > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) > 1) {
+  multiple = 1
+} else if (sum(estimate$mean < 0.5, estimate$ci_lower < 0.5, estimate$ci_upper < 0.5) > 1) {
+  multiple = 0.1
+} else {
+  multiple = 0.5
+}
+  
+  
   effect_max <- round(max(c(complete$mean, estimate$ci_upper), na.rm = TRUE) / multiple) * multiple
   effect_min <- round(min(c(complete$mean, estimate$ci_lower), na.rm = TRUE) / multiple) * multiple
   
@@ -93,9 +106,6 @@ plot_func_mean <- function(meta, complete, estimate, study_colors, titles, bound
     scale_color_manual(
       values = rev(study_colors)
     ) +
-    scale_y_discrete(
-      labels = rev(titles)
-    ) +
     scale_shape_manual(
       values = c(16, 15)
     ) +
@@ -108,6 +118,7 @@ plot_func_mean <- function(meta, complete, estimate, study_colors, titles, bound
     ) +
     labs(
       shape = "",
+      title = titles,
       y = "",
       x = expression(paste("Effect size (", italic("mean"), ")", sep = ""))
     ) +
@@ -120,11 +131,13 @@ plot_func_mean <- function(meta, complete, estimate, study_colors, titles, bound
     theme_classic() +
     theme(
       axis.text = element_text(color = "black"),
+      plot.title = element_text(hjust = 0.5),
+      axis.text.y = element_blank(),
       legend.position = "bottom",
       legend.background = element_rect( 
         size = 0.5,
         linetype = "solid",
-        color= "black")
+        color = "black")
     )
 }
 
@@ -135,5 +148,5 @@ serota_plot_mean <- plot_func_mean(
   complete     = serota_mean,
   estimate     = estimates_serota_mean,
   study_colors = serota_color_1, 
-  titles       = c("Mean")
+  titles       = c("Average Number of Lies")
 )

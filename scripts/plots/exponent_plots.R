@@ -64,9 +64,21 @@ serota_h1_nonus$hypothesis <- factor(serota_h1_nonus$hypothesis, levels = rev(c(
 
 ## Plot function
 
-plot_func_k <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25, multiple = .50) {
+plot_func_k <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25) {
   
   # Set up plot boundaries
+  
+  ## This doesn't work verywell here since original exponent is negative.
+
+  if (sum(estimate$k > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) >1) {
+    mutiple = 1
+  } else if (sum(estimate$k < 0.5, estimate$ci_lower < 0.5, estimate$ci_upper < 0.5) == 6) {
+    multiple = 0.1
+  } else {
+    multiple = 0.5
+  }
+  
+  
   effect_max <- round(max(c(complete$k, estimate$ci_upper), na.rm = TRUE) / multiple) * multiple
   effect_min <- round(min(c(complete$k, estimate$ci_lower), na.rm = TRUE) / multiple) * multiple
   
@@ -145,6 +157,7 @@ plot_func_k <- function(meta, complete, estimate, study_colors, titles, boundary
     ) +
     labs(
       shape = "",
+      title = titles,
       y = "",
       x = expression(paste("Effect size (", italic("exponent"), ")", sep = ""))
     ) +
@@ -157,6 +170,8 @@ plot_func_k <- function(meta, complete, estimate, study_colors, titles, boundary
     theme_classic() +
     theme(
       axis.text = element_text(color = "black"),
+      plot.title = element_text(hjust = 0.5),
+      axis.text.y = element_blank(),
       legend.position = "bottom",
       legend.background = element_rect( 
         size = 0.5,
@@ -170,7 +185,7 @@ serota_plot_all <- plot_func_k(
   complete     = serota_h1_all,
   estimate     = estimates_serota_all,
   study_colors = serota_color_1, 
-  titles       = c("H1")
+  titles       = c("Distribution of Lies")
 )
 
 serota_plot_us <- plot_func_k(
@@ -178,7 +193,7 @@ serota_plot_us <- plot_func_k(
   complete     = serota_h1_us,
   estimate     = estimates_serota_us,
   study_colors = serota_color_1, 
-  titles       = c("US")
+  titles       = c("Distribution of Lies (US)")
 )
 
 serota_plot_nonus <- plot_func_k(
@@ -186,5 +201,5 @@ serota_plot_nonus <- plot_func_k(
   complete     = serota_h1_us,
   estimate     = estimates_serota_nonus,
   study_colors = serota_color_1, 
-  titles       = c("Non-US")
+  titles       = c("Distribution of Lies (Non-US)")
 )

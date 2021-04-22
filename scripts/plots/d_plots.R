@@ -154,9 +154,18 @@ loftus_h1_plot$hypothesis <- factor(loftus_h1_plot$hypothesis, levels = rev(c("h
 
 ## Plot function
 
-plot_func_d <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25, multiple = .50) {
+plot_func_d <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25) {
 
 # Set up plot boundaries
+  
+  if (sum(estimate$d > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) >1) {
+    mutiple = 1
+  } else if (sum(estimate$d < 0.5, estimate$ci_lower < 0.5, estimate$ci_upper < 0.5) == 6) {
+    multiple = 0.10
+  } else {
+    multiple = 0.50
+  }  
+  
 effect_max <- round(max(c(complete$d, estimate$ci_upper), na.rm = TRUE) / multiple) * multiple
 effect_min <- round(min(c(complete$d, estimate$ci_lower), na.rm = TRUE) / multiple) * multiple
 
@@ -235,6 +244,7 @@ correll_new <-
   ) +
   labs(
     shape = "",
+    title = titles,
     y = "",
     x = expression(paste("Effect size (", italic("d"), ")", sep = ""))
   ) +
@@ -247,6 +257,8 @@ correll_new <-
   theme_classic() +
   theme(
     axis.text = element_text(color = "black"),
+    plot.title = element_text(hjust = 0.5),
+    axis.text.y = element_blank(),
     legend.position = "bottom",
     legend.background = element_rect( 
       size = 0.5,
@@ -260,7 +272,7 @@ correll_plot_h2 <- plot_func_d(
   complete     = correll_h2_plot,
   estimate     = estimates_correll_2,
   study_colors    = correll_color_1, 
-  titles          = c("H2")
+  titles          = c("Race-Biased Shooting")
 )
 
 correll_plot_h3 <- plot_func_d(
@@ -268,7 +280,7 @@ correll_plot_h3 <- plot_func_d(
   complete     = correll_h3_plot,
   estimate     = estimates_correll_3,
   study_colors    = correll_color_1, 
-  titles          = c("H3")
+  titles          = c("Race-Biased Holding Fire")
 )
 
 correll_plot_h5 <- plot_func_d(
@@ -276,7 +288,7 @@ correll_plot_h5 <- plot_func_d(
   complete     = correll_h5_plot,
   estimate     = estimates_correll_5,
   study_colors    = correll_color_1, 
-  titles          = c("H5")
+  titles          = c("Race-Biased False Alarms")
 )
 
 darley_plot_h1 <- plot_func_d(
@@ -284,7 +296,7 @@ darley_plot_h1 <- plot_func_d(
   complete     = darley_h1_plot,
   estimate     = estimates_darley_1,
   study_colors = darley_color_1, 
-  titles       = c("H1")
+  titles       = c("Punishment, \n Jealousy vs. Inoperable Tumor")
 )
 
 darley_plot_h2 <- plot_func_d(
@@ -292,7 +304,7 @@ darley_plot_h2 <- plot_func_d(
   complete     = darley_h2_plot,
   estimate     = estimates_darley_2,
   study_colors = darley_color_1, 
-  titles       = c("H2")
+  titles       = c("Punishment, \n Jealousy vs. Operable Tumor")
 )
 
 darley_plot_h3 <- plot_func_d(
@@ -300,7 +312,7 @@ darley_plot_h3 <- plot_func_d(
   complete     = darley_h3_plot,
   estimate     = estimates_darley_3,
   study_colors = darley_color_1, 
-  titles       = c("H3")
+  titles       = c("Punishment, \n Inoperable vs. Operable Tumor")
 )
 
 loftus_plot_h1 <- plot_func_d(
@@ -308,5 +320,5 @@ loftus_plot_h1 <- plot_func_d(
   complete     = loftus_h1_plot,
   estimate     = estimates_loftus_1,
   study_colors = loftus_color_1, 
-  titles       = c("H1")
+  titles       = c("Speed Estimates, Smashed vs. Hit")
 )

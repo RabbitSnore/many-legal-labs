@@ -46,9 +46,18 @@ loftus_h4_plot_direct$hypothesis <- factor(loftus_h4_plot_direct$hypothesis, lev
 
 
 
-plot_func_b <- function(complete, estimate, study_colors, titles, boundary_pad = .25, multiple = .50) {
+plot_func_b <- function(complete, estimate, study_colors, titles, boundary_pad = .25) {
   
   # Set up plot boundaries
+  
+  if (sum(estimate$b > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) >1) {
+    mutiple = 1
+  } else if (sum(estimate$b < 0.5, estimate$ci_lower < 0.5, estimate$ci_upper < 0.5) == 6) {
+    multiple = 0.10
+  } else {
+    multiple = 0.5
+  }  
+  
   effect_max <- round(max(c(complete$estimate, estimate$ci_upper), na.rm = TRUE) / multiple) * multiple
   effect_min <- round(min(c(complete$estimate, estimate$ci_lower), na.rm = TRUE) / multiple) * multiple
   
@@ -127,6 +136,7 @@ plot_func_b <- function(complete, estimate, study_colors, titles, boundary_pad =
     ) +
     labs(
       shape = "",
+      title = titles,
       y = "",
       x = expression(paste("Effect size (", italic("b"), ")", sep = ""))
     ) +
@@ -139,6 +149,8 @@ plot_func_b <- function(complete, estimate, study_colors, titles, boundary_pad =
     theme_classic() +
     theme(
       axis.text = element_text(color = "black"),
+      plot.title = element_text(hjust = 0.5),
+      axis.text.y = element_blank(),
       legend.position = "bottom",
       legend.background = element_rect( 
         size = 0.5,
@@ -147,18 +159,19 @@ plot_func_b <- function(complete, estimate, study_colors, titles, boundary_pad =
     )
 }
 
-## This one is messed up? why??
+
+
 
 loftus_plot_h4_indirect <- plot_func_b(
   complete     = loftus_h4_plot_indirect,
   estimate     = estimates_loftus_4_indirect,
   study_colors = loftus_color_1, 
-  titles       = c("H4 Indirect")
+  titles       = c("Speed Estimates as a Partial Mediator \n (indirect)")
 )
 
 loftus_plot_h4_direct <- plot_func_b(
   complete     = loftus_h4_plot_direct,
   estimate     = estimates_loftus_4_direct,
   study_colors = loftus_color_1, 
-  titles       = c("H4 direct")
+  titles       = c("Speed Estimates as a Partial Mediator \n (direct)")
 )

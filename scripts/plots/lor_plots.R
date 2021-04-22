@@ -49,7 +49,15 @@ loftus_h3_plot$hypothesis <- factor(loftus_h3_plot$hypothesis, levels = rev(c("h
 
 ##
 
-plot_func_lor <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25, multiple = .50) {
+plot_func_lor <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25) {
+  
+  if (sum(estimate$lor > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) >1) {
+    mutiple = 1
+  } else if (sum(estimate$lor < 0.5, estimate$ci_lower < 0.5, estimate$ci_upper < 0.5) == 6) {
+    multiple = 0.1
+  } else {
+    multiple = 0.5
+  }
   
   # Set up plot boundaries
   effect_max <- round(max(c(complete$log_odds, estimate$ci_upper), na.rm = TRUE) / multiple) * multiple
@@ -130,6 +138,7 @@ plot_func_lor <- function(meta, complete, estimate, study_colors, titles, bounda
     ) +
     labs(
       shape = "",
+      title = titles,
       y = "",
       x = expression(paste("Effect size (", italic("log odds ratio"), ")", sep = ""))
     ) +
@@ -142,6 +151,8 @@ plot_func_lor <- function(meta, complete, estimate, study_colors, titles, bounda
     theme_classic() +
     theme(
       axis.text = element_text(color = "black"),
+      plot.title = element_text(hjust = 0.5),
+      axis.text.y = element_blank(),
       legend.position = "bottom",
       legend.background = element_rect( 
         size = 0.5,
@@ -156,7 +167,7 @@ loftus_plot_h2 <- plot_func_lor(
   complete     = loftus_h2_plot,
   estimate     = estimates_loftus_2,
   study_colors = loftus_color_1, 
-  titles       = c("H2")
+  titles       = c("Broken Glass, Smashed vs. Hit")
 )
 
 loftus_plot_h3 <- plot_func_lor(
@@ -164,5 +175,5 @@ loftus_plot_h3 <- plot_func_lor(
   complete     = loftus_h3_plot,
   estimate     = estimates_loftus_3,
   study_colors = loftus_color_1, 
-  titles       = c("H3")
+  titles       = c("Broken Glass, Smashed vs. Control")
 )
