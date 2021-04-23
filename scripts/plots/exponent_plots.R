@@ -1,11 +1,22 @@
+## Serota et al (2010, Study 3), hypothesis 1
+
 serota_h1_all <- serota_h1_k 
 serota_h1_all$hypothesis <- "k"
+
+
+## Serota et al (2010, Study 3), US sample
 
 serota_h1_us <- filter(serota_h1_k, usa == "US")
 serota_h1_us$hypothesis <- "k"
 
+
+## Serota et al (2010, Study 3), Non-US sample
+
 serota_h1_nonus <- filter(serota_h1_k, usa == "Non-US")
 serota_h1_nonus$hypothesis <- "k"
+
+
+## Estimate data function k
 
 estimate_data_k <- function(meta_analysis, org_k, index, org_ci_lower, org_ci_upper) {
   # Set up original and meta-analytic estimates
@@ -19,6 +30,9 @@ estimate_data_k <- function(meta_analysis, org_k, index, org_ci_lower, org_ci_up
   return(estimates)
 }
 
+
+##Estimate data Serota, hypothesis 1
+
 estimates_serota_all <- estimate_data_k(
   meta_analysis    = serota_h1_meta,
   org_k            = serota_org$k[serota_org$hypothesis == "h1_student"],
@@ -27,12 +41,15 @@ estimates_serota_all <- estimate_data_k(
   org_ci_upper     = serota_org$ci_upper[serota_org$hypothesis == "h1_student"])
 
 estimates_serota_all$ID <- factor(estimates_serota_all$ID, levels = c("Replication", "Original"))
+
 estimates_serota_all$hypothesis <- c(rep("k", 2))
+
 estimates_serota_all$hypothesis <- factor(estimates_serota_all$hypothesis, levels = rev(c("k")))
 
 serota_h1_all$hypothesis <- factor(serota_h1_all$hypothesis, levels = rev(c("k")))
 
-##US
+
+##Estimate data Serota, US sample
 
 estimates_serota_us <- estimate_data_k(
   meta_analysis    = serota_usa_meta,
@@ -42,12 +59,15 @@ estimates_serota_us <- estimate_data_k(
   index = 2)
 
 estimates_serota_us$ID <- factor(estimates_serota_us$ID, levels = c("Replication", "Original"))
+
 estimates_serota_us$hypothesis <- c(rep("k", 2))
+
 estimates_serota_us$hypothesis <- factor(estimates_serota_us$hypothesis, levels = rev(c("k")))
 
 serota_h1_us$hypothesis <- factor(serota_h1_us$hypothesis, levels = rev(c("k")))
 
-## Non-US
+
+##Estimate data Serota, Non-US sample
 
 estimates_serota_nonus <- estimate_data_k(
   meta_analysis    = serota_usa_meta,
@@ -57,18 +77,21 @@ estimates_serota_nonus <- estimate_data_k(
   index = 1)
 
 estimates_serota_nonus$ID <- factor(estimates_serota_nonus$ID, levels = c("Replication", "Original"))
+
 estimates_serota_nonus$hypothesis <- c(rep("k", 2))
+
 estimates_serota_nonus$hypothesis <- factor(estimates_serota_nonus$hypothesis, levels = rev(c("k")))
 
 serota_h1_nonus$hypothesis <- factor(serota_h1_nonus$hypothesis, levels = rev(c("k")))
 
-## Plot function
+
+## Plot function k
 
 plot_func_k <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25) {
   
   # Set up plot boundaries
   
-  ## This doesn't work verywell here since original exponent is negative.
+  # The function might not be best suited here because of the negative values.
 
   if (sum(estimate$k > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) >1) {
     mutiple = 1
@@ -78,8 +101,8 @@ plot_func_k <- function(meta, complete, estimate, study_colors, titles, boundary
     multiple = 0.5
   }
   
-  
   effect_max <- round(max(c(complete$k, estimate$ci_upper), na.rm = TRUE) / multiple) * multiple
+  
   effect_min <- round(min(c(complete$k, estimate$ci_lower), na.rm = TRUE) / multiple) * multiple
   
   
@@ -180,6 +203,9 @@ plot_func_k <- function(meta, complete, estimate, study_colors, titles, boundary
     )
 }
 
+
+# Serota hypothesis 1 plot
+
 serota_plot_all <- plot_func_k(
   meta         = serota_h1_meta, 
   complete     = serota_h1_all,
@@ -188,6 +214,9 @@ serota_plot_all <- plot_func_k(
   titles       = c("Distribution of Lies")
 )
 
+
+# Serota, US sample
+
 serota_plot_us <- plot_func_k(
   meta         = serota_usa_meta, 
   complete     = serota_h1_us,
@@ -195,6 +224,9 @@ serota_plot_us <- plot_func_k(
   study_colors = serota_color_1, 
   titles       = c("Distribution of Lies (US)")
 )
+
+
+# Serota, Non-US sample
 
 serota_plot_nonus <- plot_func_k(
   meta         = serota_usa_meta, 

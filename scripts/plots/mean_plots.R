@@ -1,9 +1,11 @@
 
-
+## Serota et al (2010, Study 3), avarage number of lies
 
 serota_mean <- serota_desc
 serota_mean$hypothesis <- "mean"
 
+
+##Estimate data function mean
 
 estimate_data_mean <- function(meta_analysis, org_mean, org_ci_lower, org_ci_upper) {
   # Set up original and meta-analytic estimates
@@ -17,6 +19,9 @@ estimate_data_mean <- function(meta_analysis, org_mean, org_ci_lower, org_ci_upp
   return(estimates)
 }
 
+
+##Estimate data Serota, avarage number of lies
+
 estimates_serota_mean <- estimate_data_mean(
   meta_analysis    = serota_mean_meta,
   org_mean             = serota_org$mean[serota_org$hypothesis == "mean_student"],
@@ -24,11 +29,15 @@ estimates_serota_mean <- estimate_data_mean(
   org_ci_upper     = serota_org$ci_upper[serota_org$hypothesis == "mean_student"])
 
 estimates_serota_mean$ID <- factor(estimates_serota_mean$ID, levels = c("Replication", "Original"))
+
 estimates_serota_mean$hypothesis <- c(rep("mean", 2))
+
 estimates_serota_mean$hypothesis <- factor(estimates_serota_mean$hypothesis, levels = rev(c("mean")))
 
 serota_mean$hypothesis <- factor(serota_mean$hypothesis, levels = rev(c("mean")))
 
+
+## Plot function mean
 
 plot_func_mean <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25) {
   
@@ -42,8 +51,8 @@ if(sum(estimate$mean > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) > 1) {
   multiple = 0.5
 }
   
-  
   effect_max <- round(max(c(complete$mean, estimate$ci_upper), na.rm = TRUE) / multiple) * multiple
+  
   effect_min <- round(min(c(complete$mean, estimate$ci_lower), na.rm = TRUE) / multiple) * multiple
   
   
@@ -120,7 +129,7 @@ if(sum(estimate$mean > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) > 1) {
       shape = "",
       title = titles,
       y = "",
-      x = expression(paste("Effect size (", italic("mean"), ")", sep = ""))
+      x = expression(paste("Mean"))
     ) +
     guides(
       group = FALSE,
@@ -141,7 +150,8 @@ if(sum(estimate$mean > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) > 1) {
     )
 }
 
-## This looks absolutely terrible
+
+# Serota avarage lies plot
 
 serota_plot_mean <- plot_func_mean(
   meta         = serota_mean_meta, 

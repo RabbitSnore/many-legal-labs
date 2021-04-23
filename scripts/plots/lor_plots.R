@@ -1,4 +1,5 @@
-##Loftus 
+
+##Loftus & Palmer (1974, Study 2), Hypothesis 2 & 3
 
 loftus_h2_plot<- loftus_h2_lor
 loftus_h2_plot$hypothesis <- "h2"
@@ -8,7 +9,8 @@ loftus_h3_plot<- loftus_h3_lor
 loftus_h3_plot$hypothesis <- "h3"
 loftus_h3_plot$experiment <- "Loftus & Palmer (1974, Study 2)"
 
-##
+
+## Estimate data function log-odds ratio
 
 estimate_data_lor <- function(meta_analysis, org_lor, org_ci_lower, org_ci_upper) {
   # Set up original and meta-analytic estimates
@@ -22,6 +24,9 @@ estimate_data_lor <- function(meta_analysis, org_lor, org_ci_lower, org_ci_upper
   return(estimates)
 }
 
+
+##Estimate data Loftus, hypothesis 2
+
 estimates_loftus_2 <- estimate_data_lor(
   meta_analysis    = loftus_h2_meta,
   org_lor          = loftus_org$lor[loftus_org$hypothesis == "h2"],
@@ -30,10 +35,15 @@ estimates_loftus_2 <- estimate_data_lor(
 
 
 estimates_loftus_2$ID <- factor(estimates_loftus_2$ID, levels = c("Replication", "Original"))
+
 estimates_loftus_2$hypothesis <- c(rep("h2", 2))
+
 estimates_loftus_2$hypothesis <- factor(estimates_loftus_2$hypothesis, levels = rev(c("h2")))
 
 loftus_h2_plot$hypothesis <- factor(loftus_h2_plot$hypothesis, levels = rev(c("h2")))
+
+
+##Estimate data Loftus, hypothesis 2
 
 estimates_loftus_3 <- estimate_data_lor(
   meta_analysis    = loftus_h3_meta,
@@ -41,15 +51,21 @@ estimates_loftus_3 <- estimate_data_lor(
   org_ci_lower     = loftus_org$ci_lower[loftus_org$hypothesis == "h3"], 
   org_ci_upper     = loftus_org$ci_upper[loftus_org$hypothesis == "h3"])
 
+
 estimates_loftus_3$ID <- factor(estimates_loftus_3$ID, levels = c("Replication", "Original"))
+
 estimates_loftus_3$hypothesis <- c(rep("h3", 2))
+
 estimates_loftus_3$hypothesis <- factor(estimates_loftus_3$hypothesis, levels = rev(c("h3")))
 
 loftus_h3_plot$hypothesis <- factor(loftus_h3_plot$hypothesis, levels = rev(c("h3")))
 
-##
+
+## Plot function Log-odds ratio
 
 plot_func_lor <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25) {
+  
+  # Set up plot boundaries
   
   if (sum(estimate$lor > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) >1) {
     mutiple = 1
@@ -59,8 +75,9 @@ plot_func_lor <- function(meta, complete, estimate, study_colors, titles, bounda
     multiple = 0.5
   }
   
-  # Set up plot boundaries
+ 
   effect_max <- round(max(c(complete$log_odds, estimate$ci_upper), na.rm = TRUE) / multiple) * multiple
+  
   effect_min <- round(min(c(complete$log_odds, estimate$ci_lower), na.rm = TRUE) / multiple) * multiple
   
   
@@ -162,6 +179,8 @@ plot_func_lor <- function(meta, complete, estimate, study_colors, titles, bounda
 }
 
 
+# Loftus hypothesis 2 plot
+
 loftus_plot_h2 <- plot_func_lor(
   meta         = loftus_h2_meta, 
   complete     = loftus_h2_plot,
@@ -169,6 +188,9 @@ loftus_plot_h2 <- plot_func_lor(
   study_colors = loftus_color_1, 
   titles       = c("Broken Glass, Smashed vs. Hit")
 )
+
+
+# Loftus hypothesis 3 plot
 
 loftus_plot_h3 <- plot_func_lor(
   meta         = loftus_h3_meta, 

@@ -1,6 +1,6 @@
 library(ggbeeswarm)
 
-##Correll et al (2002, Study 1)
+## Correll et al (2002, Study 1), hypothesis 2,3 & 5
 
 correll_h2_plot<- correll_h2_smd
 correll_h2_plot$hypothesis <- "h2"
@@ -14,7 +14,7 @@ correll_h5_plot<- correll_h5_smd
 correll_h5_plot$hypothesis <- "h5"
 correll_h5_plot$experiment <- "Correll et al (2002, Study 1)"
 
-## Darley et al (2000, Study 2)
+## Darley et al (2000, Study 2), hypothesis 1-3
 
 darley_h1_plot<- darley_h1_smd
 darley_h1_plot$hypothesis <- "h1"
@@ -28,16 +28,14 @@ darley_h3_plot<- darley_h3_smd
 darley_h3_plot$hypothesis <- "h3"
 darley_h3_plot$experiment <- "Darley et al (2000, Study 2)"
 
-##Loftus 
+## Loftus & Palmer (1974, Study 2), hypothesis 1
 
 loftus_h1_plot<- loftus_h1_smd
 loftus_h1_plot$hypothesis <- "h1"
 loftus_h1_plot$experiment <- "Loftus & Palmer (1974, Study 2)"
 
 
-
-##Estimate data function -----------------------------------------------
-
+##Estimate data function d
 
   estimate_data <- function(meta_analysis, org_d, org_ci_lower, org_ci_upper) {
     # Set up original and meta-analytic estimates
@@ -51,6 +49,7 @@ loftus_h1_plot$experiment <- "Loftus & Palmer (1974, Study 2)"
     return(estimates)
   }
 
+  
 ##Estimate data Correll, hypothesis 2
   
 estimates_correll_2 <- estimate_data(
@@ -61,10 +60,13 @@ estimates_correll_2 <- estimate_data(
 
 
 estimates_correll_2$ID <- factor(estimates_correll_2$ID, levels = c("Replication", "Original"))
+
 estimates_correll_2$hypothesis <- c(rep("h2", 2))
+
 estimates_correll_2$hypothesis <- factor(estimates_correll_2$hypothesis, levels = rev(c("h2")))
 
 correll_h2_plot$hypothesis <- factor(correll_h2_plot$hypothesis, levels = rev(c("h2")))
+
 
 ##Estimate data Correll, hypothesis 3
 
@@ -76,10 +78,13 @@ estimates_correll_3 <- estimate_data(
 
 
 estimates_correll_3$ID <- factor(estimates_correll_3$ID, levels = c("Replication", "Original"))
+
 estimates_correll_3$hypothesis <- c(rep("h3", 2))
+
 estimates_correll_3$hypothesis <- factor(estimates_correll_3$hypothesis, levels = rev(c("h3")))
 
 correll_h3_plot$hypothesis <- factor(correll_h3_plot$hypothesis, levels = rev(c("h3")))
+
 
 ##Estimate data Correll, hypothesis 5
 
@@ -91,10 +96,13 @@ estimates_correll_5 <- estimate_data(
 
 
 estimates_correll_5$ID <- factor(estimates_correll_5$ID, levels = c("Replication", "Original"))
+
 estimates_correll_5$hypothesis <- c(rep("h5", 2))
+
 estimates_correll_5$hypothesis <- factor(estimates_correll_5$hypothesis, levels = rev(c("h5")))
 
 correll_h5_plot$hypothesis <- factor(correll_h5_plot$hypothesis, levels = rev(c("h5")))
+
 
 ##Estimate data Darley, hypothesis 1
 
@@ -105,10 +113,13 @@ estimates_darley_1 <- estimate_data(
   org_ci_upper     = darley_org$ci_upper[darley_org$hypothesis == "h1"])
 
 estimates_darley_1$ID <- factor(estimates_darley_1$ID, levels = c("Replication", "Original"))
+
 estimates_darley_1$hypothesis <- c(rep("h1", 2))
+
 estimates_darley_1$hypothesis <- factor(estimates_darley_1$hypothesis, levels = rev(c("h1")))
 
 darley_h1_plot$hypothesis <- factor(darley_h1_plot$hypothesis, levels = rev(c("h1")))
+
 
 ##Estimate data Darley, hypothesis 2
 
@@ -119,10 +130,13 @@ estimates_darley_2 <- estimate_data(
   org_ci_upper     = darley_org$ci_upper[darley_org$hypothesis == "h2"])
 
 estimates_darley_2$ID <- factor(estimates_darley_2$ID, levels = c("Replication", "Original"))
+
 estimates_darley_2$hypothesis <- c(rep("h2", 2))
+
 estimates_darley_2$hypothesis <- factor(estimates_darley_2$hypothesis, levels = rev(c("h2")))
 
 darley_h2_plot$hypothesis <- factor(darley_h2_plot$hypothesis, levels = rev(c("h2")))
+
 
 ##Estimate data Darley, hypothesis 3
 
@@ -133,12 +147,15 @@ estimates_darley_3 <- estimate_data(
   org_ci_upper     = darley_org$ci_upper[darley_org$hypothesis == "h3"])
 
 estimates_darley_3$ID <- factor(estimates_darley_3$ID, levels = c("Replication", "Original"))
+
 estimates_darley_3$hypothesis <- c(rep("h3", 2))
+
 estimates_darley_3$hypothesis <- factor(estimates_darley_3$hypothesis, levels = rev(c("h3")))
 
 darley_h3_plot$hypothesis <- factor(darley_h3_plot$hypothesis, levels = rev(c("h3")))
 
-## Loftus
+
+## Estimate data Loftus, hypothesis 1
 
 estimates_loftus_1 <- estimate_data(
   meta_analysis    = loftus_h1_meta,
@@ -147,12 +164,15 @@ estimates_loftus_1 <- estimate_data(
   org_ci_upper     = loftus_org$ci_upper[loftus_org$hypothesis == "h1"])
 
 estimates_loftus_1$ID <- factor(estimates_loftus_1$ID, levels = c("Replication", "Original"))
+
 estimates_loftus_1$hypothesis <- c(rep("h1", 2))
+
 estimates_loftus_1$hypothesis <- factor(estimates_loftus_1$hypothesis, levels = rev(c("h1")))
 
 loftus_h1_plot$hypothesis <- factor(loftus_h1_plot$hypothesis, levels = rev(c("h1")))
 
-## Plot function
+
+## Plot function d
 
 plot_func_d <- function(meta, complete, estimate, study_colors, titles, boundary_pad = .25) {
 
@@ -166,7 +186,9 @@ plot_func_d <- function(meta, complete, estimate, study_colors, titles, boundary
     multiple = 0.50
   }  
   
+  
 effect_max <- round(max(c(complete$d, estimate$ci_upper), na.rm = TRUE) / multiple) * multiple
+
 effect_min <- round(min(c(complete$d, estimate$ci_lower), na.rm = TRUE) / multiple) * multiple
 
 
@@ -267,6 +289,9 @@ correll_new <-
   )
 }
 
+
+# Correll hypothesis 2 plot
+
 correll_plot_h2 <- plot_func_d(
   meta = correll_h2_meta, 
   complete     = correll_h2_plot,
@@ -274,6 +299,9 @@ correll_plot_h2 <- plot_func_d(
   study_colors    = correll_color_1, 
   titles          = c("Race-Biased Shooting")
 )
+
+
+# Correll hypothesis 3 plot
 
 correll_plot_h3 <- plot_func_d(
   meta = correll_h3_meta, 
@@ -283,6 +311,9 @@ correll_plot_h3 <- plot_func_d(
   titles          = c("Race-Biased Holding Fire")
 )
 
+
+# Correll hypothesis 5 plot
+
 correll_plot_h5 <- plot_func_d(
   meta = correll_h5_meta, 
   complete     = correll_h5_plot,
@@ -290,6 +321,9 @@ correll_plot_h5 <- plot_func_d(
   study_colors    = correll_color_1, 
   titles          = c("Race-Biased False Alarms")
 )
+
+
+# Darley hypothesis 1 plot
 
 darley_plot_h1 <- plot_func_d(
   meta         = darley_h1_meta, 
@@ -299,6 +333,9 @@ darley_plot_h1 <- plot_func_d(
   titles       = c("Punishment, \n Jealousy vs. Inoperable Tumor")
 )
 
+
+# Darley hypothesis 2 plot
+
 darley_plot_h2 <- plot_func_d(
   meta         = darley_h2_meta, 
   complete     = darley_h2_plot,
@@ -307,6 +344,9 @@ darley_plot_h2 <- plot_func_d(
   titles       = c("Punishment, \n Jealousy vs. Operable Tumor")
 )
 
+
+# Darley hypothesis 3 plot
+
 darley_plot_h3 <- plot_func_d(
   meta         = darley_h3_meta, 
   complete     = darley_h3_plot,
@@ -314,6 +354,9 @@ darley_plot_h3 <- plot_func_d(
   study_colors = darley_color_1, 
   titles       = c("Punishment, \n Inoperable vs. Operable Tumor")
 )
+
+
+# Loftus hypothesis 1 plot
 
 loftus_plot_h1 <- plot_func_d(
   meta         = loftus_h1_meta, 

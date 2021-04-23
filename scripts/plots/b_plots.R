@@ -1,10 +1,18 @@
-##Loftus 
+
+##Loftus & Palmer (1974, Study 2), hypothesis 4
+
+#Indirect
 
 loftus_h4_plot_indirect<- filter(loftus_h4_med_long, type == "indirect")
 loftus_h4_plot_indirect$hypothesis <- "h4_indirect"
+
+#Direct
+
 loftus_h4_plot_direct<- filter(loftus_h4_med_long, type == "direct")
 loftus_h4_plot_direct$hypothesis <- "h4_direct"
 
+
+##Estimate data function b
 
 estimate_data_b <- function(meta_analysis, org_b, org_ci_lower, org_ci_upper, index) {
   # Set up original and meta-analytic estimates
@@ -18,6 +26,9 @@ estimate_data_b <- function(meta_analysis, org_b, org_ci_lower, org_ci_upper, in
   return(estimates)
 }
 
+
+##Estimate data Loftus, Indirect
+
 estimates_loftus_4_indirect <- estimate_data_b(
   meta_analysis    = loftus_h4_meta,
   org_b          = loftus_org$b[loftus_org$hypothesis == "h4_indirect"],
@@ -26,10 +37,15 @@ estimates_loftus_4_indirect <- estimate_data_b(
   index = 2)
 
 estimates_loftus_4_indirect$ID <- factor(estimates_loftus_4_indirect$ID, levels = c("Replication", "Original"))
+
 estimates_loftus_4_indirect$hypothesis <- c(rep("h4_indirect", 2))
+
 estimates_loftus_4_indirect$hypothesis <- factor(estimates_loftus_4_indirect$hypothesis, levels = rev(c("h4_indirect")))
 
 loftus_h4_plot_indirect$hypothesis <- factor(loftus_h4_plot_indirect$hypothesis, levels = rev(c("h4_indirect")))
+
+
+##Estimate data Loftus, Direct
 
 estimates_loftus_4_direct <- estimate_data_b(
   meta_analysis    = loftus_h4_meta,
@@ -39,12 +55,15 @@ estimates_loftus_4_direct <- estimate_data_b(
   index = 1)
 
 estimates_loftus_4_direct$ID <- factor(estimates_loftus_4_direct$ID, levels = c("Replication", "Original"))
+
 estimates_loftus_4_direct$hypothesis <- c(rep("h4_direct", 2))
+
 estimates_loftus_4_direct$hypothesis <- factor(estimates_loftus_4_direct$hypothesis, levels = rev(c("h4_direct")))
 
 loftus_h4_plot_direct$hypothesis <- factor(loftus_h4_plot_direct$hypothesis, levels = rev(c("h4_direct")))
 
 
+## Plot function b
 
 plot_func_b <- function(complete, estimate, study_colors, titles, boundary_pad = .25) {
   
@@ -59,6 +78,7 @@ plot_func_b <- function(complete, estimate, study_colors, titles, boundary_pad =
   }  
   
   effect_max <- round(max(c(complete$estimate, estimate$ci_upper), na.rm = TRUE) / multiple) * multiple
+  
   effect_min <- round(min(c(complete$estimate, estimate$ci_lower), na.rm = TRUE) / multiple) * multiple
   
   
@@ -160,7 +180,7 @@ plot_func_b <- function(complete, estimate, study_colors, titles, boundary_pad =
 }
 
 
-
+# Loftus Indirect plot
 
 loftus_plot_h4_indirect <- plot_func_b(
   complete     = loftus_h4_plot_indirect,
@@ -168,6 +188,9 @@ loftus_plot_h4_indirect <- plot_func_b(
   study_colors = loftus_color_1, 
   titles       = c("Speed Estimates as a Partial Mediator \n (indirect)")
 )
+
+
+#Loftus Direct plot
 
 loftus_plot_h4_direct <- plot_func_b(
   complete     = loftus_h4_plot_direct,
