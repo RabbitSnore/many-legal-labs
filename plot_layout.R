@@ -64,7 +64,7 @@ serota_plots_col <- plot_grid(serota_plot_all,
 
 ## Plots organized in columns. Columns not aligned. 
 
-test_2<- plot_grid (correll_plots_col, darley_plots_col, loftus_plots_col, serota_plots_col, ncol = 4)
+test_2 <- plot_grid (correll_plots_col, darley_plots_col, loftus_plots_col, serota_plots_col, ncol = 4)
 
 ## Plots organized in rows. Aligned. Uneven amount of plots in rows. 
 test_3 <- plot_grid(NULL,
