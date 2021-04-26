@@ -195,11 +195,7 @@ plot_func_k <- function(meta, complete, estimate, study_colors, titles, boundary
       axis.text = element_text(color = "black"),
       plot.title = element_text(hjust = 0.5),
       axis.text.y = element_blank(),
-      legend.position = "bottom",
-      legend.background = element_rect( 
-        size = 0.5,
-        linetype = "solid",
-        color= "black")
+      legend.position = "none"
     )
 }
 

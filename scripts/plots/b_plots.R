@@ -171,11 +171,7 @@ plot_func_b <- function(complete, estimate, study_colors, titles, boundary_pad =
       axis.text = element_text(color = "black"),
       plot.title = element_text(hjust = 0.5),
       axis.text.y = element_blank(),
-      legend.position = "bottom",
-      legend.background = element_rect( 
-        size = 0.5,
-        linetype = "solid",
-        color= "black")
+      legend.position = "none"
     )
 }
 
@@ -186,7 +182,7 @@ loftus_plot_h4_indirect <- plot_func_b(
   complete     = loftus_h4_plot_indirect,
   estimate     = estimates_loftus_4_indirect,
   study_colors = loftus_color_1, 
-  titles       = c("Speed Estimates as a Partial Mediator \n (indirect)")
+  titles       = c("Speed Estimates as a \n Partial Mediator (indirect)")
 )
 
 
@@ -196,5 +192,5 @@ loftus_plot_h4_direct <- plot_func_b(
   complete     = loftus_h4_plot_direct,
   estimate     = estimates_loftus_4_direct,
   study_colors = loftus_color_1, 
-  titles       = c("Speed Estimates as a Partial Mediator \n (direct)")
+  titles       = c("Speed Estimates as a \n Partial Mediator (direct)")
 )

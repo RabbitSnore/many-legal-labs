@@ -281,11 +281,11 @@ correll_new <-
     axis.text = element_text(color = "black"),
     plot.title = element_text(hjust = 0.5),
     axis.text.y = element_blank(),
-    legend.position = "bottom",
-    legend.background = element_rect( 
-      size = 0.5,
-      linetype = "solid",
-      color= "black")
+    legend.position = "none"#,
+    #legend.background = element_rect( 
+      #size = 0.5,
+      #linetype = "solid",
+      #color= "black")
   )
 }
 
@@ -363,5 +363,5 @@ loftus_plot_h1 <- plot_func_d(
   complete     = loftus_h1_plot,
   estimate     = estimates_loftus_1,
   study_colors = loftus_color_1, 
-  titles       = c("Speed Estimates, Smashed vs. Hit")
+  titles       = c("Speed Estimates, \n Smashed vs. Hit")
 )

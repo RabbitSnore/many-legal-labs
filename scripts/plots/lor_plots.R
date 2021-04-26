@@ -170,11 +170,7 @@ plot_func_lor <- function(meta, complete, estimate, study_colors, titles, bounda
       axis.text = element_text(color = "black"),
       plot.title = element_text(hjust = 0.5),
       axis.text.y = element_blank(),
-      legend.position = "bottom",
-      legend.background = element_rect( 
-        size = 0.5,
-        linetype = "solid",
-        color= "black")
+      legend.position = "none"
     )
 }
 
@@ -186,7 +182,7 @@ loftus_plot_h2 <- plot_func_lor(
   complete     = loftus_h2_plot,
   estimate     = estimates_loftus_2,
   study_colors = loftus_color_1, 
-  titles       = c("Broken Glass, Smashed vs. Hit")
+  titles       = c("Broken Glass, \n Smashed vs. Hit")
 )
 
 
@@ -197,5 +193,5 @@ loftus_plot_h3 <- plot_func_lor(
   complete     = loftus_h3_plot,
   estimate     = estimates_loftus_3,
   study_colors = loftus_color_1, 
-  titles       = c("Broken Glass, Smashed vs. Control")
+  titles       = c("Broken Glass, \n Smashed vs. Control")
 )
