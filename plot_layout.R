@@ -133,6 +133,9 @@ test_4 <- plot_grid (correll_plots_row, darley_plots_row, loftus_plots_row, sero
 
 # Export completed plot -----------------------------------------------
 
-save_plot("./reports/main_figure.png", test_2, base_height = 15, base_width = 18)
+save_plot("/reports/main_figure.png" , test_2, base_height = 15, base_width = 18)
+save_plot("/reports/main_figure.tiff", test_2, base_height = 15, base_width = 18)
+save_plot("/reports/main_figure.eps" , test_2, base_height = 15, base_width = 18)
+save_plot("/reports/main_figure.svg" , test_2, base_height = 15, base_width = 18)
 
 
