@@ -355,6 +355,18 @@ darley_plot_h3 <- plot_func_d(
   titles       = c("Punishment, \n Inoperable vs. Operable Tumor")
 )
 
+
+# Loftus hypothesis 1 plot
+
+loftus_plot_h1 <- plot_func_d(
+  meta         = loftus_h1_meta, 
+  complete     = loftus_h1_plot,
+  estimate     = estimates_loftus_1,
+  study_colors = loftus_color_1, 
+  titles       = c("Speed Estimates, \n Smashed vs. Hit")
+)
+
+
 # Example Plot
 
 # Darley hypothesis 3 plot (to use with simulated data)
@@ -370,7 +382,7 @@ example_plot <- plot_func_d(
 ## Add annotations to the example plot
 
 example_plot <-
-example_plot +
+  example_plot +
   
   # Relabel x-axis
   
@@ -398,9 +410,9 @@ example_plot +
     label     = " Replication point estimate",
     hjust     = "left"
   ) +
-
+  
   # Replication CI
-
+  
   annotate(
     geom      = "curve",
     x         = -.25, 
@@ -442,7 +454,7 @@ example_plot +
   ) +
   
   # Original CI
-
+  
   annotate(
     geom      = "curve",
     x         = .35,
@@ -482,13 +494,3 @@ example_plot +
     label     = " Individual lab estimates",
     hjust     = "left"
   )
-
-# Loftus hypothesis 1 plot
-
-loftus_plot_h1 <- plot_func_d(
-  meta         = loftus_h1_meta, 
-  complete     = loftus_h1_plot,
-  estimate     = estimates_loftus_1,
-  study_colors = loftus_color_1, 
-  titles       = c("Speed Estimates, \n Smashed vs. Hit")
-)

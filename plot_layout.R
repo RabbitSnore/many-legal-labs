@@ -59,6 +59,16 @@ title_serota <- ggdraw() +
     plot.margin = margin(2, 0, 2, 0)
   )
 
+title_example <- ggdraw() + 
+  draw_label(
+    "How To Read",
+    fontface = 'bold',
+    size = 18,
+  ) +
+  theme(
+    plot.margin = margin(2, 0, 2, 0)
+  )
+
 ## Organize plots by columns
 
 correll_plots_col <- plot_grid(title_correll,
@@ -94,38 +104,37 @@ serota_plots_col <- plot_grid(title_serota,
                               rel_heights = c(0.3, 1, 1, 1, 1, 1))
 
 
+example_plot_1 <- plot_grid(title_example,
+                            example_plot,
+                            ncol = 1,
+                            rel_heights = c(0.3, 1)) + 
+                            theme(panel.border = element_rect
+                            (colour = "black", fill=NA, size = 1.5))
+
+
+
 # Full layout ---------------------------------------------------------
 
-## Plots organized in columns. Columns aligned + Example plot WITH margins
 
-step_1 <- plot_grid (correll_plots_col, darley_plots_col, ncol = 2)
+## Plots organized in columns. Columns aligned + Example plot with margins
 
-
-### This step adds a margin to the sides of the example plot. 
-step_1_2 <- plot_grid(NULL, example_plot, NULL, ncol = 3, rel_widths = c(0.1,1,0.1))
-
-### Adds margins to top and bottom of example plot.
-step_1_3 <- plot_grid(NULL, step_1_2, NULL, ncol = 1, rel_heights = c(0.1,1,0.1))
-
-step_2 <- plot_grid (step_1, step_1_3, ncol = 1, rel_heights = c(1, 0.6))
-
-step_3 <- plot_grid (loftus_plots_col, serota_plots_col, ncol = 2)
-
-### Final grid with example plot
-
-main_grid_1 <- plot_grid(step_2, step_3, ncol = 2)
-
-## Plots organized in columns. Columns aligned + Example plot WITHOUT margins
 
 step_01 <- plot_grid (correll_plots_col, darley_plots_col, ncol = 2)
 
-step_02 <- plot_grid (step_01, example_plot, ncol = 1, rel_heights = c(1, 0.6))
 
-step_03 <- plot_grid (loftus_plots_col, serota_plots_col, ncol = 2)
+### This step adds a margin to the sides of the example plot. Border around margin, Title inside margin.
+step_02 <- plot_grid(NULL, example_plot_1, NULL, ncol = 3, rel_widths = c(0.15,1,0.15))
 
-### Final grid with example plot - no margins.
+### Adds margins to top and bottom of example plot.
+step_03 <- plot_grid(NULL, step_02, NULL, ncol = 1, rel_heights = c(0.15,1,0.15))
 
-main_grid_2 <- plot_grid(step_02, step_03, ncol = 2)
+step_04 <- plot_grid (step_01, step_03, ncol = 1, rel_heights = c(1, 0.6))
+
+step_05 <- plot_grid (loftus_plots_col, serota_plots_col, ncol = 2)
+
+### Final grid with example plot
+
+main_grid_1 <- plot_grid(step_04, step_05, ncol = 2)
 
 
 ## Plots organized in columns, no example plot. 
