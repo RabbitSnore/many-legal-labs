@@ -1,5 +1,5 @@
 
-##Loftus & Palmer (1974, Study 2), Hypothesis 2 & 3
+## Loftus & Palmer (1974, Study 2), Hypothesis 2 & 3
 
 loftus_h2_plot<- loftus_h2_lor
 loftus_h2_plot$hypothesis <- "h2"
@@ -43,7 +43,7 @@ estimates_loftus_2$hypothesis <- factor(estimates_loftus_2$hypothesis, levels = 
 loftus_h2_plot$hypothesis <- factor(loftus_h2_plot$hypothesis, levels = rev(c("h2")))
 
 
-##Estimate data Loftus, hypothesis 2
+## Estimate data Loftus, hypothesis 2
 
 estimates_loftus_3 <- estimate_data_lor(
   meta_analysis    = loftus_h3_meta,

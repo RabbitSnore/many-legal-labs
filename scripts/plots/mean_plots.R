@@ -151,7 +151,7 @@ if(sum(estimate$mean > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) > 1) {
 }
 
 
-# Serota avarage lies plot
+# Serota average lies plot
 
 serota_plot_mean <- plot_func_mean(
   meta         = serota_mean_meta, 

@@ -35,7 +35,7 @@ loftus_h1_plot$hypothesis <- "h1"
 loftus_h1_plot$experiment <- "Loftus & Palmer (1974, Study 2)"
 
 
-##Estimate data function d
+## Estimate data function d
 
   estimate_data <- function(meta_analysis, org_d, org_ci_lower, org_ci_upper) {
     # Set up original and meta-analytic estimates
@@ -50,7 +50,7 @@ loftus_h1_plot$experiment <- "Loftus & Palmer (1974, Study 2)"
   }
 
   
-##Estimate data Correll, hypothesis 2
+## Estimate data Correll, hypothesis 2
   
 estimates_correll_2 <- estimate_data(
   meta_analysis    = correll_h2_meta,
@@ -68,7 +68,7 @@ estimates_correll_2$hypothesis <- factor(estimates_correll_2$hypothesis, levels 
 correll_h2_plot$hypothesis <- factor(correll_h2_plot$hypothesis, levels = rev(c("h2")))
 
 
-##Estimate data Correll, hypothesis 3
+## Estimate data Correll, hypothesis 3
 
 estimates_correll_3 <- estimate_data(
   meta_analysis    = correll_h3_meta,
@@ -86,7 +86,7 @@ estimates_correll_3$hypothesis <- factor(estimates_correll_3$hypothesis, levels 
 correll_h3_plot$hypothesis <- factor(correll_h3_plot$hypothesis, levels = rev(c("h3")))
 
 
-##Estimate data Correll, hypothesis 5
+## Estimate data Correll, hypothesis 5
 
 estimates_correll_5 <- estimate_data(
   meta_analysis    = correll_h5_meta,
@@ -104,7 +104,7 @@ estimates_correll_5$hypothesis <- factor(estimates_correll_5$hypothesis, levels 
 correll_h5_plot$hypothesis <- factor(correll_h5_plot$hypothesis, levels = rev(c("h5")))
 
 
-##Estimate data Darley, hypothesis 1
+## Estimate data Darley, hypothesis 1
 
 estimates_darley_1 <- estimate_data(
   meta_analysis    = darley_h1_meta,
@@ -121,7 +121,7 @@ estimates_darley_1$hypothesis <- factor(estimates_darley_1$hypothesis, levels = 
 darley_h1_plot$hypothesis <- factor(darley_h1_plot$hypothesis, levels = rev(c("h1")))
 
 
-##Estimate data Darley, hypothesis 2
+## Estimate data Darley, hypothesis 2
 
 estimates_darley_2 <- estimate_data(
   meta_analysis    = darley_h2_meta,
@@ -138,7 +138,7 @@ estimates_darley_2$hypothesis <- factor(estimates_darley_2$hypothesis, levels = 
 darley_h2_plot$hypothesis <- factor(darley_h2_plot$hypothesis, levels = rev(c("h2")))
 
 
-##Estimate data Darley, hypothesis 3
+## Estimate data Darley, hypothesis 3
 
 estimates_darley_3 <- estimate_data(
   meta_analysis    = darley_h3_meta,

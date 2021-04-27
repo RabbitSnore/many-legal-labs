@@ -1,18 +1,18 @@
 
-##Loftus & Palmer (1974, Study 2), hypothesis 4
+## Loftus & Palmer (1974, Study 2), hypothesis 4
 
-#Indirect
+# Indirect
 
 loftus_h4_plot_indirect<- filter(loftus_h4_med_long, type == "indirect")
 loftus_h4_plot_indirect$hypothesis <- "h4_indirect"
 
-#Direct
+# Direct
 
 loftus_h4_plot_direct<- filter(loftus_h4_med_long, type == "direct")
 loftus_h4_plot_direct$hypothesis <- "h4_direct"
 
 
-##Estimate data function b
+## Estimate data function b
 
 estimate_data_b <- function(meta_analysis, org_b, org_ci_lower, org_ci_upper, index) {
   # Set up original and meta-analytic estimates
@@ -27,7 +27,7 @@ estimate_data_b <- function(meta_analysis, org_b, org_ci_lower, org_ci_upper, in
 }
 
 
-##Estimate data Loftus, Indirect
+## Estimate data Loftus, Indirect
 
 estimates_loftus_4_indirect <- estimate_data_b(
   meta_analysis    = loftus_h4_meta,
@@ -45,7 +45,7 @@ estimates_loftus_4_indirect$hypothesis <- factor(estimates_loftus_4_indirect$hyp
 loftus_h4_plot_indirect$hypothesis <- factor(loftus_h4_plot_indirect$hypothesis, levels = rev(c("h4_indirect")))
 
 
-##Estimate data Loftus, Direct
+## Estimate data Loftus, Direct
 
 estimates_loftus_4_direct <- estimate_data_b(
   meta_analysis    = loftus_h4_meta,
@@ -186,7 +186,7 @@ loftus_plot_h4_indirect <- plot_func_b(
 )
 
 
-#Loftus Direct plot
+# Loftus Direct plot
 
 loftus_plot_h4_direct <- plot_func_b(
   complete     = loftus_h4_plot_direct,

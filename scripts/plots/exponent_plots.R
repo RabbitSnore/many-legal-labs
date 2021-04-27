@@ -31,7 +31,7 @@ estimate_data_k <- function(meta_analysis, org_k, index, org_ci_lower, org_ci_up
 }
 
 
-##Estimate data Serota, hypothesis 1
+## Estimate data Serota, hypothesis 1
 
 estimates_serota_all <- estimate_data_k(
   meta_analysis    = serota_h1_meta,
@@ -49,7 +49,7 @@ estimates_serota_all$hypothesis <- factor(estimates_serota_all$hypothesis, level
 serota_h1_all$hypothesis <- factor(serota_h1_all$hypothesis, levels = rev(c("k")))
 
 
-##Estimate data Serota, US sample
+## Estimate data Serota, US sample
 
 estimates_serota_us <- estimate_data_k(
   meta_analysis    = serota_usa_meta,
@@ -67,7 +67,7 @@ estimates_serota_us$hypothesis <- factor(estimates_serota_us$hypothesis, levels 
 serota_h1_us$hypothesis <- factor(serota_h1_us$hypothesis, levels = rev(c("k")))
 
 
-##Estimate data Serota, Non-US sample
+## Estimate data Serota, Non-US sample
 
 estimates_serota_nonus <- estimate_data_k(
   meta_analysis    = serota_usa_meta,
