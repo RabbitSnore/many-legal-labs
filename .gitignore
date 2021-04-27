@@ -42,6 +42,14 @@ vignettes/*.pdf
 /notes/*.html
 reports/*.html
 /reports/*.html
+reports/*.png
+/reports/*.png
+reports/*.jpg
+/reports/*.jpg
+reports/*.tiff
+/reports/*.tiff
+reports/*.eps
+/reports/*.eps
 /data/*.csv
 /data/correll_effects/*.csv
 /data/darley_effects/*.csv
