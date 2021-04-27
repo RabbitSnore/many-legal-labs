@@ -371,25 +371,117 @@ example_plot <- plot_func_d(
 
 example_plot <-
 example_plot +
+  
+  # Relabel x-axis
+  
+  labs(
+    x = "Effect size scale"
+  ) +
+  
+  # Replication point estimate
+  
   annotate(
     geom      = "curve",
     x         = .50, 
     y         = .75, 
     xend      = darley_h3_meta$beta[[1]], 
     yend      = .92, 
-    curvature = -.3, 
+    curvature = -.25, 
     arrow     = arrow(length = unit(2, "mm")),
-    size      = 1
+    size      = 1,
+    color     = "#E4111C"
   ) + 
   annotate(
     geom      = "text",
     x         = .50, 
     y         = .75, 
-    label     = "Replication point estimate",
+    label     = " Replication point estimate",
+    hjust     = "left"
+  ) +
+
+  # Replication CI
+
+  annotate(
+    geom      = "curve",
+    x         = -.25, 
+    y         = 1.20, 
+    xend      = darley_h3_meta$beta[[1]] - .05, 
+    yend      = .95, 
+    curvature = -.25, 
+    arrow     = arrow(length = unit(2, "mm")),
+    size      = 1,
+    color     = "#E4111C"
+  ) + 
+  annotate(
+    geom      = "text",
+    x         = -.25, 
+    y         = 1.20, 
+    label     = "Replication 95% CI ",
+    hjust     = "right"
+  ) +
+  
+  # Original point estimate
+  
+  annotate(
+    geom      = "curve",
+    x         = estimates_darley_3[estimates_darley_3$ID == "Original", ]$d + .25,
+    y         = .85,
+    xend      = estimates_darley_3[estimates_darley_3$ID == "Original", ]$d,
+    yend      = 1.05,
+    curvature = -.25,
+    arrow     = arrow(length = unit(2, "mm")),
+    size      = 1,
+    color     = "#E4111C"
+  ) +
+  annotate(
+    geom      = "text",
+    x         = estimates_darley_3[estimates_darley_3$ID == "Original", ]$d + .25,
+    y         = .85,
+    label     = " Original point estimate",
+    hjust     = "left"
+  ) +
+  
+  # Original CI
+
+  annotate(
+    geom      = "curve",
+    x         = .35,
+    y         = 1.30,
+    xend      = estimates_darley_3[estimates_darley_3$ID == "Original", ]$d - .15,
+    yend      = 1.08,
+    curvature = -.3,
+    arrow     = arrow(length = unit(2, "mm")),
+    size      = 1,
+    color     = "#E4111C"
+  ) +
+  annotate(
+    geom      = "text",
+    x         = .35,
+    y         = 1.30,
+    label     = "Original 95% CI ",
+    hjust     = "right"
+  ) +
+  
+  # Lab point estimate
+  
+  annotate(
+    geom      = "curve",
+    x         = darley_h3_plot[11, ]$d[[1]] + .45,
+    y         = .55,
+    xend      = darley_h3_plot[11, ]$d[[1]],
+    yend      = .94,
+    curvature = -.25,
+    arrow     = arrow(length = unit(2, "mm")),
+    size      = 1,
+    color     = "#E4111C"
+  ) +
+  annotate(
+    geom      = "text",
+    x         = darley_h3_plot[11, ]$d[[1]] + .45,
+    y         = .55,
+    label     = " Individual lab estimates",
     hjust     = "left"
   )
-
-
 
 # Loftus hypothesis 1 plot
 
