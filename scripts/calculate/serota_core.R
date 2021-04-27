@@ -168,7 +168,11 @@ serota_h1_k <- serota_h1_k %>%
 
 if (write_data == TRUE) {
   
-  dir.create("./data/serota_effects/")
+  if (!dir.exists("./data/serota_effects/")) {
+    
+    dir.create("./data/serota_effects/")
+    
+  }
   
 } 
 
