@@ -123,10 +123,10 @@ step_01 <- plot_grid (correll_plots_col, darley_plots_col, ncol = 2)
 
 
 ### This step adds a margin to the sides of the example plot. Border around margin, Title inside margin.
-step_02 <- plot_grid(NULL, example_plot_1, NULL, ncol = 3, rel_widths = c(0.15,1,0.15))
+step_02 <- plot_grid(NULL, example_plot_1, NULL, ncol = 3, rel_widths = c(0.15, 1, 0.15))
 
 ### Adds margins to top and bottom of example plot.
-step_03 <- plot_grid(NULL, step_02, NULL, ncol = 1, rel_heights = c(0.15,1,0.15))
+step_03 <- plot_grid(NULL, step_02, NULL, ncol = 1, rel_heights = c(0.15, 1, 0.15))
 
 step_04 <- plot_grid (step_01, step_03, ncol = 1, rel_heights = c(1, 0.6))
 

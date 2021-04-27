@@ -50,6 +50,8 @@ reports/*.tiff
 /reports/*.tiff
 reports/*.eps
 /reports/*.eps
+reports/*.svg
+/reports/*.svg
 /data/*.csv
 /data/correll_effects/*.csv
 /data/darley_effects/*.csv
