@@ -1,11 +1,11 @@
 
-## Serota et al (2010, Study 3), avarage number of lies
+## Serota et al (2010, Study 3), average number of lies
 
 serota_mean <- serota_desc
 serota_mean$hypothesis <- "mean"
 
 
-##Estimate data function mean
+## Estimate data function mean
 
 estimate_data_mean <- function(meta_analysis, org_mean, org_ci_lower, org_ci_upper) {
   # Set up original and meta-analytic estimates
@@ -20,7 +20,7 @@ estimate_data_mean <- function(meta_analysis, org_mean, org_ci_lower, org_ci_upp
 }
 
 
-##Estimate data Serota, avarage number of lies
+## Estimate data Serota, average number of lies
 
 estimates_serota_mean <- estimate_data_mean(
   meta_analysis    = serota_mean_meta,
