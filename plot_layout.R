@@ -144,9 +144,19 @@ test_2 <- plot_grid (correll_plots_col, darley_plots_col, loftus_plots_col, sero
 
 # Export completed plot -----------------------------------------------
 
-save_plot("./reports/main_figure.png", main_grid_1, base_height = 13, base_width = 18)
-save_plot("./reports/main_figure.tiff", main_grid_1, base_height = 13, base_width = 18)
-save_plot("./reports/main_figure.eps" , main_grid_1, base_height = 13, base_width = 18)
-save_plot("./reports/main_figure.svg" , main_grid_1, base_height = 13, base_width = 18)
+## If the figures directory does not exist, create it
+
+if (!dir.exists("./figures/")) {
+  
+  dir.create("./figures/")
+  
+}
+
+## Save main figure in several formats
+
+save_plot("./figures/main_figure.png" , main_grid_1, base_height = 13, base_width = 18)
+save_plot("./figures/main_figure.tiff", main_grid_1, base_height = 13, base_width = 18)
+save_plot("./figures/main_figure.eps" , main_grid_1, base_height = 13, base_width = 18)
+save_plot("./figures/main_figure.svg" , main_grid_1, base_height = 13, base_width = 18)
 
 
