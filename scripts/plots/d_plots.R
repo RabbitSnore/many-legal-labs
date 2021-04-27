@@ -355,6 +355,19 @@ darley_plot_h3 <- plot_func_d(
   titles       = c("Punishment, \n Inoperable vs. Operable Tumor")
 )
 
+# Example Plot
+
+# Darley hypothesis 3 plot (to use with simulated data)
+
+example_plot <- plot_func_d(
+  meta         = darley_h3_meta, 
+  complete     = darley_h3_plot,
+  estimate     = estimates_darley_3,
+  study_colors = 	"#696969", 
+  titles       = c("Hypothesis")
+)
+
+
 
 # Loftus hypothesis 1 plot
 

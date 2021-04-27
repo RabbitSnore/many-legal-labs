@@ -93,8 +93,10 @@ plot_func_k <- function(meta, complete, estimate, study_colors, titles, boundary
   
   # The function might not be best suited here because of the negative values.
 
-  if (sum(estimate$k > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) >1) {
-    mutiple = 1
+  if (sum(estimate$k > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) >=1) {
+    multiple = 1
+  } else if (sum(estimate$k < (-0.5), estimate$ci_lower < (-0.5), estimate$ci_upper < (-0.5)) >= 1) {
+    multiple = 0.5
   } else if (sum(estimate$k < 0.5, estimate$ci_lower < 0.5, estimate$ci_upper < 0.5) == 6) {
     multiple = 0.1
   } else {
@@ -116,10 +118,10 @@ plot_func_k <- function(meta, complete, estimate, study_colors, titles, boundary
              color = hypothesis
            )
     ) +
-    #geom_vline(
-      #xintercept = 0,
-      #linetype = "longdash"
-    #) +
+    geom_vline(
+      xintercept = 0,
+      linetype = "longdash"
+    ) +
     geom_quasirandom(
       width = .30,
       groupOnX = FALSE,
