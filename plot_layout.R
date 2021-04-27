@@ -112,11 +112,10 @@ step_2 <- plot_grid (step_1, step_1_3, ncol = 1, rel_heights = c(1, 0.6))
 step_3 <- plot_grid (loftus_plots_col, serota_plots_col, ncol = 2)
 
 ### Final grid with example plot
+
 main_grid_1 <- plot_grid(step_2, step_3, ncol = 2)
 
-
 ## Plots organized in columns. Columns aligned + Example plot WITHOUT margins
-
 
 step_01 <- plot_grid (correll_plots_col, darley_plots_col, ncol = 2)
 
@@ -125,6 +124,7 @@ step_02 <- plot_grid (step_01, example_plot, ncol = 1, rel_heights = c(1, 0.6))
 step_03 <- plot_grid (loftus_plots_col, serota_plots_col, ncol = 2)
 
 ### Final grid with example plot - no margins.
+
 main_grid_2 <- plot_grid(step_02, step_03, ncol = 2)
 
 

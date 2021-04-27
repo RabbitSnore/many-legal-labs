@@ -367,6 +367,28 @@ example_plot <- plot_func_d(
   titles       = c("Hypothesis")
 )
 
+## Add annotations to the example plot
+
+example_plot <-
+example_plot +
+  annotate(
+    geom      = "curve",
+    x         = .50, 
+    y         = .75, 
+    xend      = darley_h3_meta$beta[[1]], 
+    yend      = .92, 
+    curvature = -.3, 
+    arrow     = arrow(length = unit(2, "mm")),
+    size      = 1
+  ) + 
+  annotate(
+    geom      = "text",
+    x         = .50, 
+    y         = .75, 
+    label     = "Replication point estimate",
+    hjust     = "left"
+  )
+
 
 
 # Loftus hypothesis 1 plot
