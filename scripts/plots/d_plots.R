@@ -2,11 +2,11 @@ library(ggbeeswarm)
 
 ## Correll et al (2002, Study 1), hypothesis 2,3 & 5
 
-correll_h2_plot<- correll_h2_smd
+correll_h2_plot <- correll_h2_smd
 correll_h2_plot$hypothesis <- "h2"
 correll_h2_plot$experiment <- "Correll et al (2002, Study 1)"
 
-correll_h3_plot<- correll_h3_smd
+correll_h3_plot <- correll_h3_smd
 correll_h3_plot$hypothesis <- "h3"
 correll_h3_plot$experiment <- "Correll et al (2002, Study 1)"
 
@@ -16,21 +16,21 @@ correll_h5_plot$experiment <- "Correll et al (2002, Study 1)"
 
 ## Darley et al (2000, Study 2), hypothesis 1-3
 
-darley_h1_plot<- darley_h1_smd
+darley_h1_plot <- darley_h1_smd
 darley_h1_plot$hypothesis <- "h1"
 darley_h1_plot$experiment <- "Darley et al (2000, Study 2)"
 
-darley_h2_plot<- darley_h2_smd
+darley_h2_plot <- darley_h2_smd
 darley_h2_plot$hypothesis <- "h2"
 darley_h2_plot$experiment <- "Darley et al (2000, Study 2)"
 
-darley_h3_plot<- darley_h3_smd
+darley_h3_plot <- darley_h3_smd
 darley_h3_plot$hypothesis <- "h3"
 darley_h3_plot$experiment <- "Darley et al (2000, Study 2)"
 
 ## Loftus & Palmer (1974, Study 2), hypothesis 1
 
-loftus_h1_plot<- loftus_h1_smd
+loftus_h1_plot <- loftus_h1_smd
 loftus_h1_plot$hypothesis <- "h1"
 loftus_h1_plot$experiment <- "Loftus & Palmer (1974, Study 2)"
 
@@ -369,12 +369,34 @@ loftus_plot_h1 <- plot_func_d(
 
 # Example Plot
 
-# Darley hypothesis 3 plot (to use with simulated data)
+## Load example data
+
+example_plot <- read.csv("./data/plot_data/example_smd.csv")
+example_plot$hypothesis <- "h3"
+example_plot$experiment <- "Example"
+
+example_meta <- readRDS("./data/plot_data/example_meta.rds")
+
+estimates_example <- estimate_data(
+  meta_analysis    = example_meta,
+  org_d            = darley_org$d[darley_org$hypothesis == "h3"],
+  org_ci_lower     = darley_org$ci_lower[darley_org$hypothesis == "h3"], 
+  org_ci_upper     = darley_org$ci_upper[darley_org$hypothesis == "h3"])
+
+estimates_example$ID <- factor(estimates_example$ID, levels = c("Replication", "Original"))
+
+estimates_example$hypothesis <- c(rep("h3", 2))
+
+estimates_example$hypothesis <- factor(estimates_example$hypothesis, levels = rev(c("h3")))
+
+example_plot$hypothesis <- factor(example_plot$hypothesis, levels = rev(c("h3")))
+
+## Draw example plot
 
 example_plot <- plot_func_d(
-  meta         = darley_h3_meta, 
-  complete     = darley_h3_plot,
-  estimate     = estimates_darley_3,
+  meta         = example_meta, 
+  complete     = example_plot,
+  estimate     = estimates_example,
   study_colors = 	"#696969", 
   titles       = c("Hypothesis")
 )
