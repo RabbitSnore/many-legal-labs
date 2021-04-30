@@ -247,7 +247,11 @@ for (i in 1:lab_count_loftus) {
 
 if (write_data == TRUE) {
   
-  dir.create("./data/loftus_effects/")
+  if (!file.exists("./data/loftus_effects/")) {
+    
+    dir.create("./data/loftus_effects/")
+    
+  } 
   
 } 
 

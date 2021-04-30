@@ -267,11 +267,15 @@ for (i in 1:lab_count_correll) {
 
 ## If the data directory does not exist, it will be necessary to create it
 
-if (!file.exists("./data/correll_effects/")) {
+if (write_data == TRUE) {
   
-  dir.create("./data/correll_effects/")
+  if (!file.exists("./data/correll_effects/")) {
+    
+    dir.create("./data/correll_effects/")
+    
+  } 
   
-} 
+}
 
 ## Hypothesis 1
 

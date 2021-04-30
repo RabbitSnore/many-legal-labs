@@ -29,7 +29,9 @@ read_data  <- FALSE
 
 ### Packages required by the Many Legal Labs project
 
-dependencies <- c("dplyr", "tidyr", "stringr", "metafor", "lavaan", "ggplot2", "cowplot", "rmarkdown", "ggstance", "flextable", "officer")
+
+
+dependencies <- c("dplyr", "tidyr", "stringr", "metafor", "lavaan", "ggplot2", "cowplot", "rmarkdown", "ggstance", "flextable", "officer", "ggbeeswarm")
 
 ### Check whether packages are installed locally and get list of what needs to be installed
 
@@ -102,6 +104,7 @@ source("./scripts/analyze/serota_analysis.R")
 ## Summarize
 
 source("./scripts/analyze/MLL_summary.R")
+source("./scripts/plots/plot_layout.R")
 
 # Markdown reports ----------------------------------------------------
 

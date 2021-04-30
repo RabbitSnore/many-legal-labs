@@ -469,11 +469,15 @@ for (i in 1:lab_count_darley) {
 
 ## If the data directory does not exist, it will be necessary to create it
 
-if (!file.exists("./data/darley_effects/")) {
+if (write_data == TRUE) {
   
-  dir.create("./data/darley_effects/")
+  if (!file.exists("./data/darley_effects/")) {
+    
+    dir.create("./data/darley_effects/")
+    
+  } 
   
-} 
+}
 
 ## Hypothesis 1
 
