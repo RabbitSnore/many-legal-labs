@@ -143,8 +143,10 @@ if(sum(estimate$mean > 4, estimate$ci_lower > 4, estimate$ci_upper > 4) > 1) {
       plot.title = element_text(hjust = 0.5),
       axis.text.y = element_blank(),
       legend.position = "bottom",
+      legend.text = element_text(size = 18),
+      legend.key.size = unit(1, 'cm'),
       legend.background = element_rect( 
-        size = 0.5,
+        size = 1,
         linetype = "solid",
         color = "black")
     )
@@ -160,3 +162,5 @@ serota_plot_mean <- plot_func_mean(
   study_colors = serota_color_1, 
   titles       = c("Average Number of Lies")
 )
+
+serota_plot_mean + theme()
