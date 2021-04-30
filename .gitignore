@@ -62,6 +62,8 @@ figures/*.eps
 /figures/*.eps
 figures/*.svg
 /figures/*.svg
+/reports/*.docx
+reports/*.docx
 /data/*.csv
 /data/correll_effects/*.csv
 /data/darley_effects/*.csv

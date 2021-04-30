@@ -445,5 +445,36 @@ if (write_data == TRUE) {
   
 }
 
+### Pretty tables for manuscript
 
+main_table_manuscript <- main_table %>% 
+  select(Study, Hypothesis, Effect, Replication, Original, Outcome) %>% 
+  as_grouped_data(groups = "Study") %>%
+  as_flextable() %>% 
+  italic(i = ~ !is.na(Study)) %>% 
+  fontsize(size = 10, part = "all") %>% 
+  font(fontname = "Times New Roman", part = "all") %>% 
+  autofit(part = "all") %>% 
+  padding(padding = .8, part = "all")
+  
+heterogeneity_table <- main_table %>% 
+  select(Study, Hypothesis, Q, Tau, I2) %>% 
+  as_grouped_data(groups = "Study") %>%
+  as_flextable() %>% 
+  italic(i = ~ !is.na(Study)) %>% 
+  fontsize(size = 10, part = "all") %>% 
+  font(fontname = "Times New Roman", part = "all") %>% 
+  autofit(part = "all") %>% 
+  padding(padding = .8, part = "all")
 
+#### Export formatted tables
+
+read_docx() %>% 
+  body_add_par("Table X1.") %>% 
+  body_add_flextable(main_table_manuscript) %>%
+  body_end_section_landscape() %>% 
+  body_add_par("Table X2.") %>% 
+  body_add_flextable(heterogeneity_table) %>% 
+  body_end_section_portrait() %>%
+  print(target = "./reports/manuscript_tables.docx")
+  
