@@ -493,4 +493,4 @@ example_plot <-
     y         = .55,
     label     = " Individual lab estimates",
     hjust     = "left"
-  )
+  ) 

@@ -62,7 +62,7 @@ title_serota <- ggdraw() +
 title_example <- ggdraw() + 
   draw_label(
     "How To Read",
-    fontface = 'bold',
+    fontface = "bold",
     size = 18,
   ) +
   theme(
@@ -108,8 +108,11 @@ example_plot_1 <- plot_grid(title_example,
                             example_plot,
                             ncol = 1,
                             rel_heights = c(0.3, 1)) + 
-                            theme(panel.border = element_rect
-                            (colour = "black", fill=NA, size = 1.5))
+                            theme(
+                              panel.border = element_rect(
+                                color = "black", fill = NA, size = 3
+                                )
+                            )
 
 
 
