@@ -4,8 +4,11 @@
 
 #######################################################################
 
-library(cowplot)
-library(grid)
+source("./scripts/plots/b_plots.R")
+source("./scripts/plots/d_plots.R")
+source("./scripts/plots/exponent_plots.R")
+source("./scripts/plots/lor_plots.R")
+source("./scripts/plots/mean_plots.R")
 
 # Prepare component plots ---------------------------------------------
 

@@ -1,4 +1,3 @@
-library(ggbeeswarm)
 
 ## Correll et al (2002, Study 1), hypothesis 2,3 & 5
 

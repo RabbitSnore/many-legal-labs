@@ -20,8 +20,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Main Figure
 
-```{r}
-
+```{r, fig.height = 13, fig.width = 18}
+main_grid_1
 ```
 
 ## Main Table
@@ -32,19 +32,4 @@ main_table %>%
 ```
 
 
-# Meta-Analytic Models
-
-## Correll et al  (2002, Study 1)
-
-
-
-## Darley et al (2000, Study 2)
-
-
-
-## Loftus & Palmer (1974, Study 2)
-
-
-
-## Serota et al (2010, Study 3)
 
