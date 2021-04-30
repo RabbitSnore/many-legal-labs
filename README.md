@@ -2,6 +2,8 @@
 
 A multi-lab replication of legal psychology studies.
 
+**NOTE: ALL DATA ARE CURRENTLY SIMULATED. NO ACTUAL DATA HAVE BEEN COLLECTED YET. THE CODE WILL BE UPDATED WHEN DATA COLLECTION HAS BEEN COMPLETED.**
+
 ## Reproducing the analyses
 
 The most straightforward way to reproduce the analyses is to clone this repository into an R Project and run the following R code:
