@@ -52,6 +52,16 @@ reports/*.eps
 /reports/*.eps
 reports/*.svg
 /reports/*.svg
+figures/*.png
+/figures/*.png
+figures/*.jpg
+/figures/*.jpg
+figures/*.tiff
+/figures/*.tiff
+figures/*.eps
+/figures/*.eps
+figures/*.svg
+/figures/*.svg
 /data/*.csv
 /data/correll_effects/*.csv
 /data/darley_effects/*.csv
